@@ -53,7 +53,8 @@ import java.util.List;
  *               ***************************************************************
  *               *********************************************
  */
-public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment implements OpenTabHost.OnTabSelectListener {
+public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
+		implements OpenTabHost.OnTabSelectListener {
 	ViewPager viewpager;
 	// 移动边框.
 	EffectNoDrawBridge mEffectNoDrawBridge;
@@ -67,7 +68,9 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 	private List<Fragment> listRankFragment = new ArrayList<Fragment>();// view数组
 	String url;
 
-	public static RankTabHeadHorizontalViewPagerFragment newInstance(String url, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mEffectNoDrawBridge) {
+	public static RankTabHeadHorizontalViewPagerFragment newInstance(
+			String url, MainUpView mainUpView1, View mOldView,
+			EffectNoDrawBridge mEffectNoDrawBridge) {
 		RankTabHeadHorizontalViewPagerFragment fragment = new RankTabHeadHorizontalViewPagerFragment();
 		fragment.mainUpView1 = mainUpView1;
 		fragment.mOldView = mOldView;
@@ -78,8 +81,11 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 
 	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_rank_tab_horizontal_viewpager, container, false);
+	public View onCreateView(LayoutInflater inflater,
+			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View view = inflater.inflate(
+				R.layout.fragment_rank_tab_horizontal_viewpager, container,
+				false);
 		// 初始化viewpager.
 		viewpager = (ViewPager) view.findViewById(R.id.viewpager);
 		mOpenTabHost = (OpenTabHost) view.findViewById(R.id.openTabHost);
@@ -110,7 +116,8 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 	public void switchTab(OpenTabHost openTabHost, int postion) {
 		List<View> viewList = openTabHost.getAllTitleView();
 		for (int i = 0; i < viewList.size(); i++) {
-			TextViewWithTTF view = (TextViewWithTTF) openTabHost.getTitleViewIndexAt(i);
+			TextViewWithTTF view = (TextViewWithTTF) openTabHost
+					.getTitleViewIndexAt(i);
 			if (view != null) {
 				Resources res = view.getResources();
 				if (res != null) {
@@ -129,7 +136,8 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 	}
 
 	@Override
-	public void onTabSelect(OpenTabHost openTabHost, View titleWidget, int position) {
+	public void onTabSelect(OpenTabHost openTabHost, View titleWidget,
+			int position) {
 		if (viewpager != null) {
 			viewpager.setCurrentItem(position);
 		}
@@ -141,8 +149,10 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 		ArrayList<RankBean> list = new ArrayList<RankBean>();
 		try {
 			// 解析网络标签
-			if (url != null && (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL)||!url.equals(UrlUtils.TENCENT_RANK_ALL1_URL))) {
-				list = parseTitleRank(UrlUtils.TENCENT_RANK_URL);
+			if (url != null
+					&& (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL) || !url
+							.equals(UrlUtils.TENCENT_RANK_ALL1_URL))) {
+				list = parseTitleRank(url);
 			} else {
 				list = parseTitleRank(UrlUtils.TENCENT_RANK_ALL_URL);
 			}
@@ -164,7 +174,10 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 		listRankFragment.clear();
 		for (RankBean bean : result.getTitlerankList()) {
 			titleList.add(bean.getRankName());
-			RankTabHorizontalViewPagerFragment fragment = RankTabHorizontalViewPagerFragment.newInstance(bean.getRankName(),UrlUtils.TENCENT_RANK_ALL_URL,mainUpView1, mOldView, mEffectNoDrawBridge);
+			RankTabHorizontalViewPagerFragment fragment = RankTabHorizontalViewPagerFragment
+					.newInstance(bean.getRankName(), url, mainUpView1,
+							mOldView, mEffectNoDrawBridge);
+
 			// RankFragment fragment =
 			// RankFragment.newInstance("",mainUpView1,mOldView,mEffectNoDrawBridge);
 			// Fragment fragment = RankV4Fragment.newInstance();
@@ -175,32 +188,36 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 
 		// mRankViewPagerAdapter = new
 		// RankViewPagerAdapter(getActivity(),result.getTitlerankList());
-		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(), listRankFragment, titleList);
+		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(),
+				listRankFragment, titleList);
 		viewpager.setAdapter(mRankPagerAdapter);
 
 		// 初始化viewpager.
 		// 全局焦点监听. (这里只是demo，为了方便这样写，你可以不这样写)
-		viewpager.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
-			@Override
-			public void onGlobalFocusChanged(View oldFocus, View newFocus) {
-				// 判断 : 避免焦点框跑到标题栏. (只是demo，你自己处理逻辑)
-				// 你也可以让标题栏放大，有移动边框.
-				if (newFocus != null && !(newFocus instanceof TextViewWithTTF)) {
-					mEffectNoDrawBridge.setVisibleWidget(false);
-					mNewFocus = newFocus;
-					mOldView = oldFocus;
-					mainUpView1.setFocusView(newFocus, oldFocus, 1.2f);
-					// 让被挡住的焦点控件在前面.
-					newFocus.bringToFront();
-					OPENLOG.D("addOnGlobalFocusChangeListener");
-				} else { // 标题栏处理.
-					mNewFocus = null;
-					mOldView = null;
-					mainUpView1.setUnFocusView(oldFocus);
-					mEffectNoDrawBridge.setVisibleWidget(true);
-				}
-			}
-		});
+		viewpager.getViewTreeObserver().addOnGlobalFocusChangeListener(
+				new ViewTreeObserver.OnGlobalFocusChangeListener() {
+					@Override
+					public void onGlobalFocusChanged(View oldFocus,
+							View newFocus) {
+						// 判断 : 避免焦点框跑到标题栏. (只是demo，你自己处理逻辑)
+						// 你也可以让标题栏放大，有移动边框.
+						if (newFocus != null
+								&& !(newFocus instanceof TextViewWithTTF)) {
+							mEffectNoDrawBridge.setVisibleWidget(false);
+							mNewFocus = newFocus;
+							mOldView = oldFocus;
+							mainUpView1.setFocusView(newFocus, oldFocus, 1.2f);
+							// 让被挡住的焦点控件在前面.
+							newFocus.bringToFront();
+							OPENLOG.D("addOnGlobalFocusChangeListener");
+						} else { // 标题栏处理.
+							mNewFocus = null;
+							mOldView = null;
+							mainUpView1.setUnFocusView(oldFocus);
+							mEffectNoDrawBridge.setVisibleWidget(true);
+						}
+					}
+				});
 		viewpager.setOffscreenPageLimit(4);
 		viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
@@ -210,9 +227,11 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 			}
 
 			@Override
-			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+			public void onPageScrolled(int position, float positionOffset,
+					int positionOffsetPixels) {
 				// viewPager 正在滚动中.
-				OPENLOG.D("onPageScrolled position:" + position + " positionOffset:" + positionOffset);
+				OPENLOG.D("onPageScrolled position:" + position
+						+ " positionOffset:" + positionOffset);
 			}
 
 			@Override
@@ -221,17 +240,23 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 				case ViewPager.SCROLL_STATE_IDLE: // viewpager 滚动结束.
 					mainUpView1.setFocusView(mNewFocus, mOldView, 1.2f);
 					// 监听动画事件.
-					mEffectNoDrawBridge.setOnAnimatorListener(new OpenEffectBridge.NewAnimatorListener() {
-						@Override
-						public void onAnimationStart(OpenEffectBridge bridge, View view, Animator animation) {
-						}
+					mEffectNoDrawBridge
+							.setOnAnimatorListener(new OpenEffectBridge.NewAnimatorListener() {
+								@Override
+								public void onAnimationStart(
+										OpenEffectBridge bridge, View view,
+										Animator animation) {
+								}
 
-						@Override
-						public void onAnimationEnd(OpenEffectBridge bridge, View view, Animator animation) {
-							// 动画结束的时候恢复原来的时间. (这里只是DEMO)
-							mEffectNoDrawBridge.setTranDurAnimTime(OpenEffectBridge.DEFAULT_TRAN_DUR_ANIM);
-						}
-					});
+								@Override
+								public void onAnimationEnd(
+										OpenEffectBridge bridge, View view,
+										Animator animation) {
+									// 动画结束的时候恢复原来的时间. (这里只是DEMO)
+									mEffectNoDrawBridge
+											.setTranDurAnimTime(OpenEffectBridge.DEFAULT_TRAN_DUR_ANIM);
+								}
+							});
 					// 让被挡住的焦点控件在前面.
 					if (mNewFocus != null)
 						mNewFocus.bringToFront();
@@ -264,9 +289,12 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 			});
 			Log.i("url", "url = " + href);
 
-			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
-			if (url != null && (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL)||!url.equals(UrlUtils.TENCENT_RANK_ALL1_URL))) {
-				Element masthead = doc.select("ul.mod_rankbox_area_list").first();
+			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent)
+					.timeout(10000).get();
+			if (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL) && !url
+							.equals(UrlUtils.TENCENT_RANK_ALL1_URL)) {
+				Element masthead = doc.select("ul.mod_rankbox_area_list")
+						.first();
 				Elements liElements = masthead.select("li");
 				/**
 				 * <ul class="mod_rankbox_area_list" _group="iarea">
@@ -293,10 +321,12 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 					for (int i = 0; i < liElements.size(); i++) {
 						RankBean bean = new RankBean();
 						try {
-							Element aElement = liElements.get(i).select("a").first();
+							Element aElement = liElements.get(i).select("a")
+									.first();
 							String hrefurl = aElement.attr("href");
 							String title = aElement.text();
-							System.out.println("i===" + i + "hrefurl==" + hrefurl + ";title===" + title);
+							System.out.println("i===" + i + "hrefurl=="
+									+ hrefurl + ";title===" + title);
 							bean.setRankName(title);
 							bean.setRankurl(hrefurl);
 							list.add(bean);
@@ -305,21 +335,23 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 						}
 					}
 				}
-			}else{
-				//全部
+			} else {
+				// 全部
 				Element masthead = doc.select("div.site_container").first();
 				Elements h2Elements = masthead.select("h2.rank_title");
-				/**<div class="wrapper wrapper_rank ">
-					<h2 class="rank_title"><span class="rank_type rank_type_blue">电影</span>排行榜</h2>
-					<div class="mod_bd rank_lists">
-					<ul class="rank_list rank_list">
+				/**
+				 * <div class="wrapper wrapper_rank "> <h2 class="rank_title">
+				 * <span class="rank_type rank_type_blue">电影</span>排行榜</h2> <div
+				 * class="mod_bd rank_lists">
+				 * <ul class="rank_list rank_list">
 				 */
 				// 解析文件
 				if (h2Elements != null && h2Elements.size() > 0) {
 					for (int i = 0; i < h2Elements.size(); i++) {
 						RankBean bean = new RankBean();
 						try {
-							Element hElement = h2Elements.get(i).select("h2").first();
+							Element hElement = h2Elements.get(i).select("h2")
+									.first();
 							String title = hElement.text();
 							System.out.println("i===" + i + "title===" + title);
 							bean.setRankName(title);
@@ -329,7 +361,7 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment imple
 						}
 					}
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
