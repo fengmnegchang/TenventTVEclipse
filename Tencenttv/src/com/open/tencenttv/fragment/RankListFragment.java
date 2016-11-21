@@ -148,6 +148,9 @@ public class RankListFragment extends BaseV4ListFragment {
             for (int i = 0; i < liElements.size(); i++) {
                 RankBean bean = new RankBean();
                 try {
+                	if(i==0){
+                		bean.setType(1);
+                	}
                     //<a href="http://v.qq.com/travel/" class="link_nav" target="_blank" _stat="new_vs_header:pop_旅游">旅游</a>
                     Element aElement = liElements.get(i).select("a").first();
                     String rankName = aElement.text();
@@ -194,7 +197,7 @@ public class RankListFragment extends BaseV4ListFragment {
      * @param position
      */
     private void setSelectedFragment(int position){
-    	RankTabHeadHorizontalViewPagerFragment rightFragment = RankTabHeadHorizontalViewPagerFragment.newInstance(mainUpView1,mOldView,mRecyclerViewBridge);
+    	RankTabHeadHorizontalViewPagerFragment rightFragment = RankTabHeadHorizontalViewPagerFragment.newInstance(data.get(position).getRankurl(),mainUpView1,mOldView,mRecyclerViewBridge);
         FragmentManager manager = getActivity().getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.frame_rank, rightFragment).commit();
     }

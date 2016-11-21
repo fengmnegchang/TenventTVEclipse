@@ -8,9 +8,11 @@ import android.widget.FrameLayout;
 
 import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
+import com.open.tencenttv.bean.RankBean;
 import com.open.tencenttv.fragment.RankListFragment;
 import com.open.tencenttv.fragment.RankTabHeadHorizontalViewPagerFragment;
 import com.open.tencenttv.fragment.RankTabHorizontalViewPagerFragment;
+import com.open.tencenttv.utils.UrlUtils;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -55,7 +57,7 @@ public class ListFragmentRankActivity extends CommonFragmentActivity {
 
 
         RankListFragment leftFragment = RankListFragment.newInstance(mainUpView1, mRecyclerViewBridge, mOldView);
-        RankTabHeadHorizontalViewPagerFragment rightFragment = RankTabHeadHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
+        RankTabHeadHorizontalViewPagerFragment rightFragment = RankTabHeadHorizontalViewPagerFragment.newInstance(UrlUtils.TENCENT_RANK_ALL_URL,mainUpView1, mOldView, mRecyclerViewBridge);
 
 
         FragmentManager manager = getSupportFragmentManager();
