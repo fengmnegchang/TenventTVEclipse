@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.open.tencenttv">
-
+<uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="24" />
     <!-- WindowManger 权限(浮动窗口)-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -53,6 +55,10 @@
         <activity
             android:name="com.open.tencenttv.TencentTVMainActivity"
             android:launchMode="singleTask">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.open.tencenttv.TVMainActivity"
@@ -67,10 +73,10 @@
         <activity
             android:name="com.open.tencenttv.ListFragmentPinDaoActivity"
             android:launchMode="singleTask"></activity>
-        <!--频道 使用ViewPager-->
+        <!--频道 使用ViewPager
         <activity android:name="com.open.tencenttv.PinDaoViewPagerActivity">
 
-        </activity>
+        </activity>-->
         <!--视频预览-->
         <activity android:name="com.open.tencenttv.VedioPreViewActivity">
 
@@ -95,16 +101,13 @@
         <!--viewpager视频大图滚动-->
         <activity android:name="com.open.tencenttv.MediumViewPagerActivity">
         </activity>
-        <!--使用竖向 ViewPager-->
+        <!--使用竖向 ViewPager
         <activity android:name="com.open.tencenttv.MediumFragmentDirectionActivity">
 
-        </activity>
+        </activity>-->
         <!--播放排行-->
         <activity android:name="com.open.tencenttv.ListFragmentRankActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+           
 
         </activity>
         <activity android:name="com.open.tencenttv.MediumTabHostViewPagerActivity">
