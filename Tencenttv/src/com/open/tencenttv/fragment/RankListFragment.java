@@ -194,7 +194,7 @@ public class RankListFragment extends BaseV4ListFragment {
      * @param position
      */
     private void setSelectedFragment(int position){
-        RankTabHorizontalViewPagerFragment rightFragment = RankTabHorizontalViewPagerFragment.newInstance(mainUpView1,mOldView,mRecyclerViewBridge);
+    	RankTabHeadHorizontalViewPagerFragment rightFragment = RankTabHeadHorizontalViewPagerFragment.newInstance(mainUpView1,mOldView,mRecyclerViewBridge);
         FragmentManager manager = getActivity().getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.frame_rank, rightFragment).commit();
     }

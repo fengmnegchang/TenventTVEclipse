@@ -89,20 +89,22 @@
         </activity>
         <!-- 分类内容 -->
         <activity android:name="com.open.tencenttv.MediumRecyclerviewLeanBackActivity" >
+            
         </activity>
         <!-- viewpager视频大图滚动 -->
         <activity android:name="com.open.tencenttv.MediumViewPagerActivity" >
         </activity>
         <!-- 使用竖向 ViewPager -->
         <activity android:name="com.open.tencenttv.MediumFragmentDirectionActivity" >
+            
+        </activity>
+        <!-- 播放排行 -->
+        <activity android:name="com.open.tencenttv.ListFragmentRankActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- 播放排行 -->
-        <activity android:name="com.open.tencenttv.ListFragmentRankActivity" >
         </activity>
         <activity android:name="com.open.tencenttv.MediumTabHostViewPagerActivity" >
         </activity>
