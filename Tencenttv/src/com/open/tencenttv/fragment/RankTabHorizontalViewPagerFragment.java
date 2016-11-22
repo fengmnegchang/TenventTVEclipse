@@ -178,8 +178,15 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				&& !url.equals(UrlUtils.TENCENT_RANK_ALL1_URL)) {
 			for (RankBean bean : result.getTitlerankList()) {
 				titleList.add(bean.getRankName());
-				RankFragment fragment = RankFragment.newInstance("",
-						mainUpView1, mOldView, mRecyclerViewBridge);
+				RankFragment fragment;
+				if(bean.getRankurl()!=null && bean.getRankurl().length()>0&& bean.getRankurl().contains("http://")){
+					  fragment = RankFragment.newInstance(bean.getRankurl(),bean.getRankName(),
+							mainUpView1, mOldView, mRecyclerViewBridge);
+				}else{
+					  fragment = RankFragment.newInstance(url,bean.getRankName(),
+							mainUpView1, mOldView, mRecyclerViewBridge);
+				}
+				
 				// Fragment fragment = RankV4Fragment.newInstance();
 				listRankFragment.add(fragment);
 			}
@@ -192,6 +199,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				for (int i = start; i <= end; i++) {
 					RankBean bean = result.getTitlerankList().get(i);
 					titleList.add(bean.getRankName());
+					System.out.println("i==="+i+";title==="+title+";bean.getRankName()=="+bean.getRankName()+";url=="+url);
 					RankAllFragment fragment = RankAllFragment.newInstance(
 							title, bean.getRankName(), mainUpView1, mOldView,
 							mRecyclerViewBridge);
@@ -204,6 +212,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				for (int i = start; i <= end; i++) {
 					RankBean bean = result.getTitlerankList().get(i);
 					titleList.add(bean.getRankName());
+					System.out.println("i==="+i+";title==="+title+";bean.getRankName()=="+bean.getRankName()+";url=="+url);
 					RankAllFragment fragment = RankAllFragment.newInstance(
 							title, bean.getRankName(), mainUpView1, mOldView,
 							mRecyclerViewBridge);
@@ -216,6 +225,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				for (int i = start; i <= end; i++) {
 					RankBean bean = result.getTitlerankList().get(i);
 					titleList.add(bean.getRankName());
+					System.out.println("i==="+i+";title==="+title+";bean.getRankName()=="+bean.getRankName()+";url=="+url);
 					RankAllFragment fragment = RankAllFragment.newInstance(
 							title, bean.getRankName(), mainUpView1, mOldView,
 							mRecyclerViewBridge);
@@ -228,6 +238,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				for (int i = start; i <= end; i++) {
 					RankBean bean = result.getTitlerankList().get(i);
 					titleList.add(bean.getRankName());
+					System.out.println("i==="+i+";title==="+title+";bean.getRankName()=="+bean.getRankName()+";url=="+url);
 					RankAllFragment fragment = RankAllFragment.newInstance(
 							title, bean.getRankName(), mainUpView1, mOldView,
 							mRecyclerViewBridge);
@@ -331,7 +342,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 		// 初始化标题栏.
 		mOpenTabHost.setOnTabSelectListener(this);
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		mFocusHandler.sendEmptyMessageDelayed(11, 10000);
 	}
 
 	public ArrayList<RankBean> parseTitleRank(String href) {

@@ -42,9 +42,11 @@ public class RankFragment extends BaseV4Fragment {
     private List<RankBean> data = new ArrayList<RankBean>();
     private ListViewTV mListViewTV;
     private RankFragmentAdapter mAdapter;
-
-    public static RankFragment newInstance(String rankname, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mRecyclerViewBridge) {
+    String url;
+    
+    public static RankFragment newInstance(String url,String rankname, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mRecyclerViewBridge) {
         RankFragment fragment = new RankFragment();
+        fragment.url = url;
         fragment.rankname = rankname;
         fragment.mainUpView1 = mainUpView1;
         fragment.mOldView = mOldView;
@@ -71,7 +73,7 @@ public class RankFragment extends BaseV4Fragment {
     @Override
     public CommonT call() throws Exception {
         CommonT mCommonT = new CommonT();
-        List<RankBean> list = parseRankList(UrlUtils.TENCENT_RANK_URL);
+        List<RankBean> list = parseRankList(url);
         mCommonT.setPlaylist(list);
         return mCommonT;
     }

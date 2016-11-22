@@ -149,9 +149,8 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
 		ArrayList<RankBean> list = new ArrayList<RankBean>();
 		try {
 			// 解析网络标签
-			if (url != null
-					&& (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL) || !url
-							.equals(UrlUtils.TENCENT_RANK_ALL1_URL))) {
+			if (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL)
+					&& !url.equals(UrlUtils.TENCENT_RANK_ALL1_URL)) {
 				list = parseTitleRank(url);
 			} else {
 				list = parseTitleRank(UrlUtils.TENCENT_RANK_ALL_URL);
@@ -174,9 +173,23 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
 		listRankFragment.clear();
 		for (RankBean bean : result.getTitlerankList()) {
 			titleList.add(bean.getRankName());
-			RankTabHorizontalViewPagerFragment fragment = RankTabHorizontalViewPagerFragment
-					.newInstance(bean.getRankName(), url, mainUpView1,
-							mOldView, mEffectNoDrawBridge);
+			RankTabHorizontalViewPagerFragment fragment;
+			if (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL)
+					&& !url.equals(UrlUtils.TENCENT_RANK_ALL1_URL)) {
+				if(bean.getRankurl()!=null && bean.getRankurl().length()>0&& bean.getRankurl().contains("http://")){
+					  fragment = RankTabHorizontalViewPagerFragment
+							.newInstance(bean.getRankName(), bean.getRankurl(), mainUpView1,
+									mOldView, mEffectNoDrawBridge);
+				}else{
+					  fragment = RankTabHorizontalViewPagerFragment
+							.newInstance(bean.getRankName(), url, mainUpView1,
+									mOldView, mEffectNoDrawBridge);
+				}
+			}else{
+				  fragment = RankTabHorizontalViewPagerFragment
+						.newInstance(bean.getRankName(), url, mainUpView1,
+								mOldView, mEffectNoDrawBridge);
+			}
 
 			// RankFragment fragment =
 			// RankFragment.newInstance("",mainUpView1,mOldView,mEffectNoDrawBridge);
@@ -277,7 +290,7 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
 		// 初始化标题栏.
 		mOpenTabHost.setOnTabSelectListener(this);
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		mFocusHandler.sendEmptyMessageDelayed(10, 10000);
 	}
 
 	public ArrayList<RankBean> parseTitleRank(String href) {
