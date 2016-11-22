@@ -1,5 +1,14 @@
 package com.open.tencenttv.fragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,15 +29,6 @@ import com.open.tencenttv.adapter.PinDaoAdapter;
 import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.PinDaoBean;
 import com.open.tencenttv.utils.UrlUtils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -117,7 +117,7 @@ public class PinDaoListFragment extends BaseV4ListFragment {
      * @param position
      */
     private void setSelectedFragment(int position){
-        PinDaoFragment rightFragment = PinDaoFragment.newInstance(data.get(position).getHrefurl(), data.get(position).getTypeName(),mainUpView1,mOldView,mRecyclerViewBridge);
+    	PinDaoTabHorizontalViewPagerFragment rightFragment = PinDaoTabHorizontalViewPagerFragment.newInstance(data.get(position).getHrefurl(), data.get(position).getTypeName(),mainUpView1,mOldView,mRecyclerViewBridge);
         FragmentManager manager = getActivity().getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.frame_pindao, rightFragment).commit();
     }
