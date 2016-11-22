@@ -216,7 +216,7 @@ public class SearchKeyBoardActivity extends CommonFragmentActivity {
 
         FragmentManager manager = getSupportFragmentManager();
         PinDaoListFragment rightFragment =  PinDaoListFragment.newInstance(mainUpView1,mRecyclerViewBridge,mOldView);
-        PinDaoFragment leftFragment = PinDaoFragment.newInstance("ListFragmentPinDaoActivity",mainUpView1,mOldView,mRecyclerViewBridge);
+        PinDaoFragment leftFragment = PinDaoFragment.newInstance("","ListFragmentPinDaoActivity",mainUpView1,mOldView,mRecyclerViewBridge);
 
         manager.beginTransaction().replace(R.id.frame_listview, rightFragment).commit();
         manager.beginTransaction().replace(R.id.frame_pindao, leftFragment).commit();

@@ -10,6 +10,7 @@ import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.fragment.PinDaoFragment;
 import com.open.tencenttv.fragment.PinDaoListFragment;
+import com.open.tencenttv.utils.UrlUtils;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -54,7 +55,7 @@ public class ListFragmentPinDaoActivity extends CommonFragmentActivity {
 
 
         PinDaoListFragment leftFragment = PinDaoListFragment.newInstance(mainUpView1, mRecyclerViewBridge, mOldView);
-        PinDaoFragment rightFragment = PinDaoFragment.newInstance("ListFragmentPinDaoActivity", mainUpView1, mOldView, mRecyclerViewBridge);
+        PinDaoFragment rightFragment = PinDaoFragment.newInstance(UrlUtils.TENCENT_X_MOVIE_LIST,"电影", mainUpView1, mOldView, mRecyclerViewBridge);
 
 
         FragmentManager manager = getSupportFragmentManager();
