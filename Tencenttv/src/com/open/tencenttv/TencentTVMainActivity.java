@@ -1,5 +1,13 @@
 package com.open.tencenttv;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -29,14 +37,6 @@ import com.open.tencenttv.bean.NavPopPinDaoBean;
 import com.open.tencenttv.fragment.LastHistoryStickYGridHeaderFragment;
 import com.open.tencenttv.fragment.NewFeatureStickYGridHeaderFragment;
 import com.open.tencenttv.utils.UrlUtils;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -73,7 +73,9 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 
     private EditText edit_search;
     private ReflectItemView item_edit;
-
+    private ReflectItemView item_settings;
+    private ReflectItemView item_m;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +109,8 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 
         edit_search = (EditText) findViewById(R.id.edit_search);
         item_edit = (ReflectItemView) findViewById(R.id.item_edit);
+        item_settings = (ReflectItemView) findViewById(R.id.item_settings);
+        item_m = (ReflectItemView) findViewById(R.id.item_m);
     }
 
     @Override
@@ -190,7 +194,6 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 //            }
 //        });
 
-
         mRecyclerView.setOnItemListener(this);
         // item 单击事件处理.
         mRecyclerView.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
@@ -200,6 +203,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
                 //进入频道
                 Intent intent = new Intent();
                 intent.setClass(TencentTVMainActivity.this,MediumRecyclerviewLeanBackActivity.class);
+                intent.putExtra("NAV_POP_PIN_DAO_KEY",navpoplist.get(position));
                 startActivity(intent);
             }
         });
@@ -255,6 +259,24 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(TencentTVMainActivity.this, SearchKeyBoardActivity.class);
+                startActivity(intent);
+            }
+        });
+        
+        item_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(TencentTVMainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+        
+        item_m.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(TencentTVMainActivity.this, LastHistoryActivity.class);
                 startActivity(intent);
             }
         });

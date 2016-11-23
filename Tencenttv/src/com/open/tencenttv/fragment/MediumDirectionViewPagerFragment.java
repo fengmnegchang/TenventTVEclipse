@@ -48,17 +48,18 @@ import java.util.List;
  * @description: ****************************************************************************************************************************************************************************
  */
 public class MediumDirectionViewPagerFragment extends BaseV4Fragment {
-    MediumPagerAdapter mMediumPagerAdapter;
+	private  MediumPagerAdapter mMediumPagerAdapter;
     private List<SliderNavBean> sliderNavList = new ArrayList<SliderNavBean>();
 
-    DirectionalViewPager viewpager;
-    View mNewFocus;
+    private  DirectionalViewPager viewpager;
+    private View mNewFocus;
     private ListViewTV listView;
     private List<PinDaoBean> pinDaolist = new ArrayList<PinDaoBean>();
-    PinDaoAdapter mPinDaoAdapter;
-
-    public static MediumDirectionViewPagerFragment newInstance(MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mRecyclerViewBridge){
+    private PinDaoAdapter mPinDaoAdapter;
+    private String url;
+    public static MediumDirectionViewPagerFragment newInstance(String url ,MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mRecyclerViewBridge){
         MediumDirectionViewPagerFragment fragment = new MediumDirectionViewPagerFragment();
+        fragment.url = url;
         fragment.mainUpView1 = mainUpView1;
         fragment.mOldView = mOldView;
         fragment.mRecyclerViewBridge = mRecyclerViewBridge;
@@ -227,7 +228,7 @@ public class MediumDirectionViewPagerFragment extends BaseV4Fragment {
         ArrayList<SliderNavBean> list = new ArrayList<SliderNavBean>();//导航大图
         try {
             // 解析网络标签
-            list = parseSliderNav(UrlUtils.TENCENT_TV_URL);
+            list = parseSliderNav(url);
         } catch (Exception e) {
             e.printStackTrace();
         }

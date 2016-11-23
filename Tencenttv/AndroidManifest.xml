@@ -17,7 +17,7 @@
         android:name="com.open.tencenttv.TencentTVApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:screenOrientation="landscape"
@@ -53,6 +53,11 @@
         <activity
             android:name="com.open.tencenttv.TencentTVMainActivity"
             android:launchMode="singleTask" >
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.open.tencenttv.TVMainActivity"
@@ -62,11 +67,6 @@
         <activity
             android:name="com.open.tencenttv.PinDaoActivity"
             android:launchMode="singleTask" >
-           <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!-- 频道 使用ListFragment -->
         <activity
@@ -107,6 +107,9 @@
         <activity android:name="com.open.tencenttv.ListFragmentRankActivity" >
         </activity>
         <activity android:name="com.open.tencenttv.MediumTabHostViewPagerActivity" >
+        </activity>
+         <!-- webview播放视频 -->
+        <activity android:name="com.open.tencenttv.TencentTVWebViewActivity" >
         </activity>
     </application>
 

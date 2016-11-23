@@ -1,5 +1,14 @@
 package com.open.tencenttv;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.content.Context;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -24,21 +33,12 @@ import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.utils.OPENLOG;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.bean.CommonT;
+import com.open.tencenttv.bean.NavPopPinDaoBean;
 import com.open.tencenttv.fragment.MediumDirectionViewPagerFragment;
-import com.open.tencenttv.fragment.MediumHorizontalViewPagerFragment;
 import com.open.tencenttv.mode.MediumListPresenter;
 import com.open.tencenttv.mode.Movie;
 import com.open.tencenttv.mode.TestMoviceListPresenter;
 import com.open.tencenttv.utils.UrlUtils;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -57,6 +57,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
     private GeneralAdapter.ViewHolder mSelectedViewHolder;
     List<ListRow> mListRows = new ArrayList<ListRow>();
     ListRowPresenter mListRowPresenter;
+    private NavPopPinDaoBean parentNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
     @Override
     protected void findView() {
         super.findView();
+        parentNav = (NavPopPinDaoBean) getIntent().getSerializableExtra("NAV_POP_PIN_DAO_KEY");
         mContext = MediumRecyclerviewLeanBackActivity.this;
 
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -93,7 +95,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
                 getDimension(R.dimen.w_45) * density, getDimension(R.dimen.h_40) * density);
         mRecyclerViewBridge.setDrawUpRectPadding(receF);
 
-        MediumDirectionViewPagerFragment fragment = MediumDirectionViewPagerFragment.newInstance(mainUpView1,mOldView,mRecyclerViewBridge);
+        MediumDirectionViewPagerFragment fragment = MediumDirectionViewPagerFragment.newInstance(parentNav.getPindaoUrl(),mainUpView1,mOldView,mRecyclerViewBridge);
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.lay_view_pager, fragment).commit();
     }
@@ -155,7 +157,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
         ArrayList<ListRow> list = new ArrayList<ListRow>();
         try {
             // 解析网络标签
-            list = parseListRow(UrlUtils.TENCENT_TV_URL);
+            list = parseListRow(parentNav.getPindaoUrl());
         } catch (Exception e) {
             e.printStackTrace();
         }
