@@ -69,28 +69,7 @@ public class PinDaoListFragment extends BaseV4ListFragment {
         mPinDaoAdapter = new   PinDaoAdapter(getActivity(), data);
         this.setListAdapter(mPinDaoAdapter);
         doAsync(this, this, this);
-        getListView().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
-                Log.i(TAG,"listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
-//                for (Fragment fragment : (getActivity()).getSupportFragmentManager().getFragments()) {
-//                    if (fragment instanceof PinDaoFragment) {
-//                        ((PinDaoFragment) fragment).setPindaoName(data.get((int) l).getTypeName());
-//                    }
-//                }
-                setSelectedFragment((int)id);
-                if (view != null) {
-                    view.bringToFront();
-                    mRecyclerViewBridge.setFocusView(view, mOldView, 1.1f);
-                    mOldView = view;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        
     }
 
     public void onListItemClick(ListView parent, View view,
@@ -156,7 +135,29 @@ public class PinDaoListFragment extends BaseV4ListFragment {
                 getListView(). setSelection(0);
             }
         };
-        handler.sendMessageDelayed(handler.obtainMessage(), 188);
+        handler.sendMessageDelayed(handler.obtainMessage(), 5000);
+        getListView().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
+                Log.i(TAG,"listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
+//                for (Fragment fragment : (getActivity()).getSupportFragmentManager().getFragments()) {
+//                    if (fragment instanceof PinDaoFragment) {
+//                        ((PinDaoFragment) fragment).setPindaoName(data.get((int) l).getTypeName());
+//                    }
+//                }
+                setSelectedFragment((int)id);
+                if (view != null) {
+                    view.bringToFront();
+                    mRecyclerViewBridge.setFocusView(view, mOldView, 1.1f);
+                    mOldView = view;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 	}
 
 	public ArrayList<PinDaoBean> parseSidenavi(String href) {

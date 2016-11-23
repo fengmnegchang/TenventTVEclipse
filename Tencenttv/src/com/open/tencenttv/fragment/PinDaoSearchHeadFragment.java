@@ -60,7 +60,9 @@ public class PinDaoSearchHeadFragment extends BaseV4Fragment {
 	private String url;
 	private List<DropItemBean> mMenuItems = new ArrayList<DropItemBean>();
 	private WeakReferenceHandler weakReferenceHandler;
-	public static PinDaoSearchHeadFragment newInstance(WeakReferenceHandler weakReferenceHandler,String url, String pindaoName, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mRecyclerViewBridge) {
+
+	public static PinDaoSearchHeadFragment newInstance(WeakReferenceHandler weakReferenceHandler, String url, String pindaoName, MainUpView mainUpView1, View mOldView,
+			EffectNoDrawBridge mRecyclerViewBridge) {
 		PinDaoSearchHeadFragment fragment = new PinDaoSearchHeadFragment();
 		fragment.url = url;
 		fragment.weakReferenceHandler = weakReferenceHandler;
@@ -70,7 +72,6 @@ public class PinDaoSearchHeadFragment extends BaseV4Fragment {
 		fragment.mRecyclerViewBridge = mRecyclerViewBridge;
 		return fragment;
 	}
-
 
 	@Nullable
 	@Override
@@ -137,10 +138,14 @@ public class PinDaoSearchHeadFragment extends BaseV4Fragment {
 		mMenu.setMenuSelectedListener(new OnMenuSelectedListener() {
 			@Override
 			public void onSelected(View listview, int RowIndex, int ColumnIndex) {
+				if (RowIndex == 0) {
+					RowIndex = 1;
+				}
 				Log.i(TAG, "select " + ColumnIndex + " column and " + RowIndex + " row");
 				// 过滤筛选
 				MenuBean mMenuBean = mMenuItems.get(ColumnIndex).getMenulist().get(RowIndex);
-//				Log.i(TAG, mMenuBean.getHref() + ";" + mMenuBean.getMenuname());
+				// Log.i(TAG, mMenuBean.getHref() + ";" +
+				// mMenuBean.getMenuname());
 				Message msg = weakReferenceHandler.obtainMessage();
 				msg.what = 110;
 				msg.obj = mMenuBean.getHref();
@@ -150,6 +155,16 @@ public class PinDaoSearchHeadFragment extends BaseV4Fragment {
 		});
 		mMenu.setmMenuItems(mMenuItems);
 		mMenu.setIsDebug(false);
+
+		if ("电影".equals(pindaoName)) {
+			weakReferenceHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mMenu.setDefault(4, 2);
+				}
+			}, 5000);
+		}
+
 	}
 
 	public ArrayList<DropItemBean> parseDropItemList(String href) {
@@ -179,7 +194,7 @@ public class PinDaoSearchHeadFragment extends BaseV4Fragment {
 					Element spanElement = liElements.get(i).select("span.label").first();
 					String label = spanElement.text();
 					mDropItemBean.setLabel(label);
-					Log.i(TAG,"i===" + i + ";label ===" + label);
+					Log.i(TAG, "i===" + i + ";label ===" + label);
 
 					Element tags_listElement = liElements.get(i).select("div.tags_list").first();
 					Elements aElements = tags_listElement.select("a");
@@ -202,8 +217,7 @@ public class PinDaoSearchHeadFragment extends BaseV4Fragment {
 							mMenuBean.setDatatype(datatype);
 							mMenuBean.setMenuname(menuname);
 							menulist.add(mMenuBean);
-							Log.i(TAG,"i===" + i + ";y==" + y + ";boss ===" + boss + ";hrefurl ===" + hrefurl + ";dataindex ===" + dataindex + ";datatype ===" + datatype + ";menuname ==="
-									+ menuname);
+							Log.i(TAG, "i===" + i + ";y==" + y + ";boss ===" + boss + ";hrefurl ===" + hrefurl + ";dataindex ===" + dataindex + ";datatype ===" + datatype + ";menuname ===" + menuname);
 						}
 						mDropItemBean.setMenulist(menulist);
 					}

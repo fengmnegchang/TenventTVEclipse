@@ -20,6 +20,7 @@ import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.PinDaoBean;
 import com.open.tencenttv.bean.RankBean;
 import com.open.tencenttv.fragment.PinDaoFragment;
+import com.open.tencenttv.fragment.PinDaoTabHorizontalViewPagerFragment;
 import com.open.tencenttv.utils.UrlUtils;
 
 import java.util.ArrayList;
@@ -177,7 +178,7 @@ public class PinDaoActivity extends CommonFragmentActivity {
 		mPinDaoAdapter.notifyDataSetChanged();
 		fragments = new ArrayList<Fragment>();
 		for (int i = 0; i < data.size(); i++) {
-			fragments.add(PinDaoFragment.newInstance(data.get(i).getHrefurl(), data.get(i).getTypeName(), mainUpView1, mOldView, mRecyclerViewBridge));
+			fragments.add(PinDaoTabHorizontalViewPagerFragment.newInstance(data.get(i).getHrefurl(), data.get(i).getTypeName(), mainUpView1, mOldView, mRecyclerViewBridge));
 		}
 		// 延时请求其它位置的item.
 		Handler handler = new Handler() {
@@ -232,59 +233,5 @@ public class PinDaoActivity extends CommonFragmentActivity {
 		}
 		return list;
 	}
-
-	// public void initData() {
-	// PinDaoBean bean = new PinDaoBean();
-	// bean.setType(0);
-	// bean.setTypeName("筛选");
-	// data.add(bean);
-	//
-	// bean = new PinDaoBean();
-	// bean.setType(1);
-	// bean.setTypeName("搜索");
-	// data.add(bean);
-	//
-	// bean = new PinDaoBean();
-	// bean.setType(2);
-	// bean.setTypeName("大剧精选");
-	// data.add(bean);
-	//
-	// bean = new PinDaoBean();
-	// bean.setType(2);
-	// bean.setTypeName("卫视同步");
-	// data.add(bean);
-	//
-	// bean = new PinDaoBean();
-	// bean.setType(2);
-	// bean.setTypeName("抗战风云");
-	// data.add(bean);
-	//
-	// bean = new PinDaoBean();
-	// bean.setType(2);
-	// bean.setTypeName("会员专享");
-	// data.add(bean);
-	//
-	// bean = new PinDaoBean();
-	// bean.setType(2);
-	// bean.setTypeName("热门话题");
-	// data.add(bean);
-	//
-	// bean = new PinDaoBean();
-	// bean.setType(2);
-	// bean.setTypeName("剧星专场");
-	// data.add(bean);
-	//
-	// bean = new PinDaoBean();
-	// bean.setType(2);
-	// bean.setTypeName("乡里乡亲");
-	// data.add(bean);
-	//
-	// fragments = new ArrayList<Fragment>();
-	// for (int i = 0; i < data.size(); i++) {
-	// fragments.add(PinDaoFragment.newInstance(data.get(i).getTypeName(),
-	// mainUpView1, mOldView, mRecyclerViewBridge));
-	// }
-	//
-	// }
 
 }

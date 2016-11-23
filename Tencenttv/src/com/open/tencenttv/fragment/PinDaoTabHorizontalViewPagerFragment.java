@@ -72,6 +72,7 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 	String url;
 	String pindaoName;
 	FrameLayout layout_search;
+	int position;
 	public static PinDaoTabHorizontalViewPagerFragment newInstance(String url, String pindaoName, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mEffectNoDrawBridge) {
 		PinDaoTabHorizontalViewPagerFragment fragment = new PinDaoTabHorizontalViewPagerFragment();
 		fragment.mainUpView1 = mainUpView1;
@@ -112,8 +113,8 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 		@Override
 		public void handleMessage(Message msg) {
 			// // 初始化.
-			switchTab(mOpenTabHost, 0);
-			viewpager.setCurrentItem(0);
+			switchTab(mOpenTabHost, position);
+			viewpager.setCurrentItem(position);
 
 		}
 	};
@@ -165,7 +166,7 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 		CommonT mCommonT = new CommonT();
 		ArrayList<RankBean> list = new ArrayList<RankBean>();
 		try {
-			list = parseTitleRank(UrlUtils.TENCENT_X_MOVIE_LIST);
+			list = parseTitleRank(url);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -182,9 +183,16 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 		// 初始化标题栏.
 		titleList.clear();
 		listRankFragment.clear();
-		for (RankBean bean : result.getTitlerankList()) {
+		String url0 = this.url.split("/\\?")[0];
+		String url1 = this.url.split("/\\?")[1];
+		for (int i=0;i<result.getTitlerankList().size();i++) {
+			RankBean bean = result.getTitlerankList().get(i);
 			titleList.add(bean.getRankName());
-			PinDaoFragment fragment = PinDaoFragment.newInstance(UrlUtils.TENCENT_X_MOVIE_LIST, "电影", mainUpView1, mOldView, mRecyclerViewBridge);
+			if("最近热播".equals(bean.getRankName())){
+				position = i;
+			}
+			Log.i(TAG,"PinDaoFragment url ="+url0 +"/"+bean.getRankurl()+";pindaoname="+ bean.getRankName());
+			PinDaoFragment fragment = PinDaoFragment.newInstance(url0 +"/"+bean.getRankurl(), bean.getRankName(), mainUpView1, mOldView, mRecyclerViewBridge);
 			listRankFragment.add(fragment);
 		}
 		mOpenTabTitleAdapter = new OpenTabTitleAdapter(getActivity(), titleList);
@@ -269,7 +277,7 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 		// 初始化标题栏.
 		mOpenTabHost.setOnTabSelectListener(this);
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 10000);
+		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
 	}
 
 	public ArrayList<RankBean> parseTitleRank(String href) {

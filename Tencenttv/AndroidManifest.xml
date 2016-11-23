@@ -62,17 +62,16 @@
         <activity
             android:name="com.open.tencenttv.PinDaoActivity"
             android:launchMode="singleTask" >
-           
+           <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!-- 频道 使用ListFragment -->
         <activity
             android:name="com.open.tencenttv.ListFragmentPinDaoActivity"
             android:launchMode="singleTask" >
-             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!-- 频道 使用ViewPager -->
         <activity android:name="com.open.tencenttv.PinDaoViewPagerActivity" >
