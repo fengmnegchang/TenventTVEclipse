@@ -300,7 +300,7 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
 				{
 				}
 			});
-			Log.i("url", "url = " + href);
+			Log.i(TAG, "url = " + href);
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent)
 					.timeout(10000).get();
@@ -338,7 +338,7 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
 									.first();
 							String hrefurl = aElement.attr("href");
 							String title = aElement.text();
-							System.out.println("i===" + i + "hrefurl=="
+							Log.i(TAG,"i===" + i + "hrefurl=="
 									+ hrefurl + ";title===" + title);
 							bean.setRankName(title);
 							bean.setRankurl(hrefurl);
@@ -366,7 +366,7 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
 							Element hElement = h2Elements.get(i).select("h2")
 									.first();
 							String title = hElement.text();
-							System.out.println("i===" + i + "title===" + title);
+							Log.i(TAG,"i===" + i + "title===" + title);
 							bean.setRankName(title);
 							list.add(bean);
 						} catch (Exception e) {

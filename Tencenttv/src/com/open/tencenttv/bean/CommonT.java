@@ -1,5 +1,6 @@
 package com.open.tencenttv.bean;
 
+import com.jayfang.dropdownmenu.DropItemBean;
 import com.open.androidtvwidget.leanback.mode.ListRow;
 
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class CommonT implements Serializable {
 	private List<RankBean> titlerankList = new ArrayList<RankBean>();// 播放排行榜第二行标题
 	private List<PinDaoBean> sidenavilist = new ArrayList<PinDaoBean>();// x影视检索，右部头v.qq.com/x/movielist/?cate=10001&offset=0&sort=4
 	private List<PinDaoBean> xlist = new ArrayList<PinDaoBean>();// x 视频列表
+	private List<DropItemBean> mMenuItems = new ArrayList<DropItemBean>();// 影视列表搜索头部
 
 	public ArrayList<NavPopPinDaoBean> getNavpoplist() {
 		return navpoplist;
@@ -93,6 +95,14 @@ public class CommonT implements Serializable {
 
 	public void setXlist(List<PinDaoBean> xlist) {
 		this.xlist = xlist;
+	}
+
+	public List<DropItemBean> getmMenuItems() {
+		return mMenuItems;
+	}
+
+	public void setmMenuItems(List<DropItemBean> mMenuItems) {
+		this.mMenuItems = mMenuItems;
 	}
 
 }

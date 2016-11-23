@@ -3,6 +3,8 @@ package com.open.tencenttv.fragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,13 +20,10 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +56,7 @@ import com.open.tencenttv.widget.scroll.ScrollViewListener;
  *               *********************************************
  */
 public class PinDaoFragment extends BaseV4Fragment {
+	public static final String TAG = PinDaoFragment.class.getSimpleName();
 	private String pindaoName;
 	TextView text_pindao_name;
 	// gridview
@@ -70,7 +70,7 @@ public class PinDaoFragment extends BaseV4Fragment {
 	private List<PinDaoBean> xlist = new ArrayList<PinDaoBean>();
 	private ObservableScrollView scroll_more;
 	private LinearLayout layout_more;
-	private int offset;//初始化加载多少数据，分页
+	private int offset;// 初始化加载多少数据，分页
 
 	public static PinDaoFragment newInstance(String url, String pindaoName, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mRecyclerViewBridge) {
 		PinDaoFragment fragment = new PinDaoFragment();
@@ -139,22 +139,24 @@ public class PinDaoFragment extends BaseV4Fragment {
 				startActivity(intent);
 			}
 		});
-//		scroll_more.setOnTouchListener(new OnTouchListener() {
-//			private int lastY = 0;
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				if (event.getAction() == MotionEvent.ACTION_UP) {
-//					lastY = scroll_more.getScrollY();
-//					if (lastY == (layout_more.getHeight() - scroll_more.getHeight())) {
-//						offset = offset + 20;
-//						doAsync(PinDaoFragment.this, PinDaoFragment.this, PinDaoFragment.this);
-//					}
-//				}
-//				return false;
-//			}
-//		});
+		// scroll_more.setOnTouchListener(new OnTouchListener() {
+		// private int lastY = 0;
+		// @Override
+		// public boolean onTouch(View v, MotionEvent event) {
+		// if (event.getAction() == MotionEvent.ACTION_UP) {
+		// lastY = scroll_more.getScrollY();
+		// if (lastY == (layout_more.getHeight() - scroll_more.getHeight())) {
+		// offset = offset + 20;
+		// doAsync(PinDaoFragment.this, PinDaoFragment.this,
+		// PinDaoFragment.this);
+		// }
+		// }
+		// return false;
+		// }
+		// });
 		scroll_more.setScrollViewListener(new ScrollViewListener() {
 			private int lastY = 0;
+
 			@Override
 			public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
 				lastY = scroll_more.getScrollY();
@@ -162,7 +164,9 @@ public class PinDaoFragment extends BaseV4Fragment {
 					offset = offset + 20;
 					doAsync(PinDaoFragment.this, PinDaoFragment.this, PinDaoFragment.this);
 				}
-				System.out.println("x==="+x+";y=="+y+";oldx=="+oldx+";oldy=="+oldy+";layout_more.getHeight()=="+layout_more.getHeight()+";scroll_more.getHeight()=="+scroll_more.getHeight()+";scroll_more.getScrollY()=="+scroll_more.getScrollY());
+				Log.i(TAG,
+						"x===" + x + ";y==" + y + ";oldx==" + oldx + ";oldy==" + oldy + ";layout_more.getHeight()==" + layout_more.getHeight() + ";scroll_more.getHeight()==" + scroll_more.getHeight()
+								+ ";scroll_more.getScrollY()==" + scroll_more.getScrollY());
 			}
 		});
 
@@ -196,7 +200,7 @@ public class PinDaoFragment extends BaseV4Fragment {
 	public CommonT call() throws Exception {
 		// TODO Auto-generated method stub
 		CommonT mCommonT = new CommonT();
-		List<PinDaoBean> list = parseXlist(UrlUtils.TENCENT_X_MOVIE_LIST);
+		List<PinDaoBean> list = parseXlist(url);
 		mCommonT.setXlist(list);
 		return mCommonT;
 	}
@@ -212,12 +216,12 @@ public class PinDaoFragment extends BaseV4Fragment {
 	public void onCallback(CommonT result) {
 		// TODO Auto-generated method stub
 		super.onCallback(result);
-		if(offset==0){
+		if (offset == 0) {
 			xlist.clear();
 			xlist.addAll(result.getXlist());
 			mAdapter.notifyDataSetChanged();
 			mFirstHandler.sendMessageDelayed(mFirstHandler.obtainMessage(), 188);
-		}else{
+		} else {
 			xlist.addAll(result.getXlist());
 			mAdapter.notifyDataSetChanged();
 		}
@@ -226,13 +230,26 @@ public class PinDaoFragment extends BaseV4Fragment {
 	public ArrayList<PinDaoBean> parseXlist(String href) {
 		ArrayList<PinDaoBean> list = new ArrayList<PinDaoBean>();
 		try {
-			//"http://v.qq.com/x/movielist/?cate=10001&offset=0&sort=4";
-			href = href +"&offset="+offset;
+//			href="http://v.qq.com/x/movielist/?cate=10001&offset=20&sort=4";
+//			String offset0 = href.split("&offset=")[0];
+//			String offset1 = href.split("&offset=")[1];
+//			String sort1 = offset1.split("&sort=")[1];
+//			href = offset0 + "&offset=" + offset+"&sort="+sort1;'
+			
+			String poffset = "&offset=\\d+";
+			Pattern p = Pattern.compile(poffset);
+			Matcher m = p.matcher(href);
+			while (m.find()) {
+				String s1 = m.group();
+				System.out.println(s1+"===="+href);
+				href = href.replace(s1, "&offset=" + offset);
+			}
+			
 			href = makeURL(href, new HashMap<String, Object>() {
-				{ 
+				{
 				}
 			});
-			Log.i("url", "url = " + href);
+			Log.i(TAG, "url = " + href);
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 			Element masthead = doc.select("ul.figures_list").first();
 			Elements liElements = masthead.select("li.list_item");
@@ -282,7 +299,7 @@ public class PinDaoFragment extends BaseV4Fragment {
 					try {
 						Element aElement = liElements.get(i).select("a.figure").first();
 						String hrefurl = aElement.attr("href");
-						System.out.print("i===" + i + ";hrefurl ===" + hrefurl);
+						Log.i(TAG, "i===" + i + ";hrefurl ===" + hrefurl);
 						bean.setHrefurl(hrefurl);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -295,7 +312,7 @@ public class PinDaoFragment extends BaseV4Fragment {
 						bean.setImagesrc(imagesrc);
 						String alt = imgElement.attr("alt");
 						bean.setAlt(alt);
-						System.out.print("i===" + i + ";imagesrc ===" + imagesrc + ";alt==" + alt);
+						Log.i(TAG, "i===" + i + ";imagesrc ===" + imagesrc + ";alt==" + alt);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -304,7 +321,7 @@ public class PinDaoFragment extends BaseV4Fragment {
 						Element spanElement = liElements.get(i).select("span.figure_mask").first();
 						String figure_mask = spanElement.text();
 						bean.setMask_txt(figure_mask);
-						System.out.print("i===" + i + ";figure_mask ===" + figure_mask);
+						Log.i(TAG, "i===" + i + ";figure_mask ===" + figure_mask);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -313,7 +330,7 @@ public class PinDaoFragment extends BaseV4Fragment {
 						Element figure_descElement = liElements.get(i).select("div.figure_desc").first();
 						String figure_desc = figure_descElement.text();
 						bean.setFigure_desc(figure_desc);
-						System.out.print("i===" + i + ";figure_desc ===" + figure_desc);
+						Log.i(TAG, "i===" + i + ";figure_desc ===" + figure_desc);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -323,7 +340,7 @@ public class PinDaoFragment extends BaseV4Fragment {
 						Element info_innerElement = figure_infoElement.select("span.info_inner").first();
 						String info_inner = info_innerElement.text();
 						bean.setFigure_info(info_inner);
-						System.out.print("i===" + i + ";info_inner ===" + info_inner);
+						Log.i(TAG, "i===" + i + ";info_inner ===" + info_inner);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -333,7 +350,7 @@ public class PinDaoFragment extends BaseV4Fragment {
 						Element mod_scoreElement = figure_infoElement.select("span.mod_score").first();
 						String mode_score = mod_scoreElement.text();
 						bean.setMod_score(mode_score);
-						System.out.print("i===" + i + ";mode_score ===" + mode_score);
+						Log.i(TAG, "i===" + i + ";mode_score ===" + mode_score);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -362,6 +379,31 @@ public class PinDaoFragment extends BaseV4Fragment {
 
 	public void setPindaoName(String pindaoName) {
 		text_pindao_name.setText(pindaoName);
+	}
+
+	public void refreshHandlerMessage(String url) {
+		Log.i(TAG, "recever msg hrefurl==" + url);
+		String url0 = this.url.split("/\\?")[0];
+		String url1 = this.url.split("/\\?")[1];
+		this.url = url0 +"/"+ url;
+		offset = 0;
+		doAsync(this, this, this);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#setUserVisibleHint(boolean)
+	 */
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		super.setUserVisibleHint(isVisibleToUser);
+		initUI(isVisibleToUser);
+	}
+
+	protected void initUI(final boolean isVisibleToUser) {
+
 	}
 
 }

@@ -106,7 +106,7 @@ public class RankAllFragment extends BaseV4Fragment {
 				{
 				}
 			});
-			Log.i("url", "url = " + href);
+			Log.i(TAG, "url = " + href);
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 			Element masthead = doc.select("div.container_inner").first();
@@ -140,7 +140,7 @@ public class RankAllFragment extends BaseV4Fragment {
 									Element aElement = liElements.get(i).select("a").first();
 									String hrefurl = aElement.attr("href");
 									String title = aElement.attr("title");
-									System.out.print("y===" + y + ";i===" + i + ";hrefurl ===" + hrefurl + ";title===" + title);
+									Log.i(TAG,"y===" + y + ";i===" + i + ";hrefurl ===" + hrefurl + ";title===" + title);
 									bean.setActorName(title);
 									bean.setRankurl(hrefurl);
 								} catch (Exception e) {
@@ -150,7 +150,7 @@ public class RankAllFragment extends BaseV4Fragment {
 								try {
 									Element iElement = liElements.get(i).select("i.num").first();
 									String count = iElement.text();
-									System.out.print("y===" + y + ";i===" + i + ";count ===" + count);
+									Log.i(TAG,"y===" + y + ";i===" + i + ";count ===" + count);
 									bean.setCount(count);
 								} catch (Exception e) {
 									e.printStackTrace();

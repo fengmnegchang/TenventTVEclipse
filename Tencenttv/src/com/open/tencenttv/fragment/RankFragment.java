@@ -102,7 +102,7 @@ public class RankFragment extends BaseV4Fragment {
                 {
                 }
             });
-            Log.i("url", "url = " + href);
+            Log.i(TAG, "url = " + href);
 
             Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
             Element masthead = doc.select("ul.mod_rankbox_con_list").first();
@@ -127,7 +127,7 @@ public class RankFragment extends BaseV4Fragment {
                     try {
                         Element spanindexElement = liElements.get(i).select("span.mod_rankbox_con_list_index").first();
                         String count = spanindexElement.text();
-                        System.out.print("i===" + i + ";count ===" + count);
+                        Log.i(TAG,"i===" + i + ";count ===" + count);
                         bean.setCount(count);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -137,12 +137,12 @@ public class RankFragment extends BaseV4Fragment {
                     try {
                         Element spantitleElement = liElements.get(i).select("span.mod_rankbox_con_item_title").first();
                         String title = spantitleElement.text();
-                        System.out.print(";title ===" + title);
+                        Log.i(TAG,";title ===" + title);
                         bean.setActorName(title);
 
                         Element aElement = spantitleElement.select("a").first();
                         String hrefurl = aElement.attr("href");
-                        System.out.print(";hrefurl ===" + hrefurl);
+                        Log.i(TAG,";hrefurl ===" + hrefurl);
                         bean.setRankurl(hrefurl);
 
                     } catch (Exception e) {
@@ -152,7 +152,7 @@ public class RankFragment extends BaseV4Fragment {
                     try {
                         Element spanactorElement = liElements.get(i).select("span.mod_rankbox_con_item_actor").first();
                         String actortype = spanactorElement.text();
-                        System.out.print(";actortype ===" + actortype);
+                        Log.i(TAG,";actortype ===" + actortype);
                         bean.setActorType(actortype);
 
                     } catch (Exception e) {
@@ -162,9 +162,9 @@ public class RankFragment extends BaseV4Fragment {
                     try {
                         Element spanclickElement = liElements.get(i).select("span.mod_rankbox_con_list_click").first();
                         String playtimes = spanclickElement.text();
-                        System.out.print(";playtimes ===" + playtimes);
+                        Log.i(TAG,";playtimes ===" + playtimes);
                         bean.setPlayTimes(playtimes);
-                        System.out.println("");
+                        Log.i(TAG,"");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -134,7 +134,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 //        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                System.out.println("listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
+//                Log.i(TAG,"listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
 //                if (view != null) {
 //                    view.bringToFront();
 //                    mRecyclerViewBridge.setFocusView(view, mOldView, 1.1f);
@@ -144,7 +144,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 //
 //            @Override
 //            public void onNothingSelected(AdapterView<?> parent) {
-//                System.out.println("listView item" + " ========onNothingSelected ");
+//                Log.i(TAG,"listView item" + " ========onNothingSelected ");
 //            }
 //        });
 //
@@ -152,7 +152,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 //            @Override
 //            public void onFocusChange(View view, boolean b) {
 //                //失去焦点时，将子view还原
-//                System.out.println("listView item" + view.getId() + " ========onFocusChange " + b);
+//                Log.i(TAG,"listView item" + view.getId() + " ========onFocusChange " + b);
 //                if (!b) {
 //                    for (int i = 0; i < listView.getChildCount(); i++) {
 //                        View mvView = listView.getChildAt(i);
@@ -171,7 +171,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 //                    mRecyclerViewBridge.setFocusView(view, mOldView, 1.1f);
 //                    mOldView = view;
 //                }
-//                System.out.println("listView item" + (int) id + " ========onItemClick ");
+//                Log.i(TAG,"listView item" + (int) id + " ========onItemClick ");
 //                Toast.makeText(getApplicationContext(), "position : " + position, Toast.LENGTH_LONG).show();
 //                if(position==0) {
 //                    //进入频道
@@ -196,7 +196,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
         mRecyclerView.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                System.out.println("mRecyclerView item" + position + " ========onItemClick ");
+                Log.i(TAG,"mRecyclerView item" + position + " ========onItemClick ");
                 //进入频道
                 Intent intent = new Intent();
                 intent.setClass(TencentTVMainActivity.this,MediumRecyclerviewLeanBackActivity.class);
@@ -210,7 +210,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 //        recycler_push.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-//                System.out.println("recycler_push item" + position + " ========onItemClick ");
+//                Log.i(TAG,"recycler_push item" + position + " ========onItemClick ");
 //                //进入频道
 //                Intent intent = new Intent();
 //                intent.setClass(TencentTVMainActivity.this,PinDaoActivity.class);
@@ -340,11 +340,11 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
     @Override
     public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
 //        if (parent.getId() == R.id.recycler_push) {
-//            System.out.println("recycler_push item" + position + " ========onItemPreSelected ");
+//            Log.i(TAG,"recycler_push item" + position + " ========onItemPreSelected ");
 //        } else
 //
         if (parent.getId() == R.id.recyclerView) {
-            System.out.println("mRecyclerView item" + position + " ========onItemPreSelected ");
+            Log.i(TAG,"mRecyclerView item" + position + " ========onItemPreSelected ");
         }
         mRecyclerViewBridge.setUnFocusView(mOldView);
 
@@ -353,11 +353,11 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
     @Override
     public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
 //        if (parent.getId() == R.id.recycler_push) {
-//            System.out.println("recycler_push item" + position + " ========onItemSelected ");
+//            Log.i(TAG,"recycler_push item" + position + " ========onItemSelected ");
 //        } else
 
         if (parent.getId() == R.id.recyclerView) {
-            System.out.println("mRecyclerView item" + position + " ========onItemSelected ");
+            Log.i(TAG,"mRecyclerView item" + position + " ========onItemSelected ");
         }
         mRecyclerViewBridge.setFocusView(itemView, 1.1f);
         mOldView = itemView;
@@ -367,11 +367,11 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
     @Override
     public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
 //        if (parent.getId() == R.id.recycler_push) {
-//            System.out.println("recycler_push item" + position + " ========onReviseFocusFollow ");
+//            Log.i(TAG,"recycler_push item" + position + " ========onReviseFocusFollow ");
 //        } else
 
         if (parent.getId() == R.id.recyclerView) {
-            System.out.println("mRecyclerView item" + position + " ========onReviseFocusFollow ");
+            Log.i(TAG,"mRecyclerView item" + position + " ========onReviseFocusFollow ");
         }
         mRecyclerViewBridge.setFocusView(itemView, 1.1f);
         mOldView = itemView;
@@ -431,7 +431,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 				{
 				}
 			});
-			Log.i("url", "url = " + href);
+			Log.i(TAG, "url = " + href);
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 			Element masthead = doc.select("div.nav_pop_content").first();
@@ -522,7 +522,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 					Element aElement = beanElements.get(i).select("a").first();
                     String pindaoName = aElement.text();
                     String pindaoUrl = aElement.attr("href");
-                    System.out.println("i==="+i+";pindaoName ==="+pindaoName+";pindaoUrl=="+pindaoUrl);
+                    Log.i(TAG,"i==="+i+";pindaoName ==="+pindaoName+";pindaoUrl=="+pindaoUrl);
                     bean.setPindaoName(pindaoName);
                     bean.setPindaoUrl(pindaoUrl);
 				} catch (Exception e) {
@@ -544,7 +544,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
      */
     @Override
     public void onItemSelected(int id) {
-        System.out.println("onItemSelected == "+id);
+        Log.i(TAG,"onItemSelected == "+id);
     }
 
 }

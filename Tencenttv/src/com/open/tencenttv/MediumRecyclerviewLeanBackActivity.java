@@ -200,7 +200,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
                 {
                 }
             });
-            Log.i("url", "url = " + href);
+            Log.i(TAG, "url = " + href);
 
             Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
             Element masthead = doc.select("div.container_inner").first();
@@ -218,7 +218,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
                         Element rowElement = wrapperElements.get(i).select("div.mod_title").first();
                         if (rowElement != null) {
                             rowtext = rowElement.select("h2").first().text();
-                            System.out.println("rowtext ===" + rowtext);
+                            Log.i(TAG,"rowtext ===" + rowtext);
                             listrow = new ListRow(rowtext);
                             listrow.setOpenPresenter(new MediumListPresenter()); // 设置列的item样式.
                         } else {
@@ -252,7 +252,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
                                     Element aElement = list_itemElements.get(y).select("a").first();
                                     String hrefurl = aElement.attr("href");
                                     String title = aElement.attr("title");
-                                    System.out.print("hrefurl ===" + hrefurl + ";title==" + title);
+                                    Log.i(TAG,"hrefurl ===" + hrefurl + ";title==" + title);
                                     movie.setmTitle(title);
                                     movie.setHrefurl(hrefurl);
                                 } catch (Exception e) {
@@ -267,7 +267,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
                                     if(lz_srcurl==null || lz_srcurl.length()==0){
                                         lz_srcurl = imgElement.attr("src");
                                     }
-                                    System.out.print("lz_srcurl ===" + lz_srcurl);
+                                    Log.i(TAG,"lz_srcurl ===" + lz_srcurl);
                                     movie.setLz_srcurl(lz_srcurl);
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -277,7 +277,7 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
                                 try {
                                     Element spanElement = list_itemElements.get(y).select("span.figure_mask").first();
                                     String figure_mask = spanElement.text();
-                                    System.out.print("figure_mask ===" + figure_mask);
+                                    Log.i(TAG,"figure_mask ===" + figure_mask);
                                     movie.setFigure_mask(figure_mask);
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -287,12 +287,12 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
                                 try {
                                     Element pElement = list_itemElements.get(y).select("p.figure_desc").first();
                                     String figure_desc = pElement.text();
-                                    System.out.print("figure_desc ===" + figure_desc);
+                                    Log.i(TAG,"figure_desc ===" + figure_desc);
                                     movie.setFigure_desc(figure_desc);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                System.out.print("\n");
+                                Log.i(TAG,"\n");
                                 movies.add(movie);
                             }
                             listrow.addAll(movies); // 添加列的数据.

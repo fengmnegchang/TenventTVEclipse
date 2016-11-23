@@ -90,7 +90,7 @@ public class PinDaoActivity extends CommonFragmentActivity {
 		listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				System.out.println("listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
+				Log.i(TAG,"listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
 				if (view != null) {
 					view.bringToFront();
 					mRecyclerViewBridge.setFocusView(view, mOldView, 1.1f);
@@ -101,7 +101,7 @@ public class PinDaoActivity extends CommonFragmentActivity {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				System.out.println("listView item" + " ========onNothingSelected ");
+				Log.i(TAG,"listView item" + " ========onNothingSelected ");
 			}
 		});
 
@@ -109,7 +109,7 @@ public class PinDaoActivity extends CommonFragmentActivity {
 			@Override
 			public void onFocusChange(View view, boolean b) {
 				// 失去焦点时，将子view还原
-				System.out.println("listView item" + view.getId() + " ========onFocusChange " + b);
+				Log.i(TAG,"listView item" + view.getId() + " ========onFocusChange " + b);
 				if (!b) {
 					for (int i = 0; i < listView.getChildCount(); i++) {
 						View mvView = listView.getChildAt(i);
@@ -128,7 +128,7 @@ public class PinDaoActivity extends CommonFragmentActivity {
 					mRecyclerViewBridge.setFocusView(view, mOldView, 1.1f);
 					mOldView = view;
 				}
-				System.out.println("listView item" + (int) id + " ========onItemClick ");
+				Log.i(TAG,"listView item" + (int) id + " ========onItemClick ");
 				Toast.makeText(getApplicationContext(), "position : " + position, Toast.LENGTH_LONG).show();
 				setSelectedFragment((int) id);
 
@@ -197,7 +197,7 @@ public class PinDaoActivity extends CommonFragmentActivity {
 				{
 				}
 			});
-			Log.i("url", "url = " + href);
+			Log.i(TAG, "url = " + href);
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 			Element masthead = doc.select("ul.side_navi").first();
@@ -216,7 +216,7 @@ public class PinDaoActivity extends CommonFragmentActivity {
 						Element aElement = liElements.get(i).select("a").first();
 						String typeName = aElement.text();
 						String hrefurl = aElement.attr("href");
-						System.out.print("i===" + i + ";typeName ===" + typeName + ";hrefurl===" + hrefurl);
+						Log.i(TAG,"i===" + i + ";typeName ===" + typeName + ";hrefurl===" + hrefurl);
 						bean.setTypeName(typeName);
 						bean.setHrefurl(hrefurl);
 					} catch (Exception e) {

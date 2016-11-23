@@ -34,6 +34,7 @@ import com.open.androidtvwidget.view.OpenTabHost;
 import com.open.androidtvwidget.view.TextViewWithTTF;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
+import com.open.tencenttv.WeakReferenceHandler;
 import com.open.tencenttv.adapter.OpenTabTitleAdapter;
 import com.open.tencenttv.adapter.RankPagerAdapter;
 import com.open.tencenttv.bean.CommonT;
@@ -56,6 +57,7 @@ import com.open.tencenttv.utils.UrlUtils;
  *               *********************************************
  */
 public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment implements OpenTabHost.OnTabSelectListener {
+	public static final String TAG = PinDaoTabHorizontalViewPagerFragment.class.getSimpleName();
 	ViewPager viewpager;
 	// 移动边框.
 	EffectNoDrawBridge mEffectNoDrawBridge;
@@ -95,11 +97,17 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		doAsync(this, this, this);
-		PinDaoSearchHeadFragment rightFragment = PinDaoSearchHeadFragment.newInstance(pindaoName,mainUpView1,mOldView,mRecyclerViewBridge);
+		PinDaoSearchHeadFragment rightFragment = PinDaoSearchHeadFragment.newInstance(weakReferenceHandler,url,pindaoName,mainUpView1,mOldView,mRecyclerViewBridge);
         FragmentManager manager = getActivity().getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.layout_search, rightFragment).commit();
 	}
-
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		weakReferenceHandler = new WeakReferenceHandler(this);
+	}
+	
 	Handler mFocusHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -109,6 +117,16 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 
 		}
 	};
+
+	/* (non-Javadoc)
+	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
+	 */
+	@Override
+	public void handlerMessage(Message msg) {
+		super.handlerMessage(msg);
+		Log.i(TAG,"CurrentItem=="+viewpager.getCurrentItem()+";url=="+msg.obj+";what=="+msg.what);
+		((PinDaoFragment)listRankFragment.get(viewpager.getCurrentItem())).refreshHandlerMessage(msg.obj+"");
+	}
 
 	/**
 	 * demo (翻页的时候改变状态) 将标题栏的文字颜色改变. <br>
@@ -261,7 +279,7 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 				{
 				}
 			});
-			Log.i("url", "url = " + href);
+			Log.i(TAG, "url = " + href);
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 
@@ -292,7 +310,7 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 						Element aElement = liElements.get(i).select("a").first();
 						String hrefurl = aElement.attr("href");
 						String title = aElement.text().replace("|", "");
-						System.out.println("i===" + i + "hrefurl==" + hrefurl + ";title===" + title);
+						Log.i(TAG,"i===" + i + "hrefurl==" + hrefurl + ";title===" + title);
 						bean.setRankName(title);
 						bean.setRankurl(hrefurl);
 						list.add(bean);

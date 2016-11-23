@@ -134,7 +134,7 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
         listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
+                Log.i(TAG,"listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
                 if (view != null) {
                     view.bringToFront();
                     mRecyclerViewBridge.setFocusView(view, mOldView, 1.1f);
@@ -144,7 +144,7 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                System.out.println("listView item" + " ========onNothingSelected ");
+                Log.i(TAG,"listView item" + " ========onNothingSelected ");
             }
         });
 
@@ -152,7 +152,7 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
             @Override
             public void onFocusChange(View view, boolean b) {
                 //失去焦点时，将子view还原
-                System.out.println("listView item" + view.getId() + " ========onFocusChange " + b);
+                Log.i(TAG,"listView item" + view.getId() + " ========onFocusChange " + b);
                 if (!b) {
                     for (int i = 0; i < listView.getChildCount(); i++) {
                         View mvView = listView.getChildAt(i);
@@ -171,7 +171,7 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
                     mRecyclerViewBridge.setFocusView(view, mOldView, 1.1f);
                     mOldView = view;
                 }
-                System.out.println("listView item" + (int) id + " ========onItemClick ");
+                Log.i(TAG,"listView item" + (int) id + " ========onItemClick ");
                 Toast.makeText(getApplicationContext(), "position : " + position, Toast.LENGTH_LONG).show();
                 if(position==0) {
                     //进入频道
@@ -196,7 +196,7 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
         mRecyclerView.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                System.out.println("mRecyclerView item" + position + " ========onItemClick ");
+                Log.i(TAG,"mRecyclerView item" + position + " ========onItemClick ");
                 //进入频道
                 Intent intent = new Intent();
                 intent.setClass(TVMainActivity.this,PinDaoActivity.class);
@@ -210,7 +210,7 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
         recycler_push.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                System.out.println("recycler_push item" + position + " ========onItemClick ");
+                Log.i(TAG,"recycler_push item" + position + " ========onItemClick ");
                 //进入频道
                 Intent intent = new Intent();
                 intent.setClass(TVMainActivity.this,PinDaoActivity.class);
@@ -340,9 +340,9 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
     @Override
     public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
         if (parent.getId() == R.id.recycler_push) {
-            System.out.println("recycler_push item" + position + " ========onItemPreSelected ");
+            Log.i(TAG,"recycler_push item" + position + " ========onItemPreSelected ");
         } else if (parent.getId() == R.id.recyclerView) {
-            System.out.println("mRecyclerView item" + position + " ========onItemPreSelected ");
+            Log.i(TAG,"mRecyclerView item" + position + " ========onItemPreSelected ");
         }
         mRecyclerViewBridge.setUnFocusView(mOldView);
 
@@ -351,9 +351,9 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
     @Override
     public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
         if (parent.getId() == R.id.recycler_push) {
-            System.out.println("recycler_push item" + position + " ========onItemSelected ");
+            Log.i(TAG,"recycler_push item" + position + " ========onItemSelected ");
         } else if (parent.getId() == R.id.recyclerView) {
-            System.out.println("mRecyclerView item" + position + " ========onItemSelected ");
+            Log.i(TAG,"mRecyclerView item" + position + " ========onItemSelected ");
         }
         mRecyclerViewBridge.setFocusView(itemView, 1.1f);
         mOldView = itemView;
@@ -363,9 +363,9 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
     @Override
     public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
         if (parent.getId() == R.id.recycler_push) {
-            System.out.println("recycler_push item" + position + " ========onReviseFocusFollow ");
+            Log.i(TAG,"recycler_push item" + position + " ========onReviseFocusFollow ");
         } else if (parent.getId() == R.id.recyclerView) {
-            System.out.println("mRecyclerView item" + position + " ========onReviseFocusFollow ");
+            Log.i(TAG,"mRecyclerView item" + position + " ========onReviseFocusFollow ");
         }
         mRecyclerViewBridge.setFocusView(itemView, 1.1f);
         mOldView = itemView;
@@ -425,7 +425,7 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
 				{
 				}
 			});
-			Log.i("url", "url = " + href);
+			Log.i(TAG, "url = " + href);
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 			Element masthead = doc.select("div.nav_pop_content").first();
@@ -516,7 +516,7 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
 					Element aElement = beanElements.get(i).select("a").first();
                     String pindaoName = aElement.text();
                     String pindaoUrl = aElement.attr("href");
-                    System.out.println("i==="+i+";pindaoName ==="+pindaoName+";pindaoUrl=="+pindaoUrl);
+                    Log.i(TAG,"i==="+i+";pindaoName ==="+pindaoName+";pindaoUrl=="+pindaoUrl);
                     bean.setPindaoName(pindaoName);
                     bean.setPindaoUrl(pindaoUrl);
 				} catch (Exception e) {

@@ -136,7 +136,7 @@ public class MediumTabHostViewPagerActivity extends CommonFragmentActivity imple
                 {
                 }
             });
-            Log.i("url", "url = " + href);
+            Log.i(TAG, "url = " + href);
 
             Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
             Element masthead = doc.select("div.slider_nav").first();
@@ -153,7 +153,7 @@ public class MediumTabHostViewPagerActivity extends CommonFragmentActivity imple
                         String hrefurl = aElement.attr("href");
                         String title = aElement.text();
                         String imageurl = aElement.attr("data-bgimage");
-                        System.out.println("i==="+i+"hrefurl=="+hrefurl+";title==="+title+";imageurl=="+imageurl);
+                        Log.i(TAG,"i==="+i+"hrefurl=="+hrefurl+";title==="+title+";imageurl=="+imageurl);
                         sliderNavBean.setTitle(title);
                         sliderNavBean.setHrefUrl(hrefurl);
                         sliderNavBean.setImageUrl(imageurl);

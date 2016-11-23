@@ -72,7 +72,7 @@ public class PinDaoListFragment extends BaseV4ListFragment {
         getListView().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
-                System.out.println("listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
+                Log.i(TAG,"listView item" + view.getId() + ";postion=" + (int) id + " ========onItemSelected ");
 //                for (Fragment fragment : (getActivity()).getSupportFragmentManager().getFragments()) {
 //                    if (fragment instanceof PinDaoFragment) {
 //                        ((PinDaoFragment) fragment).setPindaoName(data.get((int) l).getTypeName());
@@ -166,7 +166,7 @@ public class PinDaoListFragment extends BaseV4ListFragment {
 				{
 				}
 			});
-			Log.i("url", "url = " + href);
+			Log.i(TAG, "url = " + href);
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 			Element masthead = doc.select("ul.side_navi").first();
@@ -185,7 +185,7 @@ public class PinDaoListFragment extends BaseV4ListFragment {
 						Element aElement = liElements.get(i).select("a").first();
 						String typeName = aElement.text();
 						String hrefurl = aElement.attr("href");
-						System.out.print("i===" + i + ";typeName ===" + typeName + ";hrefurl===" + hrefurl);
+						Log.i(TAG,"i===" + i + ";typeName ===" + typeName + ";hrefurl===" + hrefurl);
 						bean.setTypeName(typeName);
 						bean.setHrefurl(hrefurl);
 					} catch (Exception e) {

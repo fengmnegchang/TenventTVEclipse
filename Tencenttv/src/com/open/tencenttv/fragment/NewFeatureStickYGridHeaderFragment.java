@@ -337,7 +337,7 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment implement
                 {
                 }
             });
-            Log.i("url", "url = " + href);
+            Log.i(TAG, "url = " + href);
 
             Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 //            Element masthead = doc.select("site_head_black").first();
@@ -371,13 +371,13 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment implement
                         bean.setItemType(i+1);
                         typetitle = h2Element.text();
                         bean.setTitle(typetitle);
-                        System.out.println("i===" + i + ";typetitle ===" + typetitle);
+                        Log.i(TAG,"i===" + i + ";typetitle ===" + typetitle);
                         bean.setItemTypeName(typetitle);
 
                         Element aElement = mod_hdElement.select("a").first();
                         typeurl = aElement.attr("href");
                         String alt = aElement.text();
-                        System.out.println("i===" + i + ";typeurl ===" + typeurl + ";alt==" + alt);
+                        Log.i(TAG,"i===" + i + ";typeurl ===" + typeurl + ";alt==" + alt);
                         bean.setAlt(alt);
                         bean.setHrefUrl(typeurl);
                         bean.setItemTypeUrl(typeurl);
@@ -443,7 +443,7 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment implement
                                 e.printStackTrace();
                             }
 
-                            System.out.println("i===" + i + ";y===" + y + ";lititle ===" + lititle + ";lihrefurl==" + lihrefurl + ";liimageurl = " + liimageurl + ";lifigure_desc==" + lifigure_desc);
+                            Log.i(TAG,"i===" + i + ";y===" + y + ";lititle ===" + lititle + ";lihrefurl==" + lihrefurl + ";liimageurl = " + liimageurl + ";lifigure_desc==" + lifigure_desc);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -476,7 +476,7 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment implement
                                 Element liimgElement = liitemElements.get(y).select("img").first();
                                 String liimageurl = liimgElement.attr("lz_src");
                                 String lititle = liimgElement.attr("alt");
-                                System.out.println("i===" + i + ";y===" + y + ";lititle ===" + lititle + ";lihrefurl==" + lihrefurl + ";liimageurl = " + liimageurl);
+                                Log.i(TAG,"i===" + i + ";y===" + y + ";lititle ===" + lititle + ";lihrefurl==" + lihrefurl + ";liimageurl = " + liimageurl);
                                 bean.setTitle(lititle);
                                 bean.setHrefUrl(lihrefurl);
                                 bean.setImageUrl(liimageurl);

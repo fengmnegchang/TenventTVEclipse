@@ -1,7 +1,12 @@
 package com.open.tencenttv;
 
+import java.util.Map;
+
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +23,6 @@ import com.open.tencenttv.andenginetask.IProgressListener;
 import com.open.tencenttv.andenginetask.ProgressCallable;
 import com.open.tencenttv.bean.CommonT;
 
-import org.json.JSONObject;
-
-import java.util.Map;
-
-
 /**
  * 
  ***************************************************************************************************************************************************************************** 
@@ -35,15 +35,15 @@ import java.util.Map;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class BaseV4Fragment extends Fragment implements CallEarliest<CommonT>, Callback<CommonT>, Callable<CommonT>, ProgressCallable<CommonT> ,
-Response.Listener<JSONObject>,Response.ErrorListener{
+public class BaseV4Fragment extends Fragment implements CallEarliest<CommonT>, Callback<CommonT>, Callable<CommonT>, ProgressCallable<CommonT>, Response.Listener<JSONObject>, Response.ErrorListener {
 	public static final String TAG = BaseV4Fragment.class.getSimpleName();
-	public static final String KEY_CONTENT = BaseV4Fragment.class.getSimpleName()+":Content";
+	public static final String KEY_CONTENT = BaseV4Fragment.class.getSimpleName() + ":Content";
 	public String mContent = "";
 	public MainUpView mainUpView1;
 	public LayoutInflater mInflater;
 	public View mOldView;
 	public EffectNoDrawBridge mRecyclerViewBridge;
+	public WeakReferenceHandler weakReferenceHandler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ Response.Listener<JSONObject>,Response.ErrorListener{
 		if ((savedInstanceState != null) && savedInstanceState.containsKey(KEY_CONTENT)) {
 			mContent = savedInstanceState.getString(KEY_CONTENT);
 		}
+		// weakReferenceHandler = new WeakReferenceHandler(this,this);
 	}
 
 	@Override
@@ -72,7 +73,6 @@ Response.Listener<JSONObject>,Response.ErrorListener{
 	}
 
 	protected void initUI(final boolean isVisibleToUser) {
-
 	}
 
 	/**
@@ -109,7 +109,7 @@ Response.Listener<JSONObject>,Response.ErrorListener{
 	 *            运行于主线程,最后执行此方法.
 	 */
 	public <T> void doProgressAsync(final Context pContext, final int styleID, final String pTitleResID, final String pMessageResID, final CallEarliest<T> pCallEarliest,
-									final ProgressCallable<T> pCallable, final Callback<T> pCallback) {
+			final ProgressCallable<T> pCallable, final Callback<T> pCallback) {
 
 		AsyncTaskUtils.doProgressAsync(pContext, styleID, pTitleResID, pMessageResID, pCallEarliest, pCallable, pCallback);
 	}
@@ -185,22 +185,28 @@ Response.Listener<JSONObject>,Response.ErrorListener{
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.android.volley.Response.Listener#onResponse(java.lang.Object)
 	 */
 	@Override
 	public void onResponse(JSONObject response) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see com.android.volley.Response.ErrorListener#onErrorResponse(com.android.volley.VolleyError)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.android.volley.Response.ErrorListener#onErrorResponse(com.android
+	 * .volley.VolleyError)
 	 */
 	@Override
 	public void onErrorResponse(VolleyError error) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public String makeURL(String p_url, Map<String, Object> params) {
@@ -219,5 +225,14 @@ Response.Listener<JSONObject>,Response.ErrorListener{
 		return url.toString().replace("?&", "?");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.open.tencenttv.interfaces.WeakReferenceHandlerMessage#
+	 * referenceHandlerMessage(android.os.Message)
+	 */
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
+	}
 
 }

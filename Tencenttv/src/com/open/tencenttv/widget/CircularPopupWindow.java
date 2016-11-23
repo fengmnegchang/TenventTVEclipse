@@ -3,6 +3,7 @@ package com.open.tencenttv.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -26,7 +27,7 @@ import com.open.tencenttv.bean.CircularBean;
  * @description: ****************************************************************************************************************************************************************************
  */
 public class CircularPopupWindow extends PopupWindow {
-
+    public static final String TAG = CircularPopupWindow.class.getSimpleName();
     View conentView;
     CircularBean circularBean;
 
@@ -69,13 +70,13 @@ public class CircularPopupWindow extends PopupWindow {
             @Override
             public void onItemPreSelected(View itemView, int position) {
                 mRecyclerViewBridge.setUnFocusView(itemView);
-                System.out.println("item ========onItemPreSelected "+position);
+                Log.i(TAG,"item ========onItemPreSelected "+position);
             }
 
             @Override
             public void onItemSelected(View itemView, int position) {
                 mRecyclerViewBridge.setFocusView(itemView, 2f);
-                System.out.println("item  ========onItemSelected "+position);
+                Log.i(TAG,"item  ========onItemSelected "+position);
             }
 
             @Override

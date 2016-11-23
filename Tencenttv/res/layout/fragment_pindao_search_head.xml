@@ -4,4 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/darkgray" >
 
+    <com.jayfang.dropdownmenu.DropDownMenu
+        android:id="@+id/dropmenu"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+         />
+
 </RelativeLayout>

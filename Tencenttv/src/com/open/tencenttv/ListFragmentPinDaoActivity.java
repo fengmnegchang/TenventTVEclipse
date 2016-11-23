@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 
 import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
-import com.open.tencenttv.fragment.PinDaoFragment;
 import com.open.tencenttv.fragment.PinDaoListFragment;
 import com.open.tencenttv.fragment.PinDaoTabHorizontalViewPagerFragment;
 import com.open.tencenttv.utils.UrlUtils;
@@ -25,7 +24,7 @@ import com.open.tencenttv.utils.UrlUtils;
  */
 public class ListFragmentPinDaoActivity extends CommonFragmentActivity {
     private FrameLayout frame_listview, frame_pindao;
-
+ 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
