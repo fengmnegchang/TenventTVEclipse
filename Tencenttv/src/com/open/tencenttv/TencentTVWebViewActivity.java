@@ -11,6 +11,10 @@
  */
 package com.open.tencenttv;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +23,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -75,7 +80,7 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 	 * webview 请求设置Cookies
 	 */
 	public static String getWebCookies() {
-		String cookie = "3g_guest_id=-9045538589999304704; cuid=5032023480; sd_userid=27201462782213238; sd_cookie_crttime=1462782213238; eas_sid=y1i4W655K8T8X9U3N3p7C7U2x7; pac_uid=1_624926379; qq_slist_autoplay=on; tvfe_boss_uuid=e776aacde64effb9; h_uid=H01560819fdc; ptui_loginuin=624926379; ptcz=c307e47376dee800ee4a82794866f608297b218323a8b12fd611bbd8f75f86b6; pt2gguin=o0624926379; ts_refer=www.baidu.com/link; uin=o0624926379; ptisp=ctc; pgv_pvi=8756206592; pgv_si=s2719842304; prev_jump_ref=; ptag=|new_vs_feature:item; qv_als=J8ihIymtqPQwXWWQA11479892935EUO+AQ==; o_cookie=624926379; pgv_info=ssid=s3692141235; ts_last=v.qq.com/x/cover/osvebw149jrl7rg/o03489y3te0.html; pgv_pvid=6914624368; ts_uid=3813777356; ad_play_index=123";
+		String cookie = "3g_guest_id=-9045538589999304704; cuid=5032023480; sd_userid=27201462782213238; sd_cookie_crttime=1462782213238; eas_sid=y1i4W655K8T8X9U3N3p7C7U2x7; pac_uid=1_624926379; qq_slist_autoplay=on; tvfe_boss_uuid=e776aacde64effb9; h_uid=H01560819fdc; ptui_loginuin=624926379; ptcz=c307e47376dee800ee4a82794866f608297b218323a8b12fd611bbd8f75f86b6; pt2gguin=o0624926379; ts_refer=www.baidu.com/link; uin=o0624926379; ptisp=ctc; pgv_pvi=8756206592; pgv_si=s2719842304; prev_jump_ref=; ptag=; mobileUV=1_158907f70d3_bbd13; qv_als=mUOlXDvo6zEK6/2gA114798947130OS1Nw==; ad_play_index=128; pgv_info=ssid=s3692141235; ts_last=v.qq.com/; pgv_pvid=6914624368; o_cookie=624926379; ts_uid=3813777356";
 		return cookie;
 	}
 
@@ -111,6 +116,16 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		webSettings.setBuiltInZoomControls(true);
 		// 扩大比例的缩放
 		webSettings.setUseWideViewPort(true);
+		//header("Content-Security-Policy: upgrade-insecure-requests");
+		 Map<String,String> header = new HashMap<String, String>();
+//		 header.put("Content-Security-Policy", "upgrade-insecure-requests");
+		 Date date = new Date();
+		 header.put("If-Modified-Since", date.toGMTString());
+		 header.put("Upgrade-Insecure-Requests","1");
+		 header.put("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+		 header.put("Accept-Encoding","gzip, deflate, sdch");
+		 header.put("Accept-Language","zh-CN,zh;q=0.8");
+		    
 		// 自适应屏幕
 		if (Build.VERSION.SDK_INT >= 21) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW );
@@ -119,10 +134,10 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		webSettings.setLoadWithOverviewMode(true);
 		webview.setWebViewClient(mWebViewClientBase);
 		webview.setWebChromeClient(mWebChromeClientBase);
-		webSettings.setUserAgentString(UrlUtils.tencentAgent);
+//		webSettings.setUserAgentString(UrlUtils.tencentAgent);
 		
 		synCookies(TencentTVWebViewActivity.this,url);
-		webview.loadUrl(url);
+		webview.loadUrl(url,header);
 
 	}
 
