@@ -53,11 +53,6 @@
         <activity
             android:name="com.open.tencenttv.TencentTVMainActivity"
             android:launchMode="singleTask" >
-             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.open.tencenttv.TVMainActivity"
@@ -110,6 +105,14 @@
         </activity>
          <!-- webview播放视频 -->
         <activity android:name="com.open.tencenttv.TencentTVWebViewActivity" >
+        </activity>
+        <!-- 按明星分类 -->
+        <activity android:name="com.open.tencenttv.StarTabHostViewPagerActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

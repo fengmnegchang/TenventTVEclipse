@@ -25,7 +25,8 @@ public class UrlUtils {
     public static final String TENCENT_RANK_ALL_URL = "http://v.qq.com/rank/";
     /**视频检索*/
     public static final String TENCENT_X_MOVIE_LIST= "http://v.qq.com/x/movielist/?cate=10001&offset=0&sort=4";
-
+    /**按明星分类*/
+    public static final String TENCENT_STAR= "http://v.qq.com/x/star/77904";
     /**浏览器代理**/
     public static final String userAgent ="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31";
     
