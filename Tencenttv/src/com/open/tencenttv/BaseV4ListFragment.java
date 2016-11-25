@@ -28,7 +28,6 @@ import com.open.tencenttv.andenginetask.Callable;
 import com.open.tencenttv.andenginetask.Callback;
 import com.open.tencenttv.andenginetask.IProgressListener;
 import com.open.tencenttv.andenginetask.ProgressCallable;
-import com.open.tencenttv.bean.CommonT;
 
 
 /**
@@ -43,7 +42,7 @@ import com.open.tencenttv.bean.CommonT;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class BaseV4ListFragment extends ListFragment implements CallEarliest<CommonT>, Callback<CommonT>, Callable<CommonT>, ProgressCallable<CommonT> ,
+public class BaseV4ListFragment<T> extends ListFragment implements CallEarliest<T>, Callback<T>, Callable<T>, ProgressCallable<T> ,
 Response.Listener<JSONObject>,Response.ErrorListener{
 	public static final String TAG = BaseV4ListFragment.class.getSimpleName();
 	public static final String KEY_CONTENT = BaseV4ListFragment.class.getSimpleName()+":Content";
@@ -155,7 +154,7 @@ Response.Listener<JSONObject>,Response.ErrorListener{
 	 * .IProgressListener)
 	 */
 	@Override
-	public CommonT call(IProgressListener pProgressListener) throws Exception {
+	public T call(IProgressListener pProgressListener) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -166,7 +165,7 @@ Response.Listener<JSONObject>,Response.ErrorListener{
 	 * @see com.example.andenginetask.Callable#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
+	public T call() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -177,7 +176,7 @@ Response.Listener<JSONObject>,Response.ErrorListener{
 	 * @see com.example.andenginetask.Callback#onCallback(java.lang.Object)
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(T result) {
 		// TODO Auto-generated method stub
 
 	}

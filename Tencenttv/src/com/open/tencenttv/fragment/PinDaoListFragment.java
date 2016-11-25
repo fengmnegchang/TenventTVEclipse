@@ -26,8 +26,8 @@ import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4ListFragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.adapter.PinDaoAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.PinDaoBean;
+import com.open.tencenttv.json.PinDaoBeanJson;
 import com.open.tencenttv.utils.UrlUtils;
 
 /**
@@ -41,7 +41,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @modifyAuthor:
  * @description: ****************************************************************************************************************************************************************************
  */
-public class PinDaoListFragment extends BaseV4ListFragment {
+public class PinDaoListFragment extends BaseV4ListFragment<PinDaoBeanJson> {
     private List<PinDaoBean> data = new ArrayList<PinDaoBean>();
     private PinDaoAdapter mPinDaoAdapter;
     public static PinDaoListFragment newInstance(MainUpView mainUpView1,EffectNoDrawBridge mRecyclerViewBridge, View mOldView){
@@ -107,11 +107,11 @@ public class PinDaoListFragment extends BaseV4ListFragment {
 	 * @see com.open.tencenttv.BaseV4ListFragment#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
+	public PinDaoBeanJson call() throws Exception {
 		// TODO Auto-generated method stub
-		CommonT mCommonT = new CommonT();
+		PinDaoBeanJson mCommonT = new PinDaoBeanJson();
 		List<PinDaoBean> list = parseSidenavi(UrlUtils.TENCENT_X_MOVIE_LIST);
-		mCommonT.setSidenavilist(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
@@ -121,11 +121,11 @@ public class PinDaoListFragment extends BaseV4ListFragment {
 	 * @see com.open.tencenttv.BaseV4ListFragment#onCallback(com.open.tencenttv.bean.CommonT)
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(PinDaoBeanJson result) {
 		// TODO Auto-generated method stub
 		super.onCallback(result);
 		data.clear();
-		data.addAll(result.getSidenavilist());
+		data.addAll(result.getList());
 		mPinDaoAdapter.notifyDataSetChanged();
 		// 延时请求其它位置的item.
         Handler handler = new Handler() {

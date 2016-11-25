@@ -1,5 +1,14 @@
 package com.open.tencenttv.fragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.animation.Animator;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,20 +31,11 @@ import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.adapter.MediumPagerAdapter;
 import com.open.tencenttv.adapter.PinDaoAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.PinDaoBean;
 import com.open.tencenttv.bean.SliderNavBean;
+import com.open.tencenttv.json.SliderNavJson;
 import com.open.tencenttv.utils.UrlUtils;
 import com.open.verticalviewpager.DirectionalViewPager;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -47,7 +47,7 @@ import java.util.List;
  * @modifyAuthor:
  * @description: ****************************************************************************************************************************************************************************
  */
-public class MediumDirectionViewPagerFragment extends BaseV4Fragment {
+public class MediumDirectionViewPagerFragment extends BaseV4Fragment<SliderNavJson> {
 	private  MediumPagerAdapter mMediumPagerAdapter;
     private List<SliderNavBean> sliderNavList = new ArrayList<SliderNavBean>();
 
@@ -223,8 +223,8 @@ public class MediumDirectionViewPagerFragment extends BaseV4Fragment {
     }
 
     @Override
-    public CommonT call() throws Exception {
-        CommonT mCommonT = new CommonT();
+    public SliderNavJson call() throws Exception {
+    	SliderNavJson mCommonT = new SliderNavJson();
         ArrayList<SliderNavBean> list = new ArrayList<SliderNavBean>();//导航大图
         try {
             // 解析网络标签
@@ -232,21 +232,21 @@ public class MediumDirectionViewPagerFragment extends BaseV4Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mCommonT.setSliderNavlist(list);
+        mCommonT.setList(list);
         return mCommonT;
     }
 
     @Override
-    public void onCallback(CommonT result) {
+    public void onCallback(SliderNavJson result) {
         super.onCallback(result);
         sliderNavList.clear();
-        sliderNavList.addAll(result.getSliderNavlist());
+        sliderNavList.addAll(result.getList());
 
         pinDaolist.clear();
-        for(int i=0;i<result.getSliderNavlist().size();i++){
+        for(int i=0;i<result.getList().size();i++){
             PinDaoBean bean = new PinDaoBean();
             bean.setType(i);
-            bean.setTypeName(result.getSliderNavlist().get(i).getTitle());
+            bean.setTypeName(result.getList().get(i).getTitle());
             pinDaolist.add(bean);
         }
         mMediumPagerAdapter.notifyDataSetChanged();

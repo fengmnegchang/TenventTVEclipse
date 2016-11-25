@@ -33,8 +33,8 @@ import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.VedioPreViewActivity;
 import com.open.tencenttv.adapter.PinDaoFragmentAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.PinDaoBean;
+import com.open.tencenttv.json.PinDaoBeanJson;
 import com.open.tencenttv.utils.UrlUtils;
 import com.open.tencenttv.widget.HeaderGridView;
 import com.open.tencenttv.widget.scroll.ObservableScrollView;
@@ -55,7 +55,7 @@ import com.open.tencenttv.widget.scroll.ScrollViewListener;
  *               ***************************************************************
  *               *********************************************
  */
-public class PinDaoFragment extends BaseV4Fragment {
+public class PinDaoFragment extends BaseV4Fragment<PinDaoBeanJson> {
 	public static final String TAG = PinDaoFragment.class.getSimpleName();
 	private String pindaoName;
 	TextView text_pindao_name;
@@ -197,11 +197,11 @@ public class PinDaoFragment extends BaseV4Fragment {
 	 * @see com.open.tencenttv.BaseV4Fragment#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
+	public PinDaoBeanJson call() throws Exception {
 		// TODO Auto-generated method stub
-		CommonT mCommonT = new CommonT();
+		PinDaoBeanJson mCommonT = new PinDaoBeanJson();
 		List<PinDaoBean> list = parseXlist(url);
-		mCommonT.setXlist(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
@@ -213,16 +213,16 @@ public class PinDaoFragment extends BaseV4Fragment {
 	 * CommonT)
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(PinDaoBeanJson result) {
 		// TODO Auto-generated method stub
 		super.onCallback(result);
 		if (offset == 0) {
 			xlist.clear();
-			xlist.addAll(result.getXlist());
+			xlist.addAll(result.getList());
 			mAdapter.notifyDataSetChanged();
 			mFirstHandler.sendMessageDelayed(mFirstHandler.obtainMessage(), 188);
 		} else {
-			xlist.addAll(result.getXlist());
+			xlist.addAll(result.getList());
 			mAdapter.notifyDataSetChanged();
 		}
 	}

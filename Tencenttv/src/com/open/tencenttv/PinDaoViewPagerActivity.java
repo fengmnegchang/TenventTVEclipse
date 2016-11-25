@@ -1,5 +1,14 @@
 package com.open.tencenttv;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,27 +23,18 @@ import com.open.androidtvwidget.view.ListViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.adapter.MediumPagerAdapter;
 import com.open.tencenttv.adapter.PinDaoAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.PinDaoBean;
 import com.open.tencenttv.bean.SliderNavBean;
+import com.open.tencenttv.json.SliderNavJson;
 import com.open.tencenttv.utils.UrlUtils;
 import com.open.verticalviewpager.DirectionalViewPager;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 /**
  * ViewPager demo：
  * 注意标题栏和viewpager的焦点控制.(在XML布局中控制了, ids)
  * 移动边框的问题也需要注意.
  * @author hailongqiu
  */
-public class PinDaoViewPagerActivity extends CommonFragmentActivity {
+public class PinDaoViewPagerActivity extends CommonFragmentActivity<SliderNavJson> {
     MediumPagerAdapter mMediumPagerAdapter;
     private List<SliderNavBean> sliderNavList = new ArrayList<SliderNavBean>();
 
@@ -75,8 +75,8 @@ public class PinDaoViewPagerActivity extends CommonFragmentActivity {
     }
 
     @Override
-    public CommonT call() throws Exception {
-        CommonT mCommonT = new CommonT();
+    public SliderNavJson call() throws Exception {
+    	SliderNavJson mCommonT = new SliderNavJson();
         ArrayList<SliderNavBean> list = new ArrayList<SliderNavBean>();//导航大图
         try {
             // 解析网络标签
@@ -84,21 +84,21 @@ public class PinDaoViewPagerActivity extends CommonFragmentActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mCommonT.setSliderNavlist(list);
+        mCommonT.setList(list);
         return mCommonT;
     }
 
     @Override
-    public void onCallback(CommonT result) {
+    public void onCallback(SliderNavJson result) {
         super.onCallback(result);
         sliderNavList.clear();
-        sliderNavList.addAll(result.getSliderNavlist());
+        sliderNavList.addAll(result.getList());
 
         pinDaolist.clear();
-        for(int i=0;i<result.getSliderNavlist().size();i++){
+        for(int i=0;i<result.getList().size();i++){
             PinDaoBean bean = new PinDaoBean();
             bean.setType(i);
-            bean.setTypeName(result.getSliderNavlist().get(i).getTitle());
+            bean.setTypeName(result.getList().get(i).getTitle());
             pinDaolist.add(bean);
         }
      // 初始化viewpager.

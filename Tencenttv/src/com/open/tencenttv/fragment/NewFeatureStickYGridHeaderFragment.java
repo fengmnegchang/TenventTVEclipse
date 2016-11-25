@@ -16,6 +16,14 @@
 
 package com.open.tencenttv.fragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -36,26 +44,15 @@ import android.widget.Toast;
 import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
-import com.open.tencenttv.MediumRecyclerviewLeanBackActivity;
 import com.open.tencenttv.R;
-import com.open.tencenttv.TencentTVMainActivity;
 import com.open.tencenttv.TencentTVWebViewActivity;
-import com.open.tencenttv.VedioPreViewActivity;
 import com.open.tencenttv.adapter.StickGridHeadersNewFeatureAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.NewFeatureBean;
+import com.open.tencenttv.json.NewFeatureJson;
 import com.open.tencenttv.utils.UrlUtils;
 import com.tonicartos.widget.stickygridheaders.StickyGridHeadersGridView;
 import com.tonicartos.widget.stickygridheaders.StickyGridHeadersGridView.OnHeaderClickListener;
 import com.tonicartos.widget.stickygridheaders.StickyGridHeadersGridView.OnHeaderLongClickListener;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * A list fragment representing a list of Items. This fragment also supports
@@ -67,7 +64,7 @@ import java.util.HashMap;
  * 
  * @author Tonic Artos
  */
-public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment implements AdapterView.OnItemClickListener, OnHeaderClickListener, OnHeaderLongClickListener {
+public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment<NewFeatureJson> implements AdapterView.OnItemClickListener, OnHeaderClickListener, OnHeaderLongClickListener {
 	private static final String KEY_LIST_POSITION = "key_list_position";
 
 	/**
@@ -263,10 +260,10 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment implement
 	 * @see com.example.newsinfo.BaseV4Fragment#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
+	public NewFeatureJson call() throws Exception {
 		// TODO Auto-generated method stub
 		// Simulates a background job.
-		CommonT mCommonT = new CommonT();
+		NewFeatureJson mCommonT = new NewFeatureJson();
 		ArrayList<NewFeatureBean> list = new ArrayList<NewFeatureBean>();
 		try {
 			// 解析网络标签
@@ -274,7 +271,7 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment implement
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mCommonT.setNewfeaturelist(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
@@ -286,11 +283,11 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment implement
 	 * .NewsBean[])
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(NewFeatureJson result) {
 		// TODO Auto-generated method stub
 		super.onCallback(result);
 		newfeaturelist.clear();
-		newfeaturelist.addAll(result.getNewfeaturelist());
+		newfeaturelist.addAll(result.getList());
 		mStickGridHeadersNewFeatureAdapter = new StickGridHeadersNewFeatureAdapter(getActivity().getApplicationContext(), newfeaturelist, R.layout.item_new_feature_stick_header,
 				R.layout.item_new_feature_stick_grid);
 		mGridView.setAdapter(mStickGridHeadersNewFeatureAdapter);

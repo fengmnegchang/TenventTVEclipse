@@ -1,5 +1,14 @@
 package com.open.tencenttv.fragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -15,18 +24,9 @@ import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4ListFragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.adapter.RankAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.RankBean;
+import com.open.tencenttv.json.RankJson;
 import com.open.tencenttv.utils.UrlUtils;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -39,7 +39,7 @@ import java.util.List;
  * @modifyAuthor:
  * @description: ****************************************************************************************************************************************************************************
  */
-public class RankListFragment extends BaseV4ListFragment {
+public class RankListFragment extends BaseV4ListFragment<RankJson> {
     private List<RankBean> data = new ArrayList<RankBean>();
     private RankAdapter mRankAdapter;
 
@@ -92,18 +92,18 @@ public class RankListFragment extends BaseV4ListFragment {
     }
 
     @Override
-    public CommonT call() throws Exception {
-        CommonT mCommonT = new CommonT();
+    public RankJson call() throws Exception {
+    	RankJson mCommonT = new RankJson();
         List<RankBean> list = parseRankList(UrlUtils.TENCENT_RANK_URL);
-        mCommonT.setRanklist(list);
+        mCommonT.setList(list);
         return mCommonT;
     }
 
     @Override
-    public void onCallback(CommonT result) {
+    public void onCallback(RankJson result) {
         super.onCallback(result);
         data.clear();
-        data.addAll(result.getRanklist());
+        data.addAll(result.getList());
         mRankAdapter.notifyDataSetChanged();
 //        // 延时请求其它位置的item.
 //        Handler handler = new Handler() {

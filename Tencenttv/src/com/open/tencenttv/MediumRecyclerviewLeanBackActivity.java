@@ -32,9 +32,9 @@ import com.open.androidtvwidget.leanback.mode.OpenPresenter;
 import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.utils.OPENLOG;
 import com.open.androidtvwidget.view.MainUpView;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.NavPopPinDaoBean;
 import com.open.tencenttv.fragment.MediumDirectionViewPagerFragment;
+import com.open.tencenttv.json.ListRowJson;
 import com.open.tencenttv.mode.MediumListPresenter;
 import com.open.tencenttv.mode.Movie;
 import com.open.tencenttv.mode.TestMoviceListPresenter;
@@ -50,7 +50,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @modifyAuthor:
  * @description: ****************************************************************************************************************************************************************************
  */
-public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity implements RecyclerViewTV.OnItemListener {
+public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity<ListRowJson> implements RecyclerViewTV.OnItemListener {
     private Context mContext;
     private RecyclerViewTV mRecyclerView;
     private RecyclerViewBridge mRecyclerViewBridge;
@@ -152,8 +152,8 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
     };
 
     @Override
-    public CommonT call() throws Exception {
-        CommonT mCommonT = new CommonT();
+    public ListRowJson call() throws Exception {
+    	ListRowJson mCommonT = new ListRowJson();
         ArrayList<ListRow> list = new ArrayList<ListRow>();
         try {
             // 解析网络标签
@@ -161,15 +161,15 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity i
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mCommonT.setMediumlist(list);
+        mCommonT.setList(list);
         return mCommonT;
     }
 
     @Override
-    public void onCallback(CommonT result) {
+    public void onCallback(ListRowJson result) {
         super.onCallback(result);
         mListRows.clear();
-        mListRows.addAll(result.getMediumlist());
+        mListRows.addAll(result.getList());
         mRecyclerView.getAdapter().notifyDataSetChanged();
         // 行选中的事件.
 //        mRecyclerView.setOnChildViewHolderSelectedListener(mRowSelectedListener);

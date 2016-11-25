@@ -1,5 +1,14 @@
 package com.open.tencenttv.fragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.animation.Animator;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -25,18 +34,9 @@ import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.adapter.OpenTabTitleAdapter;
 import com.open.tencenttv.adapter.RankPagerAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.RankBean;
+import com.open.tencenttv.json.RankJson;
 import com.open.tencenttv.utils.UrlUtils;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * *****************************************************************************
@@ -53,7 +53,7 @@ import java.util.List;
  *               ***************************************************************
  *               *********************************************
  */
-public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
+public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment<RankJson>
 		implements OpenTabHost.OnTabSelectListener {
 	ViewPager viewpager;
 	// 移动边框.
@@ -144,8 +144,8 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
 	}
 
 	@Override
-	public CommonT call() throws Exception {
-		CommonT mCommonT = new CommonT();
+	public RankJson call() throws Exception {
+		RankJson mCommonT = new RankJson();
 		ArrayList<RankBean> list = new ArrayList<RankBean>();
 		try {
 			// 解析网络标签
@@ -159,19 +159,19 @@ public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mCommonT.setTitlerankList(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(RankJson result) {
 		super.onCallback(result);
 		titlerankList.clear();
-		titlerankList.addAll(result.getTitlerankList());
+		titlerankList.addAll(result.getList());
 		// 初始化标题栏.
 		titleList.clear();
 		listRankFragment.clear();
-		for (RankBean bean : result.getTitlerankList()) {
+		for (RankBean bean : result.getList()) {
 			titleList.add(bean.getRankName());
 			RankTabHorizontalViewPagerFragment fragment;
 			if (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL)

@@ -1,5 +1,14 @@
 package com.open.tencenttv.fragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,18 +22,9 @@ import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.adapter.RankFragmentAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.RankBean;
+import com.open.tencenttv.json.RankJson;
 import com.open.tencenttv.utils.UrlUtils;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * *****************************************************************************
@@ -41,7 +41,7 @@ import java.util.List;
  *               ***************************************************************
  *               *********************************************
  */
-public class RankAllFragment extends BaseV4Fragment {
+public class RankAllFragment extends BaseV4Fragment<RankJson> {
 	private String rankname;
 	private List<RankBean> data = new ArrayList<RankBean>();
 	private ListViewTV mListViewTV;
@@ -75,18 +75,18 @@ public class RankAllFragment extends BaseV4Fragment {
 	}
 
 	@Override
-	public CommonT call() throws Exception {
-		CommonT mCommonT = new CommonT();
+	public RankJson call() throws Exception {
+		RankJson mCommonT = new RankJson();
 		List<RankBean> list = parseRankList(UrlUtils.TENCENT_RANK_ALL_URL);
-		mCommonT.setPlaylist(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(RankJson result) {
 		super.onCallback(result);
 		data.clear();
-		data.addAll(result.getPlaylist());
+		data.addAll(result.getList());
 		mAdapter.notifyDataSetChanged();
 		// // 延时请求其它位置的item.
 		// Handler handler = new Handler() {

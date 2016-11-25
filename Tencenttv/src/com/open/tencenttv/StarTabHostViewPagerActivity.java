@@ -31,16 +31,16 @@ import com.open.androidtvwidget.view.OpenTabHost.OnTabSelectListener;
 import com.open.androidtvwidget.view.TextViewWithTTF;
 import com.open.tencenttv.adapter.OpenTabPagerAdapter;
 import com.open.tencenttv.adapter.RankPagerAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.SliderNavBean;
 import com.open.tencenttv.fragment.RankV4Fragment;
 import com.open.tencenttv.fragment.StarHeadFragment;
+import com.open.tencenttv.json.SliderNavJson;
 import com.open.tencenttv.utils.UrlUtils;
 
 /**
  * 按明星分类
  */
-public class StarTabHostViewPagerActivity extends CommonFragmentActivity implements OnTabSelectListener {
+public class StarTabHostViewPagerActivity extends CommonFragmentActivity<SliderNavJson> implements OnTabSelectListener {
 	ArrayList<SliderNavBean> list = new ArrayList<SliderNavBean>();
 	// private List<View> viewList = new ArrayList<View>();// 将要分页显示的View装入数组中
 	ViewPager viewpager;
@@ -88,8 +88,8 @@ public class StarTabHostViewPagerActivity extends CommonFragmentActivity impleme
 	}
 
 	@Override
-	public CommonT call() throws Exception {
-		CommonT mCommonT = new CommonT();
+	public SliderNavJson call() throws Exception {
+		SliderNavJson mCommonT = new SliderNavJson();
 		ArrayList<SliderNavBean> list = new ArrayList<SliderNavBean>();// 导航大图
 		try {
 			// 解析网络标签
@@ -97,19 +97,19 @@ public class StarTabHostViewPagerActivity extends CommonFragmentActivity impleme
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mCommonT.setSliderNavlist(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(SliderNavJson result) {
 		super.onCallback(result);
 		// 初始化viewpager.
 		// LayoutInflater inflater = getLayoutInflater();
 		list.clear();
-		list.addAll(result.getSliderNavlist());
+		list.addAll(result.getList());
 		titleList.clear();
-		for (SliderNavBean sliderNavBean : result.getSliderNavlist()) {
+		for (SliderNavBean sliderNavBean : result.getList()) {
 			// View view = inflater.inflate(R.layout.item_medium_pager, null);
 			// ImageView imageView = (ImageView)
 			// view.findViewById(R.id.imageview);

@@ -37,8 +37,8 @@ import com.open.tencenttv.R;
 import com.open.tencenttv.WeakReferenceHandler;
 import com.open.tencenttv.adapter.OpenTabTitleAdapter;
 import com.open.tencenttv.adapter.RankPagerAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.RankBean;
+import com.open.tencenttv.json.RankJson;
 import com.open.tencenttv.utils.UrlUtils;
 
 /**
@@ -56,7 +56,7 @@ import com.open.tencenttv.utils.UrlUtils;
  *               ***************************************************************
  *               *********************************************
  */
-public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment implements OpenTabHost.OnTabSelectListener {
+public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJson> implements OpenTabHost.OnTabSelectListener {
 	public static final String TAG = PinDaoTabHorizontalViewPagerFragment.class.getSimpleName();
 	ViewPager viewpager;
 	// 移动边框.
@@ -162,8 +162,8 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 	}
 
 	@Override
-	public CommonT call() throws Exception {
-		CommonT mCommonT = new CommonT();
+	public RankJson call() throws Exception {
+		RankJson mCommonT = new RankJson();
 		ArrayList<RankBean> list = new ArrayList<RankBean>();
 		try {
 			list = parseTitleRank(url);
@@ -171,22 +171,22 @@ public class PinDaoTabHorizontalViewPagerFragment extends BaseV4Fragment impleme
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mCommonT.setTitlerankList(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(RankJson result) {
 		super.onCallback(result);
 		titlerankList.clear();
-		titlerankList.addAll(result.getTitlerankList());
+		titlerankList.addAll(result.getList());
 		// 初始化标题栏.
 		titleList.clear();
 		listRankFragment.clear();
 		String url0 = this.url.split("/\\?")[0];
 		String url1 = this.url.split("/\\?")[1];
-		for (int i=0;i<result.getTitlerankList().size();i++) {
-			RankBean bean = result.getTitlerankList().get(i);
+		for (int i=0;i<result.getList().size();i++) {
+			RankBean bean = result.getList().get(i);
 			titleList.add(bean.getRankName());
 			if("最近热播".equals(bean.getRankName())){
 				position = i;

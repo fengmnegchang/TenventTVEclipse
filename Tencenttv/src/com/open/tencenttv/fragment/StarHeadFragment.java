@@ -39,10 +39,10 @@ import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.adapter.StarHeadGridViewAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.StarBean;
 import com.open.tencenttv.bean.StarInfo;
 import com.open.tencenttv.bean.StarRelateBean;
+import com.open.tencenttv.json.StarJson;
 import com.open.tencenttv.utils.UrlUtils;
 import com.open.tencenttv.widget.CircleImageView;
 import com.open.tencenttv.widget.ExpandableTextView;
@@ -59,7 +59,7 @@ import com.open.tencenttv.widget.ExpandableTextView;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class StarHeadFragment extends BaseV4Fragment {
+public class StarHeadFragment extends BaseV4Fragment<StarJson> {
 	private String tencentStar;
 	private ExpandableTextView expand_text_view;
 	private ImageButton expand_collapse;// 折叠textview
@@ -124,11 +124,11 @@ public class StarHeadFragment extends BaseV4Fragment {
 	 * @see com.open.tencenttv.BaseV4Fragment#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
+	public StarJson call() throws Exception {
 		// TODO Auto-generated method stub
-		CommonT mCommonT = new CommonT();
+		StarJson mCommonT = new StarJson();
 		StarBean starbean = parseStar(UrlUtils.TENCENT_STAR);
-		mCommonT.setStarBean(starbean);
+		mCommonT.setStarbean(starbean);
 		return mCommonT;
 	}
 
@@ -140,9 +140,9 @@ public class StarHeadFragment extends BaseV4Fragment {
 	 * CommonT)
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(StarJson result) {
 		super.onCallback(result);
-		StarBean starbean = result.getStarBean();
+		StarBean starbean = result.getStarbean();
 		StringBuilder builder = new StringBuilder();
 		for(StarInfo info : starbean.getStarInfo_list()){
 			builder.append(info.getListLeft()+":").append(info.getListRight()+"\n");

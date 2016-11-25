@@ -29,7 +29,6 @@ import com.open.tencenttv.andenginetask.Callable;
 import com.open.tencenttv.andenginetask.Callback;
 import com.open.tencenttv.andenginetask.IProgressListener;
 import com.open.tencenttv.andenginetask.ProgressCallable;
-import com.open.tencenttv.bean.CommonT;
 
 /**
  * 
@@ -43,7 +42,7 @@ import com.open.tencenttv.bean.CommonT;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class BaseV4Fragment extends Fragment implements CallEarliest<CommonT>, Callback<CommonT>, Callable<CommonT>, ProgressCallable<CommonT>, Response.Listener<JSONObject>, Response.ErrorListener {
+public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Callback<T>, Callable<T>, ProgressCallable<T>, Response.Listener<JSONObject>, Response.ErrorListener {
 	public static final String TAG = BaseV4Fragment.class.getSimpleName();
 	public static final String KEY_CONTENT = BaseV4Fragment.class.getSimpleName() + ":Content";
 	public String mContent = "";
@@ -156,7 +155,7 @@ public class BaseV4Fragment extends Fragment implements CallEarliest<CommonT>, C
 	 * .IProgressListener)
 	 */
 	@Override
-	public CommonT call(IProgressListener pProgressListener) throws Exception {
+	public T call(IProgressListener pProgressListener) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -167,7 +166,7 @@ public class BaseV4Fragment extends Fragment implements CallEarliest<CommonT>, C
 	 * @see com.example.andenginetask.Callable#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
+	public T call() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -178,7 +177,7 @@ public class BaseV4Fragment extends Fragment implements CallEarliest<CommonT>, C
 	 * @see com.example.andenginetask.Callback#onCallback(java.lang.Object)
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(T result) {
 		// TODO Auto-generated method stub
 
 	}

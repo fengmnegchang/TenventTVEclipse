@@ -32,10 +32,10 @@ import com.open.androidtvwidget.view.MainUpView;
 import com.open.androidtvwidget.view.ReflectItemView;
 import com.open.androidtvwidget.view.SmoothHorizontalScrollView;
 import com.open.tencenttv.adapter.RecyclerViewPresenter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.NavPopPinDaoBean;
 import com.open.tencenttv.fragment.LastHistoryStickYGridHeaderFragment;
 import com.open.tencenttv.fragment.NewFeatureStickYGridHeaderFragment;
+import com.open.tencenttv.json.NavPopPinDaoJson;
 import com.open.tencenttv.utils.UrlUtils;
 
 /**
@@ -49,7 +49,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @modifyAuthor:
  * @description: ****************************************************************************************************************************************************************************
  */
-public class TencentTVMainActivity extends CommonFragmentActivity implements RecyclerViewTV.OnItemListener,NewFeatureStickYGridHeaderFragment.Callbacks  {
+public class TencentTVMainActivity extends CommonFragmentActivity<NavPopPinDaoJson> implements RecyclerViewTV.OnItemListener,NewFeatureStickYGridHeaderFragment.Callbacks  {
 //    private List<PersonalCenterBean> data;
 //    private ListViewTV listView;
     /**
@@ -422,9 +422,9 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 //    }
 
     @Override
-	public CommonT call() throws Exception {
+	public NavPopPinDaoJson call() throws Exception {
 		// TODO Auto-generated method stub
-		CommonT mCommonT = new CommonT();
+    	NavPopPinDaoJson mCommonT = new NavPopPinDaoJson();
 		ArrayList<NavPopPinDaoBean> list = new ArrayList<NavPopPinDaoBean>();
 		try {
 			// 解析网络标签
@@ -432,15 +432,15 @@ public class TencentTVMainActivity extends CommonFragmentActivity implements Rec
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mCommonT.setNavpoplist(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(NavPopPinDaoJson result) {
 		// TODO Auto-generated method stub
 		super.onCallback(result);
-        navpoplist.addAll(result.getNavpoplist());
+        navpoplist.addAll(result.getList());
         recyclerViewLinerLayout(LinearLayoutManager.HORIZONTAL);
         mGeneralAdapter.notifyDataSetChanged();
 	}

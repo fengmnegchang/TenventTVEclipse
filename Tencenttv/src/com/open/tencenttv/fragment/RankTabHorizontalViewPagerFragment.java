@@ -1,5 +1,14 @@
 package com.open.tencenttv.fragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.animation.Animator;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -18,7 +27,6 @@ import android.view.ViewTreeObserver;
 import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.bridge.OpenEffectBridge;
 import com.open.androidtvwidget.utils.OPENLOG;
-import com.open.androidtvwidget.utils.Utils;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.androidtvwidget.view.OpenTabHost;
 import com.open.androidtvwidget.view.TextViewWithTTF;
@@ -26,18 +34,9 @@ import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.adapter.OpenTabTitleAdapter;
 import com.open.tencenttv.adapter.RankPagerAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.RankBean;
+import com.open.tencenttv.json.RankJson;
 import com.open.tencenttv.utils.UrlUtils;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * *****************************************************************************
@@ -54,7 +53,7 @@ import java.util.List;
  *               ***************************************************************
  *               *********************************************
  */
-public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
+public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJson>
 		implements OpenTabHost.OnTabSelectListener {
 	ViewPager viewpager;
 	// 移动边框.
@@ -147,8 +146,8 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 	}
 
 	@Override
-	public CommonT call() throws Exception {
-		CommonT mCommonT = new CommonT();
+	public RankJson call() throws Exception {
+		RankJson mCommonT = new RankJson();
 		ArrayList<RankBean> list = new ArrayList<RankBean>();
 		try {
 			// 解析网络标签
@@ -161,22 +160,22 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mCommonT.setTitlerankList(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(RankJson result) {
 		super.onCallback(result);
 		titlerankList.clear();
-		titlerankList.addAll(result.getTitlerankList());
+		titlerankList.addAll(result.getList());
 		// 初始化标题栏.
 		titleList.clear();
 		listRankFragment.clear();
 
 		if (!url.equals(UrlUtils.TENCENT_RANK_ALL_URL)
 				&& !url.equals(UrlUtils.TENCENT_RANK_ALL1_URL)) {
-			for (RankBean bean : result.getTitlerankList()) {
+			for (RankBean bean : result.getList()) {
 				titleList.add(bean.getRankName());
 				RankFragment fragment;
 				if(bean.getRankurl()!=null && bean.getRankurl().length()>0&& bean.getRankurl().contains("http://")){
@@ -197,7 +196,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				start = 0;
 				end = 3;
 				for (int i = start; i <= end; i++) {
-					RankBean bean = result.getTitlerankList().get(i);
+					RankBean bean = result.getList().get(i);
 					titleList.add(bean.getRankName());
 					Log.i(TAG,"i==="+i+";title==="+title+";bean.getRankName()=="+bean.getRankName()+";url=="+url);
 					RankAllFragment fragment = RankAllFragment.newInstance(
@@ -210,7 +209,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				start = 4;
 				end = 7;
 				for (int i = start; i <= end; i++) {
-					RankBean bean = result.getTitlerankList().get(i);
+					RankBean bean = result.getList().get(i);
 					titleList.add(bean.getRankName());
 					Log.i(TAG,"i==="+i+";title==="+title+";bean.getRankName()=="+bean.getRankName()+";url=="+url);
 					RankAllFragment fragment = RankAllFragment.newInstance(
@@ -223,7 +222,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				start = 8;
 				end = 11;
 				for (int i = start; i <= end; i++) {
-					RankBean bean = result.getTitlerankList().get(i);
+					RankBean bean = result.getList().get(i);
 					titleList.add(bean.getRankName());
 					Log.i(TAG,"i==="+i+";title==="+title+";bean.getRankName()=="+bean.getRankName()+";url=="+url);
 					RankAllFragment fragment = RankAllFragment.newInstance(
@@ -236,7 +235,7 @@ public class RankTabHorizontalViewPagerFragment extends BaseV4Fragment
 				start = 12;
 				end = 15;
 				for (int i = start; i <= end; i++) {
-					RankBean bean = result.getTitlerankList().get(i);
+					RankBean bean = result.getList().get(i);
 					titleList.add(bean.getRankName());
 					Log.i(TAG,"i==="+i+";title==="+title+";bean.getRankName()=="+bean.getRankName()+";url=="+url);
 					RankAllFragment fragment = RankAllFragment.newInstance(

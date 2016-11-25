@@ -1,5 +1,14 @@
 package com.open.tencenttv;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -28,19 +37,10 @@ import com.open.androidtvwidget.view.SmoothHorizontalScrollView;
 import com.open.tencenttv.adapter.PersonalCenterAdapter;
 import com.open.tencenttv.adapter.RecyclerViewPresenter;
 import com.open.tencenttv.adapter.RecyclerViewPushPresenter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.NavPopPinDaoBean;
 import com.open.tencenttv.bean.PersonalCenterBean;
+import com.open.tencenttv.json.NavPopPinDaoJson;
 import com.open.tencenttv.utils.UrlUtils;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -53,7 +53,7 @@ import java.util.List;
  * @modifyAuthor:
  * @description: ****************************************************************************************************************************************************************************
  */
-public class TVMainActivity extends CommonFragmentActivity implements RecyclerViewTV.OnItemListener {
+public class TVMainActivity extends CommonFragmentActivity<NavPopPinDaoJson> implements RecyclerViewTV.OnItemListener {
     private List<PersonalCenterBean> data;
     private ListViewTV listView;
     /**
@@ -394,9 +394,9 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
     }
 
     @Override
-	public CommonT call() throws Exception {
+	public NavPopPinDaoJson call() throws Exception {
 		// TODO Auto-generated method stub
-		CommonT mCommonT = new CommonT();
+    	NavPopPinDaoJson mCommonT = new NavPopPinDaoJson();
 		ArrayList<NavPopPinDaoBean> list = new ArrayList<NavPopPinDaoBean>();
 		try {
 			// 解析网络标签
@@ -404,15 +404,15 @@ public class TVMainActivity extends CommonFragmentActivity implements RecyclerVi
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mCommonT.setNavpoplist(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(NavPopPinDaoJson result) {
 		// TODO Auto-generated method stub
 		super.onCallback(result);
-        navpoplist.addAll(result.getNavpoplist());
+        navpoplist.addAll(result.getList());
         recyclerViewLinerLayout(LinearLayoutManager.HORIZONTAL);
         mGeneralAdapter.notifyDataSetChanged();
 	}

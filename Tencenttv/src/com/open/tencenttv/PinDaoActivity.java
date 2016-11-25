@@ -1,5 +1,14 @@
 package com.open.tencenttv;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,21 +25,10 @@ import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.ListViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.adapter.PinDaoAdapter;
-import com.open.tencenttv.bean.CommonT;
 import com.open.tencenttv.bean.PinDaoBean;
-import com.open.tencenttv.bean.RankBean;
-import com.open.tencenttv.fragment.PinDaoFragment;
 import com.open.tencenttv.fragment.PinDaoTabHorizontalViewPagerFragment;
+import com.open.tencenttv.json.PinDaoBeanJson;
 import com.open.tencenttv.utils.UrlUtils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 /**
  * *****************************************************************************
@@ -47,7 +45,7 @@ import org.jsoup.select.Elements;
  *               ***************************************************************
  *               *********************************************
  */
-public class PinDaoActivity extends CommonFragmentActivity {
+public class PinDaoActivity extends CommonFragmentActivity<PinDaoBeanJson> {
 	private ListViewTV listView;
 	private List<PinDaoBean> data = new ArrayList<PinDaoBean>();
 	private List<Fragment> fragments;
@@ -155,10 +153,10 @@ public class PinDaoActivity extends CommonFragmentActivity {
 	 * @see com.open.tencenttv.BaseFragmentActivity#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
-		CommonT mCommonT = new CommonT();
+	public PinDaoBeanJson call() throws Exception {
+		PinDaoBeanJson mCommonT = new PinDaoBeanJson();
 		List<PinDaoBean> list = parseSidenavi(UrlUtils.TENCENT_X_MOVIE_LIST);
-		mCommonT.setSidenavilist(list);
+		mCommonT.setList(list);
 		return mCommonT;
 	}
 
@@ -170,11 +168,11 @@ public class PinDaoActivity extends CommonFragmentActivity {
 	 * .bean.CommonT)
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(PinDaoBeanJson result) {
 		// TODO Auto-generated method stub
 		super.onCallback(result);
 		data.clear();
-		data.addAll(result.getSidenavilist());
+		data.addAll(result.getList());
 		mPinDaoAdapter.notifyDataSetChanged();
 		fragments = new ArrayList<Fragment>();
 		for (int i = 0; i < data.size(); i++) {

@@ -39,7 +39,6 @@ import com.open.tencenttv.andenginetask.Callable;
 import com.open.tencenttv.andenginetask.Callback;
 import com.open.tencenttv.andenginetask.IProgressListener;
 import com.open.tencenttv.andenginetask.ProgressCallable;
-import com.open.tencenttv.bean.CommonT;
 
 
 /**
@@ -48,13 +47,14 @@ import com.open.tencenttv.bean.CommonT;
  * @author :fengguangjing
  * @createTime:2016-10-26上午10:09:57
  * @version:4.2.4
+ * @param <T>
  * @modifyTime:
  * @modifyAuthor:
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
  
-public class BaseFragmentActivity extends FragmentActivity implements OnClickListener,  CallEarliest<CommonT>, Callback<CommonT>, Callable<CommonT>, ProgressCallable<CommonT>,
+public class BaseFragmentActivity<T> extends FragmentActivity implements OnClickListener,  CallEarliest<T>, Callback<T>, Callable<T>, ProgressCallable<T>,
 Response.Listener<JSONObject>, Response.ErrorListener {
 	public static final String SHARE_NAME = "NEWS_INFO_PROJECT";
 	public static final String IS_FIRST_IN = "is_first_in";
@@ -190,7 +190,7 @@ Response.Listener<JSONObject>, Response.ErrorListener {
 	 * @see com.example.andenginetask.Callable#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
+	public T call() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -202,7 +202,7 @@ Response.Listener<JSONObject>, Response.ErrorListener {
 	 * @see com.example.andenginetask.Callback#onCallback(java.lang.Object)
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(T result) {
 		// TODO Auto-generated method stub
 
 	}
@@ -229,7 +229,7 @@ Response.Listener<JSONObject>, Response.ErrorListener {
 	 * .IProgressListener)
 	 */
 	@Override
-	public CommonT call(IProgressListener pProgressListener) throws Exception {
+	public T call(IProgressListener pProgressListener) throws Exception {
 		return null;
 	}
  

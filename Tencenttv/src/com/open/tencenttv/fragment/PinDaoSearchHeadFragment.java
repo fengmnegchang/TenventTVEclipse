@@ -36,10 +36,9 @@ import com.jayfang.dropdownmenu.OnMenuSelectedListener;
 import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
-import com.open.tencenttv.ListFragmentPinDaoActivity;
 import com.open.tencenttv.R;
 import com.open.tencenttv.WeakReferenceHandler;
-import com.open.tencenttv.bean.CommonT;
+import com.open.tencenttv.json.DropItemJson;
 import com.open.tencenttv.utils.UrlUtils;
 
 /**
@@ -53,7 +52,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class PinDaoSearchHeadFragment extends BaseV4Fragment {
+public class PinDaoSearchHeadFragment extends BaseV4Fragment<DropItemJson> {
 	public static final String TAG = PinDaoSearchHeadFragment.class.getSimpleName();
 	private String pindaoName;
 	private DropDownMenu mMenu;
@@ -93,11 +92,11 @@ public class PinDaoSearchHeadFragment extends BaseV4Fragment {
 	 * @see com.open.tencenttv.BaseV4Fragment#call()
 	 */
 	@Override
-	public CommonT call() throws Exception {
+	public DropItemJson call() throws Exception {
 		// TODO Auto-generated method stub
-		CommonT mCommonT = new CommonT();
+		DropItemJson mCommonT = new DropItemJson();
 		List<DropItemBean> mMenuItems = parseDropItemList(url);// 影视列表搜索头部
-		mCommonT.setmMenuItems(mMenuItems);
+		mCommonT.setList(mMenuItems);
 		return mCommonT;
 	}
 
@@ -109,11 +108,11 @@ public class PinDaoSearchHeadFragment extends BaseV4Fragment {
 	 * CommonT)
 	 */
 	@Override
-	public void onCallback(CommonT result) {
+	public void onCallback(DropItemJson result) {
 		// TODO Auto-generated method stub
 		super.onCallback(result);
 		mMenuItems.clear();
-		mMenuItems.addAll(result.getmMenuItems());
+		mMenuItems.addAll(result.getList());
 		mMenu.setmMenuCount(mMenuItems.size());
 		mMenu.setmShowCount(6);
 		mMenu.setShowCheck(true);
