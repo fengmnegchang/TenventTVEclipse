@@ -100,8 +100,10 @@ public class TencentTVALLActivity extends CommonFragmentActivity implements OnIt
 			list.clear();
 			AllBean allBean;
 			for(ActivityInfo info :activities){
-				allBean = new AllBean(info.name,info.name);
-				list.add(allBean);
+				if(!TencentTVALLActivity.class.getName().equals(info.name)){
+					allBean = new AllBean(info.name,info.name);
+					list.add(allBean);
+				}
 			}
 		} catch (NameNotFoundException e) {
 			// TODO Auto-generated catch block

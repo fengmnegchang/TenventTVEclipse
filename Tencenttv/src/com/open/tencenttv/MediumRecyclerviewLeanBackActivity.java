@@ -70,6 +70,11 @@ public class MediumRecyclerviewLeanBackActivity extends CommonFragmentActivity<L
     protected void findView() {
         super.findView();
         parentNav = (NavPopPinDaoBean) getIntent().getSerializableExtra("NAV_POP_PIN_DAO_KEY");
+        if(parentNav==null){
+        	parentNav = new NavPopPinDaoBean();
+        	parentNav.setPindaoUrl(UrlUtils.TENCENT_TV_URL);
+        	parentNav.setPindaoName("电视剧");
+        }
         mContext = MediumRecyclerviewLeanBackActivity.this;
 
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
