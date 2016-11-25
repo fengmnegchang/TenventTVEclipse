@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -60,6 +61,7 @@ Response.Listener<JSONObject>, Response.ErrorListener {
 	public static final String IS_FIRST_IN = "is_first_in";
 	public SharedPreferences mSharedPreferences;
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+	public WeakActivityReferenceHandler weakReferenceHandler;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -273,5 +275,15 @@ Response.Listener<JSONObject>, Response.ErrorListener {
 				}
 			}
 		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.open.tencenttv.interfaces.WeakReferenceHandlerMessage#
+	 * referenceHandlerMessage(android.os.Message)
+	 */
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
 	}
 }

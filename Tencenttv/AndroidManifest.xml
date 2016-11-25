@@ -108,6 +108,10 @@
         </activity>
         <!-- 按明星分类 -->
         <activity android:name="com.open.tencenttv.StarTabHostViewPagerActivity" >
+        </activity>
+        
+        <!-- 所有类列表 -->
+        <activity android:name="com.open.tencenttv.TencentTVALLActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
