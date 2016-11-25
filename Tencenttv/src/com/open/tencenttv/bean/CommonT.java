@@ -24,7 +24,8 @@ public class CommonT implements Serializable {
 	private List<PinDaoBean> sidenavilist = new ArrayList<PinDaoBean>();// x影视检索，右部头v.qq.com/x/movielist/?cate=10001&offset=0&sort=4
 	private List<PinDaoBean> xlist = new ArrayList<PinDaoBean>();// x 视频列表
 	private List<DropItemBean> mMenuItems = new ArrayList<DropItemBean>();// 影视列表搜索头部
-
+	private StarBean starBean;//明星简介head
+	
 	public ArrayList<NavPopPinDaoBean> getNavpoplist() {
 		return navpoplist;
 	}
@@ -103,6 +104,14 @@ public class CommonT implements Serializable {
 
 	public void setmMenuItems(List<DropItemBean> mMenuItems) {
 		this.mMenuItems = mMenuItems;
+	}
+
+	public StarBean getStarBean() {
+		return starBean;
+	}
+
+	public void setStarBean(StarBean starBean) {
+		this.starBean = starBean;
 	}
 
 }
