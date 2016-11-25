@@ -14,6 +14,7 @@ package com.open.tencenttv;
 import java.lang.ref.WeakReference;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 
@@ -38,9 +39,17 @@ public class WeakActivityReferenceHandler extends Handler {
 	@SuppressLint("NewApi") @Override
 	public void handleMessage(Message msg) {
 		BaseFragmentActivity activity = weakReferenceHandler.get();
-		if (activity != null && !activity.isDestroyed() && !activity.isFinishing()) {
-			activity.handlerMessage(msg);
-			super.handleMessage(msg);
+		if (activity != null && !activity.isFinishing()) {
+			if(Build.VERSION.SDK_INT>Build.VERSION_CODES.JELLY_BEAN_MR1){
+				if(!activity.isDestroyed() ){
+					activity.handlerMessage(msg);
+					super.handleMessage(msg);
+				}
+			}else{
+				activity.handlerMessage(msg);
+				super.handleMessage(msg);
+			}
+			
 		}
 	}
 

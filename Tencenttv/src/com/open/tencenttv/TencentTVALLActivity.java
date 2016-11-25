@@ -101,7 +101,7 @@ public class TencentTVALLActivity extends CommonFragmentActivity implements OnIt
 			AllBean allBean;
 			for(ActivityInfo info :activities){
 				if(!TencentTVALLActivity.class.getName().equals(info.name)){
-					allBean = new AllBean(info.name,info.name);
+					allBean = new AllBean(info.name,info.name.replace(getPackageName(), ""));
 					list.add(allBean);
 				}
 			}
