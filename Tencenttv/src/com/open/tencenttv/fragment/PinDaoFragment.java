@@ -31,6 +31,7 @@ import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
+import com.open.tencenttv.TencentTVWebViewActivity;
 import com.open.tencenttv.VedioPreViewActivity;
 import com.open.tencenttv.adapter.PinDaoFragmentAdapter;
 import com.open.tencenttv.bean.PinDaoBean;
@@ -135,7 +136,8 @@ public class PinDaoFragment extends BaseV4Fragment<PinDaoBeanJson> {
 
 				// 进入频道
 				Intent intent = new Intent();
-				intent.setClass(getActivity(), VedioPreViewActivity.class);
+				intent.putExtra("URL", xlist.get((int)id).getHrefurl());
+				intent.setClass(getActivity(), TencentTVWebViewActivity.class);
 				startActivity(intent);
 			}
 		});

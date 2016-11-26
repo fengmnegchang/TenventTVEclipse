@@ -136,6 +136,9 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		webview.setWebChromeClient(mWebChromeClientBase);
 //		webSettings.setUserAgentString(UrlUtils.tencentAgent);
 		
+		if(url == null){
+			url = UrlUtils.TENCENT_X_MOVIE_LIST;
+		}
 		synCookies(TencentTVWebViewActivity.this,url);
 		webview.loadUrl(url,header);
 
