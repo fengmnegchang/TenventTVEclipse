@@ -34,6 +34,7 @@ import com.open.tencenttv.adapter.RankPagerAdapter;
 import com.open.tencenttv.bean.SliderNavBean;
 import com.open.tencenttv.fragment.RankV4Fragment;
 import com.open.tencenttv.fragment.StarHeadFragment;
+import com.open.tencenttv.fragment.StarNewsTabFragment;
 import com.open.tencenttv.json.SliderNavJson;
 import com.open.tencenttv.utils.UrlUtils;
 
@@ -122,7 +123,7 @@ public class StarTabHostViewPagerActivity extends CommonFragmentActivity<SliderN
 			// }
 			// viewList.add(view);
 			titleList.add(sliderNavBean.getTitle());
-			Fragment fragment = RankV4Fragment.newInstance();
+			Fragment fragment = StarNewsTabFragment.newInstance(UrlUtils.TENCENT_STAR+"?tab=news",mainUpView1, mEffectNoDrawBridge, mNewFocus);
 			listRankFragment.add(fragment);
 			ids.add(R.id.title_bar1);
 		}
