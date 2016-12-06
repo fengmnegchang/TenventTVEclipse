@@ -19,14 +19,31 @@
         app:circle="false"
         app:radius="@dimen/new_image_height" />
 
-    <com.open.tencenttv.widget.ExpandableTextView
+    
+ <com.open.androidtvwidget.view.GridViewTV
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:layout_toRightOf="@+id/image_logo"
+        android:clipChildren="false"
+        android:columnWidth="80dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:horizontalSpacing="12dp"
+        android:layout_marginRight="20dp"
+        android:numColumns="auto_fit"
+        android:scrollbars="none"
+        android:verticalSpacing="20dp" />
+ 
+ <com.open.tencenttv.widget.ExpandableTextView
         android:id="@+id/expand_text_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/new_image_height"
+        android:layout_height="40dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/image_logo"
         android:gravity="center|top"
+        android:layout_below="@+id/image_logo"
         expandableTextView:maxCollapsedLines="4" >
 
         <TextView
@@ -49,18 +66,4 @@
             android:focusableInTouchMode="true"
             android:padding="16dp" />
     </com.open.tencenttv.widget.ExpandableTextView>
- <com.open.androidtvwidget.view.GridViewTV
-        android:id="@+id/gridView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        android:clipChildren="false"
-        android:columnWidth="80dp"
-        android:gravity="center_vertical"
-        android:layout_below="@+id/image_logo"
-        android:horizontalSpacing="12dp"
-        android:numColumns="auto_fit"
-        android:scrollbars="none"
-        android:verticalSpacing="20dp" />
 </RelativeLayout>

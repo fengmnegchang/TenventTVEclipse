@@ -130,7 +130,68 @@ public class StarNewsTabFragment extends BaseV4Fragment<StarFeedJson> {
 			for (int i = 0; i < liElements.size(); i++) {
 				StarFeedBean bean = new StarFeedBean();
 				try {
-					 
+
+					try {
+						Element info_figure_dateElement = liElements.get(i).select("span.info_figure_date").first();
+						String info_figure_date = info_figure_dateElement.text();
+						bean.setInfo_figure_date(info_figure_date);
+						Log.i(TAG, "i==" + i + ";info_figure_date==" + info_figure_date);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					try {
+						Element strongElement = liElements.get(i).select("strong.feed_title").first();
+						Element aElement = strongElement.select("a").first();
+						String feed_title = aElement.text();
+						String feed_title_href = aElement.attr("href");
+						Log.i(TAG, "i==" + i + ";feed_title==" + feed_title + ";feed_title_href=" + feed_title_href);
+						bean.setFeed_title(feed_title);
+						bean.setFeed_title_href(feed_title_href);
+						bean.setFigures_scroll_href(feed_title_href);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					try {
+						Element star_move_sliderElement = liElements.get(i).select("div.star-move-slider").first();
+						if (star_move_sliderElement != null) {
+							Elements aElements = star_move_sliderElement.select("a");
+							if (aElements != null && aElements.size() > 0) {
+								List<String> figures_scroll_data_boss_list = new ArrayList<String>();
+								for (int y = 0; y < aElements.size(); y++) {
+									Element aElement = aElements.get(y).select("a").first();
+									String figures_scroll_data_boss = aElement.select("img").first().attr("src");
+									Log.i(TAG, "i==" + i + ";y==" + y + ";figures_scroll_data_boss==" + figures_scroll_data_boss);
+									figures_scroll_data_boss_list.add(figures_scroll_data_boss);
+								}
+								bean.setFigures_scroll_data_boss(figures_scroll_data_boss_list);
+							}
+						} else {
+							List<String> figures_scroll_data_boss_list = new ArrayList<String>();
+							Element aElement = liElements.get(i).select("a.feed_img").first();
+							String figures_scroll_data_boss = aElement.select("img").first().attr("src");
+							Log.i(TAG, "i==" + i + ";figures_scroll_data_boss==" + figures_scroll_data_boss);
+							figures_scroll_data_boss_list.add(figures_scroll_data_boss);
+							bean.setFigures_scroll_data_boss(figures_scroll_data_boss_list);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					try {
+						Element feed_descElement = liElements.get(i).select("div.feed_desc").first();
+						String feed_desc_title = feed_descElement.select("a").first().attr("title");
+						String feed_desc_href = feed_descElement.select("a").first().attr("href");
+						String feed_item_time = feed_descElement.select("span.feed_item_time").first().text();
+						Log.i(TAG, "i==" + i + ";feed_desc_title==" + feed_desc_title + ";feed_desc_href=" + feed_desc_href + ";feed_desc_href=" + feed_desc_href);
+						bean.setFeed_desc_title(feed_desc_title);
+						bean.setFeed_desc_href(feed_desc_href);
+						bean.setFeed_item_time(feed_item_time);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
 					list.add(bean);
 				} catch (Exception e) {
 					e.printStackTrace();

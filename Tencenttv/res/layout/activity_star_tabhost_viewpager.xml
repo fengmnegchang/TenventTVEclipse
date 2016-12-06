@@ -11,7 +11,7 @@
     <FrameLayout
         android:id="@+id/layout_star_head"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="200dp" />
 
     <com.open.androidtvwidget.view.OpenTabHost
         android:id="@+id/openTabHost"
