@@ -80,7 +80,7 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 	 * webview 请求设置Cookies
 	 */
 	public static String getWebCookies() {
-		String cookie = "3g_guest_id=-9045538589999304704; cuid=5032023480; sd_userid=27201462782213238; sd_cookie_crttime=1462782213238; eas_sid=y1i4W655K8T8X9U3N3p7C7U2x7; pac_uid=1_624926379; qq_slist_autoplay=on; tvfe_boss_uuid=e776aacde64effb9; h_uid=H01560819fdc; ptui_loginuin=624926379; ptcz=c307e47376dee800ee4a82794866f608297b218323a8b12fd611bbd8f75f86b6; pt2gguin=o0624926379; ts_refer=www.baidu.com/link; uin=o0624926379; ptisp=ctc; pgv_pvi=8756206592; pgv_si=s2719842304; prev_jump_ref=; ptag=; mobileUV=1_158907f70d3_bbd13; qv_als=mUOlXDvo6zEK6/2gA114798947130OS1Nw==; ad_play_index=128; pgv_info=ssid=s3692141235; ts_last=v.qq.com/; pgv_pvid=6914624368; o_cookie=624926379; ts_uid=3813777356";
+		String cookie = "3g_guest_id=-9045538589999304704; cuid=5032023480; sd_userid=27201462782213238; sd_cookie_crttime=1462782213238; eas_sid=y1i4W655K8T8X9U3N3p7C7U2x7; pac_uid=1_624926379; qq_slist_autoplay=on; tvfe_boss_uuid=e776aacde64effb9; h_uid=H01560819fdc; ptcz=c307e47376dee800ee4a82794866f608297b218323a8b12fd611bbd8f75f86b6; pt2gguin=o0624926379; mobileUV=1_158907f70d3_bbd13; ts_refer=enrz.com/fhm/2016/12/02/73248.html; o_cookie=624926379; pgv_info=ssid=s3058190196; ts_last=v.qq.com/x/cover/9qwnh7a0qcn2qzh.html; pgv_pvid=6914624368; ts_uid=3813777356; qv_als=IhFN+0ZkS8jmNnw2A11481076392ug7NEg==; ad_play_index=18";
 		return cookie;
 	}
 
@@ -116,15 +116,16 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		webSettings.setBuiltInZoomControls(true);
 		// 扩大比例的缩放
 		webSettings.setUseWideViewPort(true);
-		//header("Content-Security-Policy: upgrade-insecure-requests");
 		 Map<String,String> header = new HashMap<String, String>();
-//		 header.put("Content-Security-Policy", "upgrade-insecure-requests");
 		 Date date = new Date();
 		 header.put("If-Modified-Since", date.toGMTString());
 		 header.put("Upgrade-Insecure-Requests","1");
 		 header.put("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
 		 header.put("Accept-Encoding","gzip, deflate, sdch");
 		 header.put("Accept-Language","zh-CN,zh;q=0.8");
+		 header.put("Cache-Control","max-age=0");
+		 header.put("Connection","keep-alive");
+		 header.put("Host","v.qq.com");
 		    
 		// 自适应屏幕
 		if (Build.VERSION.SDK_INT >= 21) {
@@ -224,6 +225,14 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		} else {
 			super.onBackPressed();
 		}
+	}
+	
+	
+	public static void startTencentTVWebViewActivity(Context context,String url){
+		Intent intent = new Intent();
+		intent.setClass(context, TencentTVWebViewActivity.class);
+		intent.putExtra("URL", url);
+		context.startActivity(intent);
 	}
 
 }

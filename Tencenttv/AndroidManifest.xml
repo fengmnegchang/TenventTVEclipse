@@ -49,7 +49,7 @@
             android:launchMode="singleTask" >
         </activity>
 
-<!--         腾讯视频主页 -->
+    <!-- 腾讯视频主页 -->
         <activity
             android:name="com.open.tencenttv.TencentTVMainActivity"
             android:launchMode="singleTask" >
@@ -108,7 +108,7 @@
         </activity>
         <!-- 按明星分类 -->
         <activity android:name="com.open.tencenttv.StarTabHostViewPagerActivity" >
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />

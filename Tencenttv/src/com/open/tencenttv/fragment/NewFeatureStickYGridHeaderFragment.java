@@ -186,11 +186,7 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment<NewFeatur
 		mOldView = view;
 		// 进入频道
 		if (newfeaturelist != null && id > 0 && newfeaturelist.get((int) id) != null && newfeaturelist.get((int) id).getHrefUrl() != null) {
-			Intent intent = new Intent();
-			// intent.setClass(getActivity(), VedioPreViewActivity.class);
-			intent.setClass(getActivity(), TencentTVWebViewActivity.class);
-			intent.putExtra("URL", newfeaturelist.get((int) id).getHrefUrl());
-			startActivity(intent);
+			TencentTVWebViewActivity.startTencentTVWebViewActivity(getActivity(), newfeaturelist.get((int) id).getHrefUrl());
 		}
 	}
 

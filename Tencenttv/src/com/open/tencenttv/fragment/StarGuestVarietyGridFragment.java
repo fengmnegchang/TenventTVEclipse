@@ -151,6 +151,16 @@ public class StarGuestVarietyGridFragment extends BaseV4Fragment<StarGuestVariet
 					try {
 						Element imgElement = liElements.get(i).select("img").first();
 						String r_lazyload = imgElement.attr("r-lazyload");
+						String feed_item_title = imgElement.attr("alt");
+						if(feed_item_title!=null){
+							bean.setFeed_item_title(feed_item_title);
+						}
+						if(r_lazyload==null){
+							r_lazyload = imgElement.attr("src");
+						}
+						if(r_lazyload==null){
+							r_lazyload = imgElement.attr("data-src");
+						}
 						Log.i(TAG, "i==" + i + ";r_lazyload==" + r_lazyload);
 						bean.setR_lazyload(r_lazyload);
 					} catch (Exception e) {

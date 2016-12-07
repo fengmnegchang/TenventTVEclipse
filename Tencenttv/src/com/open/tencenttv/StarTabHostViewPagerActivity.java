@@ -32,8 +32,11 @@ import com.open.androidtvwidget.view.TextViewWithTTF;
 import com.open.tencenttv.adapter.OpenTabPagerAdapter;
 import com.open.tencenttv.adapter.RankPagerAdapter;
 import com.open.tencenttv.bean.SliderNavBean;
+import com.open.tencenttv.fragment.RankV4Fragment;
 import com.open.tencenttv.fragment.StarGuestVarietyGridFragment;
 import com.open.tencenttv.fragment.StarHeadFragment;
+import com.open.tencenttv.fragment.StarNewsTabFragment;
+import com.open.tencenttv.fragment.StarRecommendRecyclerviewLeanBackFragment;
 import com.open.tencenttv.json.SliderNavJson;
 import com.open.tencenttv.utils.UrlUtils;
 
@@ -109,6 +112,7 @@ public class StarTabHostViewPagerActivity extends CommonFragmentActivity<SliderN
 		list.clear();
 		list.addAll(result.getList());
 		titleList.clear();
+		Fragment fragment = null;
 		for (SliderNavBean sliderNavBean : result.getList()) {
 			// View view = inflater.inflate(R.layout.item_medium_pager, null);
 			// ImageView imageView = (ImageView)
@@ -122,7 +126,13 @@ public class StarTabHostViewPagerActivity extends CommonFragmentActivity<SliderN
 			// }
 			// viewList.add(view);
 			titleList.add(sliderNavBean.getTitle());
-			Fragment fragment = StarGuestVarietyGridFragment.newInstance(UrlUtils.TENCENT_STAR+"?tab=guestVariety",mainUpView1, mEffectNoDrawBridge, mNewFocus);
+			if(sliderNavBean.getHrefUrl().contains("?tab=news")){
+				 fragment = StarNewsTabFragment.newInstance(UrlUtils.TENCENT_STAR+sliderNavBean.getHrefUrl(),mainUpView1, mEffectNoDrawBridge, mNewFocus);
+			}else if(!sliderNavBean.getHrefUrl().contains("/x/star/77904")){
+				 fragment = StarGuestVarietyGridFragment.newInstance(UrlUtils.TENCENT_STAR+sliderNavBean.getHrefUrl(),mainUpView1, mEffectNoDrawBridge, mNewFocus);
+			} else{
+				fragment = StarRecommendRecyclerviewLeanBackFragment.newInstance(UrlUtils.TENCENT_STAR,mainUpView1, mEffectNoDrawBridge, mNewFocus);
+			}
 			listRankFragment.add(fragment);
 			ids.add(R.id.title_bar1);
 		}
@@ -155,7 +165,7 @@ public class StarTabHostViewPagerActivity extends CommonFragmentActivity<SliderN
 			 */
 			// 解析文件
 			if (liElements != null && liElements.size() > 1) {
-				for (int i = 1; i < liElements.size(); i++) {
+				for (int i = 0; i < liElements.size(); i++) {
 					SliderNavBean sliderNavBean = new SliderNavBean();
 					try {
 						Element liElement = liElements.get(i).select("li").first();

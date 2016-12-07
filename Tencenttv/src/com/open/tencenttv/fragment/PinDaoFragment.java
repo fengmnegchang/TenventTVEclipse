@@ -135,10 +135,7 @@ public class PinDaoFragment extends BaseV4Fragment<PinDaoBeanJson> {
 				Toast.makeText(getActivity(), "GridView Item " + position + " pos:" + mSavePos, Toast.LENGTH_LONG).show();
 
 				// 进入频道
-				Intent intent = new Intent();
-				intent.putExtra("URL", xlist.get((int)id).getHrefurl());
-				intent.setClass(getActivity(), TencentTVWebViewActivity.class);
-				startActivity(intent);
+				TencentTVWebViewActivity.startTencentTVWebViewActivity(getActivity(), xlist.get((int)id).getHrefurl());
 			}
 		});
 		// scroll_more.setOnTouchListener(new OnTouchListener() {

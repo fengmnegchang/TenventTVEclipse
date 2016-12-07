@@ -14,9 +14,11 @@ package com.open.tencenttv.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.open.tencenttv.R;
+import com.open.tencenttv.TencentTVWebViewActivity;
 import com.open.tencenttv.bean.StarFeedBean;
 
 /**
@@ -45,7 +48,7 @@ public class StarNewsTabAdapter extends CommonAdapter<StarFeedBean> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		StarFeedBean bean = (StarFeedBean) getItem(position);
+		final StarFeedBean bean = (StarFeedBean) getItem(position);
 		ViewHolder mViewHolder = null;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_star_news_tab, null);
@@ -78,6 +81,12 @@ public class StarNewsTabAdapter extends CommonAdapter<StarFeedBean> {
 				mViewHolder.lay_figures_scroll_data_boss.addView(imageview, params);
 			}
 		}
+		convertView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TencentTVWebViewActivity.startTencentTVWebViewActivity(mContext, bean.getFeed_title_href());
+			}
+		});
 		return convertView;
 	}
 
