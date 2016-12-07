@@ -31,4 +31,7 @@ public class UrlUtils {
     public static final String userAgent ="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31";
     
     public static final String tencentAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36 QQBrowser/4.1.4132.400";
+
+    /**搜索*/
+    public static final String TENCENT_SEARCH= "http://v.qq.com/x/search/?q=%E5%A6%82%E6%9E%9C%E8%9C%97%E7%89%9B%E6%9C%89%E7%88%B1%E6%83%85&stag=101&smartbox_ab=";
 }

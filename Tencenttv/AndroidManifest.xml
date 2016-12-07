@@ -81,11 +81,12 @@
         <!-- 设置 -->
         <activity android:name="com.open.tencenttv.SettingsActivity" >
         </activity>
-        <!--
-        搜索
+       
+        <!-- 搜索 -->
         <activity android:name="com.open.tencenttv.SearchActivity"/>
-        -->
+         
         <activity android:name="com.open.tencenttv.SearchKeyBoardActivity" >
+            
         </activity>
         <!-- 分类内容 -->
         <activity android:name="com.open.tencenttv.MediumRecyclerviewLeanBackActivity" >
@@ -108,16 +109,19 @@
         </activity>
         <!-- 按明星分类 -->
         <activity android:name="com.open.tencenttv.StarTabHostViewPagerActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         
         <!-- 所有类列表 -->
         <activity android:name="com.open.tencenttv.TencentTVALLActivity" >
-           
+        </activity>
+        <!--腾讯视频搜索 -->
+        <activity android:name="com.open.tencenttv.TencentTVSearchActivity" >
+           <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
