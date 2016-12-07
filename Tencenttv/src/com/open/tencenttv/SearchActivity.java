@@ -54,7 +54,7 @@ public class SearchActivity extends FragmentActivity {
             panBean.setKeyValue("B"+i);
             panBeenlist.add(panBean);
         }
-        adapter = new PanAdapter(panBeenlist);
+        adapter = new PanAdapter(this,panBeenlist);
         wheelMenuView.setAdapter(adapter);
         editText1 = (EditText) findViewById(R.id.editText1);
         editText2 = (EditText) findViewById(R.id.editText2);

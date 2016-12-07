@@ -63,7 +63,7 @@ public class CircularPopupWindow extends PopupWindow {
         PanAdapter adapter;
 
         wheelMenuView = (CircularMenu) conentView.findViewById(R.id.panview);
-        adapter = new PanAdapter(circularBean.getPanList());
+        adapter = new PanAdapter(context,circularBean.getPanList());
         wheelMenuView.setAdapter(adapter);
         wheelMenuView.setItemCount(circularBean.getPanList().size());
         wheelMenuView.setOnItemClickListener(new CircularMenu.OnItemClickListener() {
