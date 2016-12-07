@@ -2,73 +2,65 @@
  *****************************************************************************************************************************************************************************
  * 
  * @author :fengguangjing
- * @createTime:2016-11-25下午1:45:17
+ * @createTime:2016-12-7下午4:10:23
  * @version:4.2.4
  * @modifyTime:
  * @modifyAuthor:
  * @description:
  *****************************************************************************************************************************************************************************
  */
-package com.open.tencenttv.json;
+package com.open.tencenttv.bean;
 
 import java.io.Serializable;
 
 /**
  ***************************************************************************************************************************************************************************** 
+ * 搜索历史
  * 
  * @author :fengguangjing
- * @createTime:2016-11-25下午1:45:17
+ * @createTime:2016-12-7下午4:10:23
  * @version:4.2.4
  * @modifyTime:
  * @modifyAuthor:
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class CommonTJson implements Serializable {
-	private int costtime;
-	private String modify_time;
-	private int returncode;
-	private String returnmsg;
-	private String write_time;
+public class SearchHistoryBean implements Serializable {
+	private String c_pos;
+	private String c_title;
+	private String mark;
+	private String order_change;
 
-	public int getCosttime() {
-		return costtime;
+	public String getC_pos() {
+		return c_pos;
 	}
 
-	public void setCosttime(int costtime) {
-		this.costtime = costtime;
+	public void setC_pos(String c_pos) {
+		this.c_pos = c_pos;
 	}
 
-	public String getModify_time() {
-		return modify_time;
+	public String getC_title() {
+		return c_title;
 	}
 
-	public void setModify_time(String modify_time) {
-		this.modify_time = modify_time;
+	public void setC_title(String c_title) {
+		this.c_title = c_title;
 	}
 
-	public int getReturncode() {
-		return returncode;
+	public String getMark() {
+		return mark;
 	}
 
-	public void setReturncode(int returncode) {
-		this.returncode = returncode;
+	public void setMark(String mark) {
+		this.mark = mark;
 	}
 
-	public String getReturnmsg() {
-		return returnmsg;
+	public String getOrder_change() {
+		return order_change;
 	}
 
-	public void setReturnmsg(String returnmsg) {
-		this.returnmsg = returnmsg;
-	}
-
-	public String getWrite_time() {
-		return write_time;
-	}
-
-	public void setWrite_time(String write_time) {
-		this.write_time = write_time;
+	public void setOrder_change(String order_change) {
+		this.order_change = order_change;
 	}
 
 }

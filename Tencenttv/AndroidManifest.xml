@@ -117,6 +117,9 @@
         </activity>
         <!--腾讯视频搜索 -->
         <activity android:name="com.open.tencenttv.TencentTVSearchActivity" >
+        </activity>
+        <!--腾讯视频搜索历史记录 -->
+        <activity android:name="com.open.tencenttv.SearchHistoryActivity" >
            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

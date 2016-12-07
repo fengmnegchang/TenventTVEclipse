@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.Response.Listener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -203,6 +204,7 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 		// TODO Auto-generated method stub
 
 	}
+	 
 
 	/*
 	 * (non-Javadoc)

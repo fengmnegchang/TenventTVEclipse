@@ -136,7 +136,7 @@ public class HurlStack implements HttpStack {
      * @return whether the response has a body
      */
     private static boolean hasResponseBody(int requestMethod, int responseCode) {
-        return requestMethod != Method.HEAD
+        return requestMethod != Request.Method.HEAD
             && !(HttpStatus.SC_CONTINUE <= responseCode && responseCode < HttpStatus.SC_OK)
             && responseCode != HttpStatus.SC_NO_CONTENT
             && responseCode != HttpStatus.SC_NOT_MODIFIED;
