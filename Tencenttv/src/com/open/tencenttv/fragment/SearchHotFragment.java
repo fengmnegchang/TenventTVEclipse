@@ -40,9 +40,9 @@ import com.open.androidtvwidget.view.ListViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
-import com.open.tencenttv.adapter.SearchHistoryAdapter;
-import com.open.tencenttv.bean.SearchHistoryBean;
-import com.open.tencenttv.json.SearchHistoryJson;
+import com.open.tencenttv.adapter.SearchHotAdapter;
+import com.open.tencenttv.bean.SearchHotBean;
+import com.open.tencenttv.json.SearchHotJson;
 import com.open.tencenttv.utils.UrlUtils;
 
 /**
@@ -57,16 +57,16 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class SearchHistoryFragment extends BaseV4Fragment<SearchHistoryJson>{
+public class SearchHotFragment extends BaseV4Fragment<SearchHotJson>{
 	private ListViewTV listViewTV;
-	private SearchHistoryAdapter mSearchHistoryAdapter;
+	private SearchHotAdapter mSearchHistoryAdapter;
 	// private String url =
 	// "http://s.video.qq.com/smartbox?callback=jQuery191005598623925280477_1481099927738&plat=2&ver=0&num=10&otype=json&query=%E5%92%B1&uid=bab5d342-e3fe-4372-b111-b849e126b868&_=1481099927767";
 	private String url = "http://data.video.qq.com/fcgi-bin/dataout?callback=jQuery191005598623925280477_1481099927738&auto_id=938&otype=json&_=1481099927778";
-	private List<SearchHistoryBean> list = new ArrayList<SearchHistoryBean>();
+	private List<SearchHotBean> list = new ArrayList<SearchHotBean>();
 
-	public static SearchHistoryFragment newInstance(String url, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mRecyclerViewBridge) {
-		SearchHistoryFragment fragment = new SearchHistoryFragment();
+	public static SearchHotFragment newInstance(String url, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mRecyclerViewBridge) {
+		SearchHotFragment fragment = new SearchHotFragment();
 		// fragment.url = url;
 		fragment.mainUpView1 = mainUpView1;
 		fragment.mOldView = mOldView;
@@ -85,7 +85,7 @@ public class SearchHistoryFragment extends BaseV4Fragment<SearchHistoryJson>{
 	@Nullable
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_search_history_list, container, false);
+		View view = inflater.inflate(R.layout.fragment_search_hot_list, container, false);
 		listViewTV = (ListViewTV) view.findViewById(R.id.listview);
 		return view;
 	}
@@ -100,7 +100,7 @@ public class SearchHistoryFragment extends BaseV4Fragment<SearchHistoryJson>{
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		// doAsync(this, this, this);
-		mSearchHistoryAdapter = new SearchHistoryAdapter(getActivity(), list);
+		mSearchHistoryAdapter = new SearchHotAdapter(getActivity(), list);
 		listViewTV.setAdapter(mSearchHistoryAdapter);
 		mSearchHistoryAdapter.notifyDataSetChanged();
 		listViewTV.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -191,7 +191,7 @@ public class SearchHistoryFragment extends BaseV4Fragment<SearchHistoryJson>{
 				 * ],"write_time":"2016-12-07 16:41:21"})
 				 */
 				String responseJson = response.toString().replace("jQuery191005598623925280477_1481099927738({\"", "{\"").replace("\"})", "\"}");
-				SearchHistoryJson mSearchHistoryJson = gson.fromJson(responseJson, SearchHistoryJson.class);
+				SearchHotJson mSearchHistoryJson = gson.fromJson(responseJson, SearchHotJson.class);
 				if (mSearchHistoryJson != null && mSearchHistoryJson.getWords() != null && mSearchHistoryJson.getWords().size() > 0) {
 					list.clear();
 					list.addAll(mSearchHistoryJson.getWords());
@@ -199,7 +199,7 @@ public class SearchHistoryFragment extends BaseV4Fragment<SearchHistoryJson>{
 					mFirstHandler.sendMessageDelayed(mFirstHandler.obtainMessage(), 188);
 				}
 			}
-		}, SearchHistoryFragment.this);
+		}, SearchHotFragment.this);
 		requestQueue.add(jsonObjectRequest);
 
 

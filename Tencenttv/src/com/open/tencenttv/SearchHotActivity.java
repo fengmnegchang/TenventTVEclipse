@@ -18,7 +18,7 @@ import android.view.LayoutInflater;
 
 import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
-import com.open.tencenttv.fragment.SearchHistoryFragment;
+import com.open.tencenttv.fragment.SearchHotFragment;
 
 /**
  ***************************************************************************************************************************************************************************** 
@@ -31,11 +31,11 @@ import com.open.tencenttv.fragment.SearchHistoryFragment;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class SearchHistoryActivity extends CommonFragmentActivity {
+public class SearchHotActivity extends CommonFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search_histroy);
+		setContentView(R.layout.activity_search_hot);
 		init();
 
 	}
@@ -58,7 +58,7 @@ public class SearchHistoryActivity extends CommonFragmentActivity {
 		mainUpView1.setUpRectResource(R.drawable.white_light_10); // 设置移动边框的图片.
 		mainUpView1.setDrawUpRectPadding(new Rect(25, 25, 23, 23)); // 边框图片设置间距
 
-		SearchHistoryFragment fragment = SearchHistoryFragment.newInstance("", mainUpView1, mOldView, mRecyclerViewBridge);
+		SearchHotFragment fragment = SearchHotFragment.newInstance("", mainUpView1, mOldView, mRecyclerViewBridge);
 
 		FragmentManager manager = getSupportFragmentManager();
 		manager.beginTransaction().replace(R.id.frame_search, fragment).commit();

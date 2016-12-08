@@ -113,18 +113,18 @@
         
         <!-- 所有类列表 -->
         <activity android:name="com.open.tencenttv.TencentTVALLActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <!--腾讯视频搜索 -->
         <activity android:name="com.open.tencenttv.TencentTVSearchActivity" >
         </activity>
         <!--腾讯视频搜索历史记录 -->
-        <activity android:name="com.open.tencenttv.SearchHistoryActivity" >
-           
+        <activity android:name="com.open.tencenttv.SearchHotActivity" >
+           <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.open.tencenttv.R;
-import com.open.tencenttv.bean.SearchHistoryBean;
+import com.open.tencenttv.bean.SearchHotBean;
 
 /**
  * *****************************************************************************
@@ -26,10 +26,10 @@ import com.open.tencenttv.bean.SearchHistoryBean;
  *               ***************************************************************
  *               *********************************************
  */
-public class SearchHistoryAdapter extends CommonAdapter<SearchHistoryBean> {
+public class SearchHotAdapter extends CommonAdapter<SearchHotBean> {
 	private final LayoutInflater mInflater;
 
-	public SearchHistoryAdapter(Context mContext, List<SearchHistoryBean> list) {
+	public SearchHotAdapter(Context mContext, List<SearchHotBean> list) {
 		super(mContext, list);
 		mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -39,14 +39,14 @@ public class SearchHistoryAdapter extends CommonAdapter<SearchHistoryBean> {
 		ViewHolder viewHolder = null;
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.adapter_search_history, parent, false);
+			convertView = mInflater.inflate(R.layout.adapter_search_hot, parent, false);
 			viewHolder.text_sb_num = (TextView) convertView.findViewById(R.id.text_sb_num);
 			viewHolder.text_data_word = (TextView) convertView.findViewById(R.id.text_data_word);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		SearchHistoryBean bean = (SearchHistoryBean) getItem(position);
+		SearchHotBean bean = (SearchHotBean) getItem(position);
 		if (bean != null) {
 			viewHolder.text_sb_num.setText(bean.getC_pos()+"");
 			viewHolder.text_data_word.setText(bean.getC_title());

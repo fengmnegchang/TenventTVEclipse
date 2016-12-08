@@ -2,41 +2,65 @@
  *****************************************************************************************************************************************************************************
  * 
  * @author :fengguangjing
- * @createTime:2016-12-7下午4:12:58
+ * @createTime:2016-12-7下午4:10:23
  * @version:4.2.4
  * @modifyTime:
  * @modifyAuthor:
  * @description:
  *****************************************************************************************************************************************************************************
  */
-package com.open.tencenttv.json;
+package com.open.tencenttv.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.open.tencenttv.bean.SearchHistoryBean;
+import java.io.Serializable;
 
 /**
  ***************************************************************************************************************************************************************************** 
  * 搜索历史
  * 
  * @author :fengguangjing
- * @createTime:2016-12-7下午4:12:58
+ * @createTime:2016-12-7下午4:10:23
  * @version:4.2.4
  * @modifyTime:
  * @modifyAuthor:
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class SearchHistoryJson extends CommonTJson {
-	private List<SearchHistoryBean> words = new ArrayList<SearchHistoryBean>();
+public class SearchHotBean implements Serializable {
+	private String c_pos;
+	private String c_title;
+	private String mark;
+	private String order_change;
 
-	public List<SearchHistoryBean> getWords() {
-		return words;
+	public String getC_pos() {
+		return c_pos;
 	}
 
-	public void setWords(List<SearchHistoryBean> words) {
-		this.words = words;
+	public void setC_pos(String c_pos) {
+		this.c_pos = c_pos;
+	}
+
+	public String getC_title() {
+		return c_title;
+	}
+
+	public void setC_title(String c_title) {
+		this.c_title = c_title;
+	}
+
+	public String getMark() {
+		return mark;
+	}
+
+	public void setMark(String mark) {
+		this.mark = mark;
+	}
+
+	public String getOrder_change() {
+		return order_change;
+	}
+
+	public void setOrder_change(String order_change) {
+		this.order_change = order_change;
 	}
 
 }
