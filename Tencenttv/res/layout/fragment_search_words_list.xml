@@ -2,27 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:focusable="false"
-    android:focusableInTouchMode="false" >
+    android:background="@color/darkgray" >
 
-    <TextView
-        android:id="@+id/txt_search_words"
+    <EditText
+        android:id="@+id/edit_search"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:gravity="center" />
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp" />
 
-    <FrameLayout
-        android:id="@+id/frame_search"
+    <com.open.androidtvwidget.view.ListViewTV
+        android:id="@id/listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/txt_search_words"
-        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/edit_search"
+        android:dividerHeight="2dp"
         android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:listSelector="#00000000"
+        android:scrollbars="none" />
 
     <com.open.androidtvwidget.view.MainUpView
         android:id="@+id/mainUpView1"

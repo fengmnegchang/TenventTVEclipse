@@ -1,3 +1,14 @@
+/**
+ *****************************************************************************************************************************************************************************
+ * 
+ * @author :fengguangjing
+ * @createTime:2016-12-8上午10:42:37
+ * @version:4.2.4
+ * @modifyTime:
+ * @modifyAuthor:
+ * @description:
+ *****************************************************************************************************************************************************************************
+ */
 package com.open.tencenttv;
 
 import java.util.Collections;
@@ -7,18 +18,18 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.Response.Listener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -32,20 +43,19 @@ import com.open.tencenttv.andenginetask.IProgressListener;
 import com.open.tencenttv.andenginetask.ProgressCallable;
 
 /**
- * 
- ***************************************************************************************************************************************************************************** 
+ *****************************************************************************************************************************************************************************
  * 
  * @author :fengguangjing
- * @createTime:2016-10-28上午10:36:57
+ * @createTime:2016-12-8上午10:42:37
  * @version:4.2.4
  * @modifyTime:
  * @modifyAuthor:
  * @description:
- ***************************************************************************************************************************************************************************** 
+ *****************************************************************************************************************************************************************************
  */
-public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Callback<T>, Callable<T>, ProgressCallable<T>, Response.Listener<JSONObject>, Response.ErrorListener {
-	public static final String TAG = BaseV4Fragment.class.getSimpleName();
-	public static final String KEY_CONTENT = BaseV4Fragment.class.getSimpleName() + ":Content";
+public class BaseAppFragment<T> extends Fragment implements CallEarliest<T>, Callback<T>, Callable<T>, ProgressCallable<T>, Response.Listener<JSONObject>, Response.ErrorListener {
+	public static final String TAG = BaseAppFragment.class.getSimpleName();
+	public static final String KEY_CONTENT = BaseAppFragment.class.getSimpleName() + ":Content";
 	public String mContent = "";
 	public MainUpView mainUpView1;
 	public LayoutInflater mInflater;
@@ -74,7 +84,7 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 	 * 
 	 * @see android.support.v4.app.Fragment#setUserVisibleHint(boolean)
 	 */
-	@Override
+	@SuppressLint("NewApi") @Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 		// TODO Auto-generated method stub
 		super.setUserVisibleHint(isVisibleToUser);
@@ -205,13 +215,6 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 
 	}
 	 
-	/**
-	 * 请求网络数据
-	 * @param href:地址
-	 */
-	public void volleyJson(String href){
-		
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -270,5 +273,4 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 			}
 		}
 	}
-
 }

@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:focusable="false"
+    android:background="@color/darkgray"
     android:focusableInTouchMode="false" >
 
     <FrameLayout

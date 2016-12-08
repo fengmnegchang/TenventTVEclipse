@@ -1,20 +1,16 @@
 package com.open.tencenttv.widget;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.R;
-import com.open.tencenttv.adapter.PanAdapter;
-import com.open.tencenttv.bean.CircularBean;
+import com.open.tencenttv.SearchHotActivity;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -30,18 +26,15 @@ public class SearchHotPopupWindow extends PopupWindow {
     public static final String TAG = SearchHotPopupWindow.class.getSimpleName();
     View conentView;
 
-    public SearchHotPopupWindow(final Activity context, MainUpView mainUpView1,  View mOldView, final  EffectNoDrawBridge mRecyclerViewBridge) {
+    public SearchHotPopupWindow(final SearchHotActivity context, MainUpView mainUpView1,  View mOldView, final  EffectNoDrawBridge mRecyclerViewBridge) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         conentView = inflater.inflate(R.layout.popup_search_hot, null);
-         
 
-        int h = context.getWindowManager().getDefaultDisplay().getHeight();
-        int w = context.getWindowManager().getDefaultDisplay().getWidth();
         // 设置SelectPicPopupWindow的View
         this.setContentView(conentView);
         // 设置SelectPicPopupWindow弹出窗体的宽
-        this.setWidth(LayoutParams.WRAP_CONTENT);
+        this.setWidth(LayoutParams.MATCH_PARENT);
         // 设置SelectPicPopupWindow弹出窗体的高
         this.setHeight(LayoutParams.WRAP_CONTENT);
         // 设置SelectPicPopupWindow弹出窗体可点击
@@ -66,7 +59,7 @@ public class SearchHotPopupWindow extends PopupWindow {
     public void showPopupWindow(View parent) {
         if (!this.isShowing()) {
             // 以下拉方式显示popupwindow
-            this.showAsDropDown(parent,  0,-100);
+            this.showAsDropDown(parent,  10, 10);
         } else {
             this.dismiss();
         }

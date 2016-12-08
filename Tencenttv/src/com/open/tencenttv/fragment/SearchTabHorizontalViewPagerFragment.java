@@ -186,7 +186,7 @@ public class SearchTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 		for (int i=0;i<result.getList().size();i++) {
 			RankBean bean = result.getList().get(i);
 			titleList.add(bean.getRankName());
-			SearchListFragment fragment = SearchListFragment.newInstance(UrlUtils.TENCENT_SEARCH,  mainUpView1, mOldView, mRecyclerViewBridge);
+			SearchListFragment fragment = SearchListFragment.newInstance(url,  mainUpView1, mOldView, mRecyclerViewBridge);
 			listRankFragment.add(fragment);
 		}
 		mOpenTabTitleAdapter = new OpenTabTitleAdapter(getActivity(), titleList);
