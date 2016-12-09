@@ -51,8 +51,17 @@ public class UrlUtils {
 	public static final String TENCENT_USER_PLAYLIST = "http://v.qq.com/u/playlist.html";
 	/**订阅个人页面+url */
 	public static final String TENCENT_V_PLUS = "http://v.qq.com/vplus/";
+	/**订阅 */
+	public static final String TENCENT_U_SUBSCRIBE = "http://v.qq.com/u/subscribe.html";
+	/**球队球星 */
+	public static final String TENCENT_SEARCH_MS_KEY = "http://v.qq.com/search.html?ms_key=";
+	
+	public static final String COOKIE = "3g_guest_id=-9045538589999304704; cuid=5032023480; sd_userid=27201462782213238; sd_cookie_crttime=1462782213238; eas_sid=y1i4W655K8T8X9U3N3p7C7U2x7; pac_uid=1_624926379; qq_slist_autoplay=on; tvfe_boss_uuid=e776aacde64effb9; h_uid=H01560819fdc; mobileUV=1_158907f70d3_bbd13; guid=116z231z244z1420123456789qwertyu; ptui_loginuin=624926379@qq.com; pt2gguin=o0624926379; luin=o0624926379; lskey=00010000dc8afe64b0ce27f57820dcefd38a902ab9d67698fc42f999b4d492033045767f379c6947e7546ae8; ptcz=c307e47376dee800ee4a82794866f608297b218323a8b12fd611bbd8f75f86b6; main_login=qq; uid=33415391; uin=o0624926379; ptisp=ctc; pgv_info=ssid=s4759010146; pgv_pvid=6914624368; o_cookie=624926379";
 	
 	
+	public static String getCookie(){
+		return COOKIE;
+	}
 	/**
 	 * JsonObjectRequest 请求设置Headers
 	 */

@@ -50,6 +50,7 @@ public class UserFollowBean {
 	// "inserttime;//"2016-12-08 17:16:11",
 	private String pic;// "http://i.gtimg.cn/qqlive/img/jpgcache/files/qqvideo/hori/6/6glb931a5u1twhz.jpg",
 
+	private String c_vid;
 	// "srctype;//1
 
 	public String getC_timelong() {
@@ -90,6 +91,14 @@ public class UserFollowBean {
 
 	public void setC_cover_id(String c_cover_id) {
 		this.c_cover_id = c_cover_id;
+	}
+
+	public String getC_vid() {
+		return c_vid;
+	}
+
+	public void setC_vid(String c_vid) {
+		this.c_vid = c_vid;
 	}
 
 }

@@ -106,7 +106,7 @@ public class UserListFragment  extends BaseV4ListFragment<UserNaviJson> {
     	
     	//订阅
     	//推荐订阅http://c.v.qq.com/vfollowlst?otype=json&pagenum=1&pagesize=5&callback=jQuery19105151766284214294_1481251654251&g_tk=1605338694&_=1481251654252
-    	//已订阅  http://c.v.qq.com/vfollowlst?otype=json&pagenum=1&pagesize=5&callback=jQuery1910017263844873828926_1481262407228&g_tk=1605338694&_=1481262407229
+    	//球星球队http://like.video.qq.com/fcgi-bin/flw_new?otype=json&sn=FollowServer&cmd=2563&pidx=0&size=5&dtype=1&type=0&callback=jQuery19105069239718699954_1481264321368&g_tk=1605338694&_=1481264321379
     	//vip
     	//http://pay.video.qq.com/fcgi-bin/price-month?otype=json&hlw_params=pf%3D1%26app%3Dbrowser&callback=jQuery191033791200020116796_1481188958294&low_login=1&_=1481188958306
     	
@@ -117,7 +117,7 @@ public class UserListFragment  extends BaseV4ListFragment<UserNaviJson> {
         }else if(data.get(position).getNavi_text().equals("看单")){
         	fragment = UserFollowGridFragment.newInstance("", mainUpView1, mRecyclerViewBridge, mOldView);
         }else if(data.get(position).getNavi_text().equals("订阅")){
-        	fragment = UserSubscribeFragment.newInstance("", mainUpView1, mRecyclerViewBridge, mOldView);
+        	fragment = UserSubscribeTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
         }
         manager.beginTransaction().replace(R.id.frame_user, fragment).commit();
     }
