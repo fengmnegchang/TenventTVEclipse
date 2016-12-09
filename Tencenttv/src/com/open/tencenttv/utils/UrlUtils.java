@@ -49,6 +49,8 @@ public class UrlUtils {
 	public static final String TENCENT_COVER = "https://v.qq.com/x/cover/";
 	/**看单地址 */
 	public static final String TENCENT_USER_PLAYLIST = "http://v.qq.com/u/playlist.html";
+	/**订阅个人页面+url */
+	public static final String TENCENT_V_PLUS = "http://v.qq.com/vplus/";
 	
 	
 	/**
