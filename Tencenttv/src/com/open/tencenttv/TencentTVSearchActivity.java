@@ -61,6 +61,9 @@ public class TencentTVSearchActivity extends CommonFragmentActivity {
 	protected void initValue() {
 		super.initValue();
         String words = getIntent().getStringExtra("WORDS");
+        if(words==null){
+        	words = "咱";
+        }
         txt_search_words.setText(words);
         try {
         	url = url + URLEncoder.encode(words,"UTF-8")+"&stag=2&smartbox_ab=";

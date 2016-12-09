@@ -110,14 +110,7 @@
         <!-- 按明星分类 -->
         <activity android:name="com.open.tencenttv.StarTabHostViewPagerActivity" >
         </activity>
-        
-        <!-- 所有类列表 -->
-        <activity android:name="com.open.tencenttv.TencentTVALLActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+       
         <!--腾讯视频搜索 -->
         <activity android:name="com.open.tencenttv.TencentTVSearchActivity" >
         </activity>
@@ -126,9 +119,17 @@
         </activity>
         <!-- 用户中心 钱包、会员、观看历史-->
         <activity android:name="com.open.tencenttv.ListFragmentUserActivity" >
-            
         </activity>
         
+        
+        
+         <!-- 所有类列表 -->
+        <activity android:name="com.open.tencenttv.TencentTVALLActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
