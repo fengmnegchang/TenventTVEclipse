@@ -103,7 +103,7 @@ public class UserListFragment  extends BaseV4ListFragment<UserNaviJson> {
     private void setSelectedFragment(int position){
     	//看单
     	//http://like.video.qq.com/fcgi-bin/flw_new?otype=json&sn=FollowServer&cmd=2562&pidx=0&size=30&dtype=0&type=0&callback=jQuery19106935243788063994_1481188648206&g_tk=629796729&_=1481188648207
-    	
+    	//观看历史http://ncgi.video.qq.com/tvideo/fcgi-bin/myview?callback=jQuery19102949009773172202_1481270020442&pn=25&otype=json&t=1&plat=2&pver=4&cur=1&g_tk=1605338694&_=1481270020443
     	//订阅
     	//推荐订阅http://c.v.qq.com/vfollowlst?otype=json&pagenum=1&pagesize=5&callback=jQuery19105151766284214294_1481251654251&g_tk=1605338694&_=1481251654252
     	//球星球队http://like.video.qq.com/fcgi-bin/flw_new?otype=json&sn=FollowServer&cmd=2563&pidx=0&size=5&dtype=1&type=0&callback=jQuery19105069239718699954_1481264321368&g_tk=1605338694&_=1481264321379
@@ -113,12 +113,12 @@ public class UserListFragment  extends BaseV4ListFragment<UserNaviJson> {
     	FragmentManager manager = getActivity().getSupportFragmentManager();
     	Fragment fragment = RankV4Fragment.newInstance();
         if(data.get(position).getNavi_text().equals("观看历史")){
-        	fragment = LastHistoryFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
+        	fragment = UserMyViewExpandableListFragment.newInstance("", mainUpView1, mRecyclerViewBridge, mOldView);
         }else if(data.get(position).getNavi_text().equals("看单")){
         	fragment = UserFollowGridFragment.newInstance("", mainUpView1, mRecyclerViewBridge, mOldView);
         }else if(data.get(position).getNavi_text().equals("订阅")){
         	fragment = UserSubscribeTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
-        }
+        } 
         manager.beginTransaction().replace(R.id.frame_user, fragment).commit();
     }
 
