@@ -45,6 +45,11 @@ public class UrlUtils {
 
 	/**用户中心 钱包、会员、观看历史*/
 	public static final String TENCENT_USER= "http://v.qq.com/u/history/";
+	/**看单播放地址 + c_cover_id.html*/
+	public static final String TENCENT_COVER = "https://v.qq.com/x/cover/";
+	/**看单地址 */
+	public static final String TENCENT_USER_PLAYLIST = "http://v.qq.com/u/playlist.html";
+	
 	
 	/**
 	 * JsonObjectRequest 请求设置Headers

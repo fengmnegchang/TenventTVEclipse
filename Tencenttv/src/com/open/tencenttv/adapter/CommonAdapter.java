@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -34,10 +35,12 @@ public class CommonAdapter<T> extends BaseAdapter {
 	private List<T> list;
 	public Context mContext;
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
-
+	public LayoutInflater mInflater;
+	
 	public CommonAdapter(Context mContext, List<T> list) {
 		this.mContext = mContext;
 		this.list = list;
+		mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override
