@@ -118,6 +118,8 @@ public class UserListFragment  extends BaseV4ListFragment<UserNaviJson> {
         	fragment = UserFollowGridFragment.newInstance("", mainUpView1, mRecyclerViewBridge, mOldView);
         }else if(data.get(position).getNavi_text().equals("订阅")){
         	fragment = UserSubscribeTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
+        } else if(data.get(position).getNavi_text().equals("我的评论")){
+        	fragment = UserCommentHeadTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
         } 
         manager.beginTransaction().replace(R.id.frame_user, fragment).commit();
     }
