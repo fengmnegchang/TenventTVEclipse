@@ -102,7 +102,7 @@ public class UserCommentTabHorizontalViewPagerFragment extends BaseV4Fragment<Ra
 		listRankFragment.add(fragment);
 
 		titleList.add("赞消息");
-		fragment = RankV4Fragment.newInstance();
+		fragment = UserCommentUpFragment.newInstance(mainUpView1, view, mEffectNoDrawBridge);
 		listRankFragment.add(fragment);
 
 		titleList.add("举报消息");

@@ -11,6 +11,8 @@
  */
 package com.open.tencenttv.bean;
 
+import java.util.List;
+
 /**
  ***************************************************************************************************************************************************************************** 
  * 
@@ -43,6 +45,9 @@ public class CommentBean {
 	// "richtype;//0,
 	// "rootid;//"6213952427956712408",
 	private String title;// "",
+	private List<UserBean> upusers;
+	
+	
 	public String getTargetid() {
 		return targetid;
 	}
@@ -114,6 +119,12 @@ public class CommentBean {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public List<UserBean> getUpusers() {
+		return upusers;
+	}
+	public void setUpusers(List<UserBean> upusers) {
+		this.upusers = upusers;
 	}
 
 	// "abstract;//"",
