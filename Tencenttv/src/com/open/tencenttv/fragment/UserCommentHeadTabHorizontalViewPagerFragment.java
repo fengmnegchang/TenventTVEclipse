@@ -168,6 +168,9 @@ public class UserCommentHeadTabHorizontalViewPagerFragment extends BaseV4Fragmen
 			titleList.add(bean.getRankName());
 			if("消息".equals(bean.getRankName())){
 				fragment = UserCommentTabHorizontalViewPagerFragment.newInstance(bean.getRankName(),mainUpView1, mNewFocus, mEffectNoDrawBridge);
+			}else if("短评".equals(bean.getRankName())){
+				//短评 http://video.coral.qq.com/user/0/comment/v2?callback=mycomments&type=0&commentid=&pageflag=1&reqnum=10&_=1481532169966
+				fragment = UserMyCommentFragment.newInstance(mainUpView1, mNewFocus, mEffectNoDrawBridge);
 			}else{
 				fragment = RankV4Fragment.newInstance();
 			}
