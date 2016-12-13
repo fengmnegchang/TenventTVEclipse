@@ -271,4 +271,8 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 		}
 	}
 
+	public boolean onBackPressed() {
+		return false;
+	}
+
 }

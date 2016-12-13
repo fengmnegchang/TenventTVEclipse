@@ -120,6 +120,8 @@ public class UserListFragment  extends BaseV4ListFragment<UserNaviJson> {
         	fragment = UserSubscribeTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
         } else if(data.get(position).getNavi_text().equals("我的评论")){
         	fragment = UserCommentHeadTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
+        } else if(data.get(position).getNavi_text().equals("我的钱包")){
+        	fragment = TencentTVWebViewFragment.newInstance("http://v.qq.com/u/wallet/");
         } 
         manager.beginTransaction().replace(R.id.frame_user, fragment).commit();
     }

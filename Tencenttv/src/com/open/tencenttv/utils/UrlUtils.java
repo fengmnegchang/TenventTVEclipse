@@ -81,4 +81,12 @@ public class UrlUtils {
 	 headers.put("User-Agent",tencentAgent);
 	 return headers;
 	 }
+	
+	/**
+	 * webview 请求设置Cookies
+	 */
+	public static String getWebCookies() {
+		String cookie = "3g_guest_id=-9045538589999304704; cuid=5032023480; sd_userid=27201462782213238; sd_cookie_crttime=1462782213238; eas_sid=y1i4W655K8T8X9U3N3p7C7U2x7; pac_uid=1_624926379; qq_slist_autoplay=on; tvfe_boss_uuid=e776aacde64effb9; h_uid=H01560819fdc; mobileUV=1_158907f70d3_bbd13; ts_refer=enrz.com/fhm/2016/12/02/73248.html; RK=CesXfneTOj; ptui_loginuin=624926379@qq.com; pt2gguin=o0624926379; uin=o0624926379; skey=@JaFut8SEr; ptisp=ctc; luin=o0624926379; lskey=000100000426cf179de687a53cb07fc9f627768a534dd985707ade55845085252bc89239dd583b28feea12e5; ptcz=c307e47376dee800ee4a82794866f608297b218323a8b12fd611bbd8f75f86b6; login_remember=qq; _qddaz=QD.h8tbub.d2q19w.iwg3c671; _qddab=3-otr9k5.iwmuolvp; freq_3060875=2; ad_play_index=48; qv_als=Sh9UMh/S57fI+lH4A114815972961AaJGg==; pgv_info=ssid=s8280172281; ts_last=v.qq.com/u/wallet/; pgv_pvid=6914624368; o_cookie=624926379; ts_uid=3813777356; main_login=qq; encuin=f2caf7e2c580066b6f356522325b0902|624926379; lw_nick=%E5%BE%A1%E5%AE%88|624926379|//q4.qlogo.cn/g?b=qq&k=wSLCLgsnNYsxT924yLUn3Q&s=40&t=663|1; ptag=|u";
+		return cookie;
+	}
 }
