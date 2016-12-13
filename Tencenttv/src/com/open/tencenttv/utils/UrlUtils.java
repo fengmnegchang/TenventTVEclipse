@@ -61,6 +61,9 @@ public class UrlUtils {
 	/**我的评论 */
 	public static final String TENCENT_U_COMMENT = "http://v.qq.com/txyp/grzx/index.htm";
 	
+	/**我的钱包 */
+	public static final String TENCENT_U_WALLET = "http://v.qq.com/u/wallet/";
+	
 	public static String getCookie(){
 		return COOKIE;
 	}
