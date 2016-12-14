@@ -52,7 +52,8 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 	private static final String TAG = TencentTVWebViewActivity.class.getSimpleName();
 	private WebView webview;
 	private String url;
-
+	private String host;
+	private String cookies;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -67,12 +68,12 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 
 	}
 
-	public static void synCookies(Context context, String url) {
+	public static void synCookies(Context context, String url,String cookies) {
 		CookieSyncManager.createInstance(context);
 		CookieManager cookieManager = CookieManager.getInstance();
 		cookieManager.setAcceptCookie(true);
 		cookieManager.removeSessionCookie();// 移除
-		cookieManager.setCookie(url, UrlUtils.getWebCookies());// cookies是在HttpClient中获得的cookie
+		cookieManager.setCookie(url, cookies);// cookies是在HttpClient中获得的cookie
 		CookieSyncManager.getInstance().sync();
 	}
 
@@ -101,7 +102,10 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		super.initValue();
 		Intent intent = getIntent();
 		url = intent.getStringExtra("URL");
-		Log.i(TAG, "url===" + url);
+		host = intent.getStringExtra("HOST");
+		cookies = intent.getStringExtra("COOKIES");
+		
+		Log.i(TAG, "url===" + url+"host="+host+";cookies="+cookies);
 		WebSettings webSettings = webview.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		webSettings.setSupportZoom(true);
@@ -110,17 +114,6 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		webSettings.setBuiltInZoomControls(true);
 		// 扩大比例的缩放
 		webSettings.setUseWideViewPort(true);
-		 Map<String,String> header = new HashMap<String, String>();
-		 Date date = new Date();
-		 header.put("If-Modified-Since", date.toGMTString());
-		 header.put("Upgrade-Insecure-Requests","1");
-		 header.put("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-		 header.put("Accept-Encoding","gzip, deflate, sdch");
-		 header.put("Accept-Language","zh-CN,zh;q=0.8");
-		 header.put("Cache-Control","max-age=0");
-		 header.put("Connection","keep-alive");
-		 header.put("Host","v.qq.com");
-		    
 		// 自适应屏幕
 		if (Build.VERSION.SDK_INT >= 21) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW );
@@ -134,8 +127,26 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		if(url == null){
 			url = UrlUtils.TENCENT_X_MOVIE_LIST;
 		}
-		synCookies(TencentTVWebViewActivity.this,url);
+		 
+		 Map<String, String>  header = new HashMap<String, String>();
+		 Date date = new Date();
+		 header.put("If-Modified-Since", date.toGMTString());
+		 header.put("Upgrade-Insecure-Requests","1");
+		 header.put("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+		 header.put("Accept-Encoding","gzip, deflate, sdch");
+		 header.put("Accept-Language","zh-CN,zh;q=0.8");
+		 header.put("Cache-Control","max-age=0");
+		 header.put("Connection","keep-alive");
+//		 header.put("User-Agent",UrlUtils.tencentAgent);
+		 if(host!=null){
+			 header.put("Host",host);
+		 }else{
+			 header.put("Host",UrlUtils.HOST);
+		 }
+		  
+		synCookies(TencentTVWebViewActivity.this,url,UrlUtils.getWebCookies());
 		webview.loadUrl(url,header);
+		
 
 	}
 
@@ -226,6 +237,15 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		Intent intent = new Intent();
 		intent.setClass(context, TencentTVWebViewActivity.class);
 		intent.putExtra("URL", url);
+		context.startActivity(intent);
+	}
+	
+	public static void startTencentTVWebViewActivity(Context context,String url,String host,String cookies){
+		Intent intent = new Intent();
+		intent.setClass(context, TencentTVWebViewActivity.class);
+		intent.putExtra("URL", url);
+		intent.putExtra("HOST", host);
+		intent.putExtra("COOKIES", cookies);
 		context.startActivity(intent);
 	}
 

@@ -188,7 +188,8 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson> {
 				image_vipsrc.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						TencentTVWebViewActivity.startTencentTVWebViewActivity(getActivity(), vippribean.getViphref());
+						String cookies = "3g_guest_id=-9045538589999304704; cuid=5032023480; sd_userid=27201462782213238; sd_cookie_crttime=1462782213238; eas_sid=y1i4W655K8T8X9U3N3p7C7U2x7; pac_uid=1_624926379; qq_slist_autoplay=on; tvfe_boss_uuid=e776aacde64effb9; h_uid=H01560819fdc; mobileUV=1_158907f70d3_bbd13; RK=CesXfneTOj; ptui_loginuin=624926379@qq.com; pt2gguin=o0624926379; luin=o0624926379; lskey=000100000426cf179de687a53cb07fc9f627768a534dd985707ade55845085252bc89239dd583b28feea12e5; ptcz=c307e47376dee800ee4a82794866f608297b218323a8b12fd611bbd8f75f86b6; uid=33415391; login_remember=qq; encuin=f2caf7e2c580066b6f356522325b0902|624926379; lw_nick=%E5%BE%A1%E5%AE%88|624926379|//q4.qlogo.cn/g?b=qq&k=wSLCLgsnNYsxT924yLUn3Q&s=40&t=663|1; ts_refer=v.qq.com/u/hlw/hlw_index.html; main_login=qq; ptag=v_qq_com; pgv_info=ssid=s9656053119; ts_last=film.qq.com/vip/vip_privilege_detail.html; pgv_pvid=6914624368; o_cookie=624926379; ts_uid=5059674664";
+						TencentTVWebViewActivity.startTencentTVWebViewActivity(getActivity(), vippribean.getViphref(),"film.qq.com",cookies);
 					}
 				});
 				if (vippribean.getVipimgurl() != null && vippribean.getVipimgurl().length() > 0) {
