@@ -21,6 +21,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -192,11 +197,12 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson> {
 						TencentTVWebViewActivity.startTencentTVWebViewActivity(getActivity(), vippribean.getViphref(),"film.qq.com",cookies);
 					}
 				});
-				if (vippribean.getVipimgurl() != null && vippribean.getVipimgurl().length() > 0) {
-					DisplayImageOptions options = new DisplayImageOptions.Builder().showStubImage(R.drawable.grid_view_item_test).showImageForEmptyUri(R.drawable.grid_view_item_test)
-							.showImageOnFail(R.drawable.grid_view_item_test).cacheInMemory().cacheOnDisc().build();
-					ImageLoader.getInstance().displayImage(vippribean.getVipimgurl(), image_vipsrc, options, getImageLoadingListener());
-				}
+//				if (vippribean.getVipimgurl() != null && vippribean.getVipimgurl().length() > 0) {
+//					DisplayImageOptions options = new DisplayImageOptions.Builder().showStubImage(R.drawable.grid_view_item_test).showImageForEmptyUri(R.drawable.grid_view_item_test)
+//							.showImageOnFail(R.drawable.grid_view_item_test).cacheInMemory().cacheOnDisc().build();
+//					ImageLoader.getInstance().displayImage(vippribean.getVipimgurl(), image_vipsrc, options, getImageLoadingListener());
+//				}
+				image_vipsrc.setImageBitmap(getBitmap(i));
 				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 				params.leftMargin = 10;
 				params.rightMargin = 10;
@@ -260,6 +266,7 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson> {
 							.showImageOnFail(R.drawable.grid_view_item_test).cacheInMemory().cacheOnDisc().build();
 					ImageLoader.getInstance().displayImage(actbean.getImgsrc(), image_src, options, getImageLoadingListener());
 				}
+				
 				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 				params.leftMargin = 10;
 				params.rightMargin = 10;
@@ -268,6 +275,32 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson> {
 				layout_vip_act.addView(view, params);
 			}
 		}
+	}
+	
+	public Bitmap getBitmap(int position) {
+  		BitmapDrawable bd = (BitmapDrawable) getResources().getDrawable(
+  				R.drawable.sprite_icon_privilege);
+  		Bitmap bitmap = bd.getBitmap();
+  		int w = bitmap.getWidth();
+  		int h = bitmap.getHeight();
+  		
+  		int x = 0;
+  		int y = 0;
+  		if(position>4){
+  			x = (position-5)*w/5;
+  			y = w/5;
+  		}else{
+  			x = position*w/5;
+  			y = 0;
+  		}
+  		
+  		Bitmap bm = Bitmap.createBitmap(bitmap, x, y, w/5, w/5);
+  		Canvas canvas = new Canvas(bm);
+  		Paint mPaint = new Paint();
+  		mPaint.setAntiAlias(true);
+  		mPaint.setStyle(Style.STROKE);
+  		canvas.drawBitmap(bitmap, x, y, mPaint);
+  		return bm;
 	}
 
 	private UserVipJson parseVip(String href) {
