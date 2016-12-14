@@ -102,7 +102,9 @@ public class UserMyViewExpandableListFragment extends BaseV4Fragment<UserMyViewJ
 					list.clear();
 					list.addAll(mUserMyViewJson.getList());
 					mUserMyViewExpandableListAdapter.notifyDataSetChanged();
-					expendablelistview.expandGroup(0);
+					for(int i=0;i<mUserMyViewExpandableListAdapter.getGroupCount();i++){
+						expendablelistview.expandGroup(i);
+					}
 				}
 			}
 		}, UserMyViewExpandableListFragment.this);

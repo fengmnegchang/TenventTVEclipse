@@ -64,6 +64,9 @@ public class UrlUtils {
 	/**我的钱包 */
 	public static final String TENCENT_U_WALLET = "http://v.qq.com/u/wallet/";
 	
+	/**vip会员 */
+	public static final String TENCENT_U_VIP = "http://v.qq.com/u/hlw/hlw_index.html";
+	
 	public static String getCookie(){
 		return COOKIE;
 	}

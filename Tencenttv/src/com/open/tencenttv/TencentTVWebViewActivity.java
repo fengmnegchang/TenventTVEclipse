@@ -72,17 +72,11 @@ public class TencentTVWebViewActivity extends BaseFragmentActivity {
 		CookieManager cookieManager = CookieManager.getInstance();
 		cookieManager.setAcceptCookie(true);
 		cookieManager.removeSessionCookie();// 移除
-		cookieManager.setCookie(url, getWebCookies());// cookies是在HttpClient中获得的cookie
+		cookieManager.setCookie(url, UrlUtils.getWebCookies());// cookies是在HttpClient中获得的cookie
 		CookieSyncManager.getInstance().sync();
 	}
 
-	/**
-	 * webview 请求设置Cookies
-	 */
-	public static String getWebCookies() {
-		String cookie = "3g_guest_id=-9045538589999304704; cuid=5032023480; sd_userid=27201462782213238; sd_cookie_crttime=1462782213238; eas_sid=y1i4W655K8T8X9U3N3p7C7U2x7; pac_uid=1_624926379; qq_slist_autoplay=on; tvfe_boss_uuid=e776aacde64effb9; h_uid=H01560819fdc; ptcz=c307e47376dee800ee4a82794866f608297b218323a8b12fd611bbd8f75f86b6; pt2gguin=o0624926379; mobileUV=1_158907f70d3_bbd13; ts_refer=enrz.com/fhm/2016/12/02/73248.html; o_cookie=624926379; pgv_info=ssid=s3058190196; ts_last=v.qq.com/x/cover/9qwnh7a0qcn2qzh.html; pgv_pvid=6914624368; ts_uid=3813777356; qv_als=IhFN+0ZkS8jmNnw2A11481076392ug7NEg==; ad_play_index=18";
-		return cookie;
-	}
+ 
 
 	/*
 	 * (non-Javadoc)

@@ -11,7 +11,12 @@
  */
 package com.open.tencenttv.json;
 
+import java.util.List;
+
+import com.open.tencenttv.bean.FilmShow;
 import com.open.tencenttv.bean.UserVipMonthBean;
+import com.open.tencenttv.bean.VipAct;
+import com.open.tencenttv.bean.VipPrivilege;
 
 /**
  ***************************************************************************************************************************************************************************** 
@@ -31,6 +36,33 @@ public class UserVipJson extends CommonTJson {
 	private UserVipMonthBean month_price;// Object{...},
 	private UserVipMonthBean month_price_iap;// Object{...},
 	// private String result;//Object{...}
+	private List<VipPrivilege> vip_privilege_list;
+	private List<FilmShow> film_show_list;
+	private List<VipAct> vip_act_list;
+
+	public List<VipPrivilege> getVip_privilege_list() {
+		return vip_privilege_list;
+	}
+
+	public void setVip_privilege_list(List<VipPrivilege> vip_privilege_list) {
+		this.vip_privilege_list = vip_privilege_list;
+	}
+
+	public List<FilmShow> getFilm_show_list() {
+		return film_show_list;
+	}
+
+	public void setFilm_show_list(List<FilmShow> film_show_list) {
+		this.film_show_list = film_show_list;
+	}
+
+	public List<VipAct> getVip_act_list() {
+		return vip_act_list;
+	}
+
+	public void setVip_act_list(List<VipAct> vip_act_list) {
+		this.vip_act_list = vip_act_list;
+	}
 
 	public String getAct_check_msg() {
 		return act_check_msg;
