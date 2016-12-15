@@ -117,13 +117,13 @@ public class UserListFragment  extends BaseV4ListFragment<UserNaviJson> {
         }else if(data.get(position).getNavi_text().equals("看单")){
         	fragment = UserFollowGridFragment.newInstance("", mainUpView1, mRecyclerViewBridge, mOldView);
         }else if(data.get(position).getNavi_text().equals("订阅")){
-        	fragment = UserSubscribeTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
+        	fragment = UserSubscribeTabHorizontalViewPagerFragment.newInstance(UrlUtils.TENCENT_U_SUBSCRIBE,"ul.mod_tab_list","li","a",mainUpView1, mOldView, mRecyclerViewBridge);
         } else if(data.get(position).getNavi_text().equals("我的评论")){
-        	fragment = UserCommentHeadTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
+        	fragment = UserCommentHeadTabHorizontalViewPagerFragment.newInstance(UrlUtils.TENCENT_U_COMMENT,"div.mycenter-nav","li","a",mainUpView1, mOldView, mRecyclerViewBridge);
         } else if(data.get(position).getNavi_text().equals("我的钱包")){
-        	fragment = UserWalletTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
+        	fragment = UserWalletTabHorizontalViewPagerFragment.newInstance(UrlUtils.TENCENT_U_WALLET,"div.mod_nav_related","li","a",mainUpView1, mOldView, mRecyclerViewBridge);
         } else if(data.get(position).getNavi_text().equals("VIP会员")){
-        	fragment = UserVipTabHorizontalViewPagerFragment.newInstance(mainUpView1, mOldView, mRecyclerViewBridge);
+        	fragment = UserVipTabHorizontalViewPagerFragment.newInstance(UrlUtils.TENCENT_U_VIP,"ul.mod_tab_list","li","span",mainUpView1, mOldView, mRecyclerViewBridge);
         } 
         manager.beginTransaction().replace(R.id.frame_user, fragment).commit();
     }

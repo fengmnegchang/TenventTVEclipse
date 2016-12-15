@@ -61,15 +61,23 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 	public View mNewFocus;
 	public RankPagerAdapter mRankPagerAdapter;
 	// RankViewPagerAdapter mRankViewPagerAdapter;
-	private List<RankBean> titlerankList = new ArrayList<RankBean>();
+	public List<RankBean> titlerankList = new ArrayList<RankBean>();
 	public OpenTabHost mOpenTabHost;
 	public OpenTabTitleAdapter mOpenTabTitleAdapter;
-	private List<String> titleList = new ArrayList<String>();
-	private List<Fragment> listRankFragment = new ArrayList<Fragment>();// view数组
-	int position;
-
-	public static CommonTabHorizontalViewPagerFragment newInstance(MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mEffectNoDrawBridge) {
+	public List<String> titleList = new ArrayList<String>();
+	public List<Fragment> listRankFragment = new ArrayList<Fragment>();// view数组
+	public int position;
+	public View view;
+	public String url;
+	public String selectElement;
+	public String liElement;
+	public String astrElement;
+	public static CommonTabHorizontalViewPagerFragment newInstance(String url, String selectElement, String liElement, String astrElement, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mEffectNoDrawBridge) {
 		CommonTabHorizontalViewPagerFragment fragment = new CommonTabHorizontalViewPagerFragment();
+		fragment.url = url;
+		fragment.selectElement = selectElement;
+		fragment.liElement = liElement;
+		fragment.astrElement = astrElement;
 		fragment.mainUpView1 = mainUpView1;
 		fragment.mOldView = mOldView;
 		fragment.mEffectNoDrawBridge = mEffectNoDrawBridge;
@@ -79,18 +87,32 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_pindao_tab_horizontal_viewpager, container, false);
-		// 初始化viewpager.
-		viewpager = (ViewPager) view.findViewById(R.id.viewpager);
-		mOpenTabHost = (OpenTabHost) view.findViewById(R.id.openTabHost);
+		view = inflater.inflate(R.layout.fragment_pindao_tab_horizontal_viewpager, container, false);
+		findView();
 		return view;
 	}
 
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		initValue();
 		doAsync(this, this, this);
+		bindEvent();
+	}
 
+	/**
+	 * 初始化数据 ，在onCreateView调用
+	 */
+	public void initValue() {
+	}
+
+	/**
+	 * 初始化view ，在onCreateView调用
+	 */
+	public void findView() {
+		// 初始化viewpager.
+		viewpager = (ViewPager) view.findViewById(R.id.viewpager);
+		mOpenTabHost = (OpenTabHost) view.findViewById(R.id.openTabHost);
 	}
 
 	@Override
@@ -144,7 +166,7 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 		RankJson mCommonT = new RankJson();
 		ArrayList<RankBean> list = new ArrayList<RankBean>();
 		try {
-			list = parseTitleRank(UrlUtils.TENCENT_U_WALLET);
+			list = parseTitleRank(url);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,34 +178,12 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 	@Override
 	public void onCallback(RankJson result) {
 		super.onCallback(result);
-		titlerankList.clear();
-		titlerankList.addAll(result.getList());
-		// 初始化标题栏.
-		titleList.clear();
-		listRankFragment.clear();
+	}
 
-		Fragment fragment = null;
-		for (int i = 0; i < result.getList().size(); i++) {
-			RankBean bean = result.getList().get(i);
-			titleList.add(bean.getRankName());
-			// 我的钱包http://task.video.qq.com/fcgi-bin/gift_list?callback=jQuery19105061520853703716_1481610716027&sort=seckill&otype=json&platform=10&_=1481610716028
-			// v币
-			// http://buy.video.qq.com/fcgi-bin/paycheck?callback=jQuery19105061520853703716_1481610716023&cmd=59855&platform=2&pidx=0&show_type=1&size=10&otype=json&g_tk=250078081&_=1481610716024
-			if (bean.getRankName().contains("我的钱包")) {
-				fragment = UserGiftGridFragment.newInstance("", mainUpView1, mEffectNoDrawBridge, mNewFocus);
-			} else {
-				fragment = UserBillFragment.newInstance("", mainUpView1, mEffectNoDrawBridge, mNewFocus);
-			}
-			listRankFragment.add(fragment);
-		}
-		mOpenTabTitleAdapter = new OpenTabTitleAdapter(getActivity(), titleList);
-		mOpenTabHost.setAdapter(mOpenTabTitleAdapter);
-
-		// mRankViewPagerAdapter = new
-		// RankViewPagerAdapter(getActivity(),result.getTitlerankList());
-		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(), listRankFragment, titleList);
-		viewpager.setAdapter(mRankPagerAdapter);
-
+	/**
+	 * 绑定事件在onViewCreated调用
+	 */
+	public void bindEvent() {
 		// 初始化viewpager.
 		// 全局焦点监听. (这里只是demo，为了方便这样写，你可以不这样写)
 		viewpager.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
@@ -257,8 +257,6 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 
 		// 初始化标题栏.
 		mOpenTabHost.setOnTabSelectListener(this);
-
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
 	}
 
 	public ArrayList<RankBean> parseTitleRank(String href) {
@@ -272,34 +270,30 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.userAgent).timeout(10000).get();
 
-			Element masthead = doc.select("div.mod_nav_related").first();
-			Elements liElements = masthead.select("li");
-			/**
-			 * <div class="mod_nav_related">
-			 * <ul class="related_list cf">
-			 * <li class="item current j_toggle_tab" data-type='1'>
-			 * <a href="javascript:;" class="link">我的钱包</a></li>
-			 * <li class="item j_toggle_tab j_bag_detail" data-type='2'>
-			 * <a href="javascript:;" class="link">钱包明细</a></li>
-			 * </ul>
-			 * </div>
-			 */
+			Element masthead = doc.select(selectElement).first();
+			Elements liElements = masthead.select(liElement);
 			// 解析文件
 			if (liElements != null && liElements.size() > 1) {
 				for (int i = 0; i < liElements.size(); i++) {
 					RankBean bean = new RankBean();
 					try {
-						Element aElement = liElements.get(i).select("a").first();
-						String hrefurl = aElement.attr("href");
+						Element aElement = liElements.get(i).select(astrElement).first();
 						String title = aElement.text().replace("/", "");
-
 						bean.setRankName(title);
-						bean.setRankurl(hrefurl);
-						list.add(bean);
-						Log.i(TAG, "i===" + i + "hrefurl==" + hrefurl + ";title===" + title);
+						Log.i(TAG, "i===" + i + "title===" + title);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+
+					try {
+						Element aElement = liElements.get(i).select(astrElement).first();
+						String hrefurl = aElement.attr("href");
+						bean.setRankurl(hrefurl);
+						Log.i(TAG, "i===" + i + "hrefurl==" + hrefurl);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					list.add(bean);
 				}
 			}
 
@@ -308,6 +302,14 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 		}
 
 		return list;
+	}
+
+	public void setSelectElement(String selectElement) {
+		this.selectElement = selectElement;
+	}
+
+	public void setLiElement(String liElement) {
+		this.liElement = liElement;
 	}
 
 }

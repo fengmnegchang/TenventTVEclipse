@@ -197,12 +197,12 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson> {
 						TencentTVWebViewActivity.startTencentTVWebViewActivity(getActivity(), vippribean.getViphref(),"film.qq.com",cookies);
 					}
 				});
-//				if (vippribean.getVipimgurl() != null && vippribean.getVipimgurl().length() > 0) {
-//					DisplayImageOptions options = new DisplayImageOptions.Builder().showStubImage(R.drawable.grid_view_item_test).showImageForEmptyUri(R.drawable.grid_view_item_test)
-//							.showImageOnFail(R.drawable.grid_view_item_test).cacheInMemory().cacheOnDisc().build();
-//					ImageLoader.getInstance().displayImage(vippribean.getVipimgurl(), image_vipsrc, options, getImageLoadingListener());
-//				}
-				image_vipsrc.setImageBitmap(getBitmap(i));
+				if (vippribean.getVipimgurl() != null && vippribean.getVipimgurl().length() > 0) {
+					DisplayImageOptions options = new DisplayImageOptions.Builder().showStubImage(R.drawable.grid_view_item_test).showImageForEmptyUri(R.drawable.grid_view_item_test)
+							.showImageOnFail(R.drawable.grid_view_item_test).cacheInMemory().cacheOnDisc().build();
+					ImageLoader.getInstance().displayImage(vippribean.getVipimgurl(), image_vipsrc, options, getImageLoadingListener());
+				}
+//				image_vipsrc.setImageBitmap(getBitmap(i));
 				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 				params.leftMargin = 10;
 				params.rightMargin = 10;
