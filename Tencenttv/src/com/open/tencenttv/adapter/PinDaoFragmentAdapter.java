@@ -86,7 +86,7 @@ public class PinDaoFragmentAdapter extends CommonAdapter<PinDaoBean> {
 	                    .showImageForEmptyUri(R.drawable.grid_view_item_test)
 	                    .showImageOnFail(R.drawable.grid_view_item_test).cacheInMemory().cacheOnDisc()
 	                    .build();
-	            ImageLoader.getInstance().displayImage(bean.getImagesrc(),viewHolder.imagesrc,options,getImageLoadingListener());
+	            ImageLoader.getInstance().displayImage(UrlUtils.TENCENT_IMAGE_URL+bean.getImagesrc(),viewHolder.imagesrc,options,getImageLoadingListener());
 	        }
 		}
 		return convertView;

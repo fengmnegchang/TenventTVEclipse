@@ -185,7 +185,7 @@ public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment<NewFeatur
 		}
 		mOldView = view;
 		// 进入频道
-		if (newfeaturelist != null && id > 0 && newfeaturelist.get((int) id) != null && newfeaturelist.get((int) id).getHrefUrl() != null) {
+		if (newfeaturelist != null && id >= 0 && newfeaturelist.get((int) id) != null && newfeaturelist.get((int) id).getHrefUrl() != null) {
 			TencentTVWebViewActivity.startTencentTVWebViewActivity(getActivity(), newfeaturelist.get((int) id).getHrefUrl());
 		}
 	}
