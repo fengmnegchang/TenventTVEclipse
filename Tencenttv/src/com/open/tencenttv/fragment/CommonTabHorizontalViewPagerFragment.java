@@ -278,7 +278,7 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 					RankBean bean = new RankBean();
 					try {
 						Element aElement = liElements.get(i).select(astrElement).first();
-						String title = aElement.text().replace("/", "");
+						String title = aElement.text().replace("/", "").replace("|", "");
 						bean.setRankName(title);
 						Log.i(TAG, "i===" + i + "title===" + title);
 					} catch (Exception e) {

@@ -96,7 +96,7 @@ public class PinDaoListFragment extends BaseV4ListFragment<PinDaoBeanJson> {
      * @param position
      */
     private void setSelectedFragment(int position){
-    	PinDaoTabHorizontalViewPagerFragment rightFragment = PinDaoTabHorizontalViewPagerFragment.newInstance(data.get(position).getHrefurl(), data.get(position).getTypeName(),mainUpView1,mOldView,mRecyclerViewBridge);
+    	PinDaoTabHorizontalViewPagerFragment rightFragment = PinDaoTabHorizontalViewPagerFragment.newInstance(data.get(position).getHrefurl(),"ul.filter_tabs","li","a", data.get(position).getTypeName(),mainUpView1,mOldView,mRecyclerViewBridge);
         FragmentManager manager = getActivity().getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.frame_pindao, rightFragment).commit();
     }

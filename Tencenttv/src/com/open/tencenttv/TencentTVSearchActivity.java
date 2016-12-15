@@ -77,7 +77,7 @@ public class TencentTVSearchActivity extends CommonFragmentActivity {
 		mainUpView1.setUpRectResource(R.drawable.white_light_10); // 设置移动边框的图片.
 		mainUpView1.setDrawUpRectPadding(new Rect(25, 25, 23, 23)); // 边框图片设置间距
 
-		SearchTabHorizontalViewPagerFragment fragment = SearchTabHorizontalViewPagerFragment.newInstance(url, words, mainUpView1, mOldView, mRecyclerViewBridge);
+		SearchTabHorizontalViewPagerFragment fragment = SearchTabHorizontalViewPagerFragment.newInstance(url,"div.search_tools","div.filter_item","a", words, mainUpView1, mOldView, mRecyclerViewBridge);
 
 		FragmentManager manager = getSupportFragmentManager();
 		manager.beginTransaction().replace(R.id.frame_search, fragment).commit();

@@ -56,7 +56,7 @@ public class ListFragmentPinDaoActivity extends CommonFragmentActivity {
 
         PinDaoListFragment leftFragment = PinDaoListFragment.newInstance(mainUpView1, mRecyclerViewBridge, mOldView);
 //        PinDaoFragment rightFragment = PinDaoFragment.newInstance(UrlUtils.TENCENT_X_MOVIE_LIST,"电影", mainUpView1, mOldView, mRecyclerViewBridge);
-        PinDaoTabHorizontalViewPagerFragment rightFragment = PinDaoTabHorizontalViewPagerFragment.newInstance(UrlUtils.TENCENT_X_MOVIE_LIST,"电影", mainUpView1, mOldView, mRecyclerViewBridge);
+        PinDaoTabHorizontalViewPagerFragment rightFragment = PinDaoTabHorizontalViewPagerFragment.newInstance(UrlUtils.TENCENT_X_MOVIE_LIST,"ul.filter_tabs","li","a","电影", mainUpView1, mOldView, mRecyclerViewBridge);
 
 
         FragmentManager manager = getSupportFragmentManager();

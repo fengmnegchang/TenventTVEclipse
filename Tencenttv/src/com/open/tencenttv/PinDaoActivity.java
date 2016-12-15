@@ -176,7 +176,7 @@ public class PinDaoActivity extends CommonFragmentActivity<PinDaoBeanJson> {
 		mPinDaoAdapter.notifyDataSetChanged();
 		fragments = new ArrayList<Fragment>();
 		for (int i = 0; i < data.size(); i++) {
-			fragments.add(PinDaoTabHorizontalViewPagerFragment.newInstance(data.get(i).getHrefurl(), data.get(i).getTypeName(), mainUpView1, mOldView, mRecyclerViewBridge));
+			fragments.add(PinDaoTabHorizontalViewPagerFragment.newInstance(data.get(i).getHrefurl(),"ul.filter_tabs","li","a",data.get(i).getTypeName(), mainUpView1, mOldView, mRecyclerViewBridge));
 		}
 		// 延时请求其它位置的item.
 		Handler handler = new Handler() {
