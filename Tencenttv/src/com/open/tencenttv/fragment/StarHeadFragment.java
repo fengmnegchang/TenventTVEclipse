@@ -59,7 +59,7 @@ import com.open.tencenttv.widget.ExpandableTextView;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class StarHeadFragment extends BaseV4Fragment<StarJson> {
+public class StarHeadFragment extends BaseV4Fragment<StarJson,StarHeadFragment> {
 	private String tencentStar;
 	private ExpandableTextView expand_text_view;
 	private ImageButton expand_collapse;// 折叠textview

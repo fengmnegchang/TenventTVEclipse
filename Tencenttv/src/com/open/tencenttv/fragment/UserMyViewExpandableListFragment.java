@@ -48,7 +48,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  *****************************************************************************************************************************************************************************
  */
-public class UserMyViewExpandableListFragment extends BaseV4Fragment<UserMyViewJson>{
+public class UserMyViewExpandableListFragment extends BaseV4Fragment<UserMyViewJson,UserMyViewExpandableListFragment>{
 	private String url = "http://ncgi.video.qq.com/tvideo/fcgi-bin/myview?pn=25&otype=json&t=1&plat=2&pver=4&cur=1&g_tk=1605338694";
 	private ExpandableListView expendablelistview;
 	private UserMyViewExpandableListAdapter mUserMyViewExpandableListAdapter;

@@ -41,7 +41,7 @@ import com.open.tencenttv.utils.UrlUtils;
  *               ***************************************************************
  *               *********************************************
  */
-public class RankAllFragment extends BaseV4Fragment<RankJson> {
+public class RankAllFragment extends BaseV4Fragment<RankJson,RankAllFragment> {
 	private String rankname;
 	private List<RankBean> data = new ArrayList<RankBean>();
 	private ListViewTV mListViewTV;

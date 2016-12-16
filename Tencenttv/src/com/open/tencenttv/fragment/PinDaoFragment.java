@@ -56,7 +56,7 @@ import com.open.tencenttv.widget.scroll.ScrollViewListener;
  *               ***************************************************************
  *               *********************************************
  */
-public class PinDaoFragment extends BaseV4Fragment<PinDaoBeanJson> {
+public class PinDaoFragment extends BaseV4Fragment<PinDaoBeanJson,PinDaoFragment> {
 	public static final String TAG = PinDaoFragment.class.getSimpleName();
 	private String pindaoName;
 	TextView text_pindao_name;

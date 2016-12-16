@@ -48,7 +48,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  *****************************************************************************************************************************************************************************
  */
-public class StarGuestVarietyGridFragment extends BaseV4Fragment<StarGuestVarietyJson> {
+public class StarGuestVarietyGridFragment extends BaseV4Fragment<StarGuestVarietyJson,StarGuestVarietyGridFragment> {
 	private String url;
 	private GridViewTV gridViewTV;
 	private StarGuestVarietyGridViewAdapter mStarGuestVarietyGridViewAdapter;

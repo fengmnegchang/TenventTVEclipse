@@ -62,7 +62,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class StarRecommendRecyclerviewLeanBackFragment extends BaseV4Fragment<ListRowJson> implements RecyclerViewTV.OnItemListener {
+public class StarRecommendRecyclerviewLeanBackFragment extends BaseV4Fragment<ListRowJson,StarRecommendRecyclerviewLeanBackFragment> implements RecyclerViewTV.OnItemListener {
 
 	private RecyclerViewTV mRecyclerView;
 	private GeneralAdapter.ViewHolder mSelectedViewHolder;

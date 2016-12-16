@@ -41,7 +41,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @modifyAuthor:
  * @description: ****************************************************************************************************************************************************************************
  */
-public class MediumHorizontalViewPagerFragment extends BaseV4Fragment<SliderNavJson> {
+public class MediumHorizontalViewPagerFragment extends BaseV4Fragment<SliderNavJson,MediumDirectionViewPagerFragment> {
     ViewPager viewpager;
     // 移动边框.
     EffectNoDrawBridge mEffectNoDrawBridge;

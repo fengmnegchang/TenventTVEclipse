@@ -52,7 +52,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class UserFollowHeadFragment extends BaseV4Fragment<DropItemJson> {
+public class UserFollowHeadFragment extends BaseV4Fragment<DropItemJson,UserFollowGridFragment> {
 	public static final String TAG = UserFollowHeadFragment.class.getSimpleName();
 	private DropDownMenu mMenu;
 	private String url;

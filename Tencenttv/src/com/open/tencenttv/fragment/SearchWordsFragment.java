@@ -62,7 +62,7 @@ import com.open.tencenttv.json.SearchWordsJson;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class SearchWordsFragment extends BaseV4Fragment<SearchWordsJson>implements TextWatcher{
+public class SearchWordsFragment extends BaseV4Fragment<SearchWordsJson,SearchWordsFragment>implements TextWatcher{
 	private ListViewTV listViewTV;
 	private SearchWordsAdapter mSearchWordsAdapter;
     private String url = "http://s.video.qq.com/smartbox?plat=2&ver=0&num=10&otype=json&query=";

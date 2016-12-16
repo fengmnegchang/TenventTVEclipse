@@ -18,7 +18,6 @@ import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.Response.Listener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -30,6 +29,7 @@ import com.open.tencenttv.andenginetask.Callable;
 import com.open.tencenttv.andenginetask.Callback;
 import com.open.tencenttv.andenginetask.IProgressListener;
 import com.open.tencenttv.andenginetask.ProgressCallable;
+import com.open.tencenttv.fragment.UserBillFragment;
 
 /**
  * 
@@ -43,7 +43,7 @@ import com.open.tencenttv.andenginetask.ProgressCallable;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Callback<T>, Callable<T>, ProgressCallable<T>, Response.Listener<JSONObject>, Response.ErrorListener {
+public class BaseV4Fragment<T,F extends BaseV4Fragment> extends Fragment implements CallEarliest<T>, Callback<T>, Callable<T>, ProgressCallable<T>, Response.Listener<JSONObject>, Response.ErrorListener {
 	public static final String TAG = BaseV4Fragment.class.getSimpleName();
 	public static final String KEY_CONTENT = BaseV4Fragment.class.getSimpleName() + ":Content";
 	public String mContent = "";
@@ -53,15 +53,21 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 	public EffectNoDrawBridge mRecyclerViewBridge;
 	public WeakReferenceHandler weakReferenceHandler;
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
-	
+	public View view;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if ((savedInstanceState != null) && savedInstanceState.containsKey(KEY_CONTENT)) {
 			mContent = savedInstanceState.getString(KEY_CONTENT);
 		}
-		// weakReferenceHandler = new WeakReferenceHandler(this,this);
 	}
+	 
+
+	public void setFragment(F f) {
+		 weakReferenceHandler = new WeakReferenceHandler(f);
+	}
+
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
@@ -80,8 +86,26 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 		super.setUserVisibleHint(isVisibleToUser);
 		initUI(isVisibleToUser);
 	}
+ 
+	private boolean isFirst = true;
 
 	protected void initUI(final boolean isVisibleToUser) {
+		if (weakReferenceHandler != null) {
+			weakReferenceHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					if (getActivity() == null || !isVisibleToUser) {
+						initUI(isVisibleToUser);
+					} else {
+						if(isFirst){
+							weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER, 50);
+							isFirst = false;
+						}
+						
+					}
+				}
+			}, 200);
+		}
 	}
 
 	/**
@@ -204,13 +228,15 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 		// TODO Auto-generated method stub
 
 	}
-	 
+
 	/**
 	 * 请求网络数据
-	 * @param href:地址
+	 * 
+	 * @param href
+	 *            :地址
 	 */
-	public void volleyJson(String href){
-		
+	public void volleyJson(String href) {
+
 	}
 
 	/*
@@ -242,6 +268,9 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 		return url.toString().replace("?&", "?");
 	}
 
+	/** 刷新 */
+	public static final int MESSAGE_HANDLER = 1001;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -251,13 +280,14 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 	public void handlerMessage(Message msg) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	protected ImageLoadingListener getImageLoadingListener() {
 		return animateFirstListener;
 	}
 
 	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
 		public static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+
 		@Override
 		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 			if (loadedImage != null) {
@@ -273,6 +303,13 @@ public class BaseV4Fragment<T> extends Fragment implements CallEarliest<T>, Call
 
 	public boolean onBackPressed() {
 		return false;
+	}
+
+	/**
+	 * 绑定事件，在onviewcreate调用
+	 */
+	public void bindEvent() {
+
 	}
 
 }

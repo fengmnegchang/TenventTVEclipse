@@ -53,7 +53,7 @@ import com.open.tencenttv.utils.UrlUtils;
  *               ***************************************************************
  *               *********************************************
  */
-public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment<RankJson>
+public class RankTabHeadHorizontalViewPagerFragment extends BaseV4Fragment<RankJson,RankTabHeadHorizontalViewPagerFragment>
 		implements OpenTabHost.OnTabSelectListener {
 	ViewPager viewpager;
 	// 移动边框.

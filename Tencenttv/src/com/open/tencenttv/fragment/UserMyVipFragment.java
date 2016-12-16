@@ -27,6 +27,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
 import com.open.tencenttv.TencentTVWebViewActivity;
+import com.open.tencenttv.WeakReferenceHandler;
 import com.open.tencenttv.bean.FilmShow;
 import com.open.tencenttv.bean.UserVipPayInfoBean;
 import com.open.tencenttv.bean.VipAct;
@@ -71,7 +73,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class UserMyVipFragment extends BaseV4Fragment<UserVipJson> {
+public class UserMyVipFragment extends BaseV4Fragment<UserVipJson,UserMyVipFragment> {
 	private String url = "http://pay.video.qq.com/fcgi-bin/price-month?otype=json&hlw_params=pf%3D1%26app%3Dbrowser&callback=jQuery191033791200020116796_1481188958294&low_login=1&_=1481188958306";
 	private LinearLayout layout_vip_join;// 成为VIP会员
 	private LayoutInflater inflater;
@@ -81,11 +83,13 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson> {
 
 	public static UserMyVipFragment newInstance(String url, MainUpView mainUpView1, EffectNoDrawBridge mRecyclerViewBridge, View mOldView) {
 		UserMyVipFragment fragment = new UserMyVipFragment();
+		fragment.setFragment(fragment);
 		fragment.mOldView = mOldView;
 		fragment.mRecyclerViewBridge = mRecyclerViewBridge;
 		fragment.mainUpView1 = mainUpView1;
 		return fragment;
 	}
+ 
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,8 +112,23 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson> {
 		// TODO Auto-generated method stub
 		super.onViewCreated(view, savedInstanceState);
 		inflater = LayoutInflater.from(getActivity());
-		volleyJson(url);
 		doAsync(this, this, this);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
+	 */
+	@Override
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
+		super.handlerMessage(msg);
+		switch (msg.what) {
+		case MESSAGE_HANDLER:
+			volleyJson(url);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

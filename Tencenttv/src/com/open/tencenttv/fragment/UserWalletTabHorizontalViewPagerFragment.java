@@ -71,7 +71,7 @@ public class UserWalletTabHorizontalViewPagerFragment extends CommonTabHorizonta
 		viewpager.setAdapter(mRankPagerAdapter);
 		mRankPagerAdapter.notifyDataSetChanged();
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		mFocusHandler.sendEmptyMessageDelayed(10, 1000);
 	}
 
 }

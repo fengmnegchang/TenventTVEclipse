@@ -27,16 +27,16 @@ import android.os.Message;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class WeakReferenceHandler extends Handler {
-	WeakReference<BaseV4Fragment> weakReferenceHandler;
+public class WeakReferenceHandler<F extends BaseV4Fragment> extends Handler {
+	WeakReference<F> weakReferenceHandler;
 
-	public WeakReferenceHandler(BaseV4Fragment fragment) {
-		weakReferenceHandler = new WeakReference<BaseV4Fragment>(fragment);
+	public WeakReferenceHandler(F fragment) {
+		weakReferenceHandler = new WeakReference<F>(fragment);
 	}
 
 	@Override
 	public void handleMessage(Message msg) {
-		BaseV4Fragment fragment = weakReferenceHandler.get();
+		F fragment = weakReferenceHandler.get();
 		if (fragment != null && fragment.isVisible() && fragment.getUserVisibleHint()) {
 			fragment.handlerMessage(msg);
 			super.handleMessage(msg);

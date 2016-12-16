@@ -49,7 +49,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  *****************************************************************************************************************************************************************************
  */
-public class UserStarTeamFragment extends BaseV4Fragment<UserStarTeamJson>{
+public class UserStarTeamFragment extends BaseV4Fragment<UserStarTeamJson,UserStarTeamFragment>{
 	private String url = "http://like.video.qq.com/fcgi-bin/flw_new?otype=json&sn=FollowServer&cmd=2563&pidx=0&size=5&dtype=1&type=0&g_tk=1605338694";
 	private ListViewTV listViewTV;
 	private UserStarTeamListViewAdapter mUserStarTeamListViewAdapter;

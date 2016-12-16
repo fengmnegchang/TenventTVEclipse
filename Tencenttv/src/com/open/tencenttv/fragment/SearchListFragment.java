@@ -56,7 +56,7 @@ import com.open.tencenttv.widget.ScrollListViewTV;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class SearchListFragment extends BaseV4Fragment<SearchJson> {
+public class SearchListFragment extends BaseV4Fragment<SearchJson,SearchListFragment> {
 	public static final String TAG = SearchListFragment.class.getSimpleName();
 	private ScrollListViewTV listViewTV;
 	private SearchAdapter mSearchAdapter;

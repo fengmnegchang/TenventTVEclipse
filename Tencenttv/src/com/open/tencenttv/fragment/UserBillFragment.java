@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.open.androidtvwidget.view.ListViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
+import com.open.tencenttv.WeakReferenceHandler;
 import com.open.tencenttv.adapter.UserBillAdapter;
 import com.open.tencenttv.bean.UserBillBean;
 import com.open.tencenttv.json.UserBillJson;
@@ -48,7 +50,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  *****************************************************************************************************************************************************************************
  */
-public class UserBillFragment extends BaseV4Fragment<UserBillJson>{
+public class UserBillFragment extends BaseV4Fragment<UserBillJson,UserBillFragment>{
 	private UserBillAdapter mUserBillAdapter;
 	private List<UserBillBean> list = new ArrayList<UserBillBean>();
 	private ListViewTV listViewTV;
@@ -56,12 +58,13 @@ public class UserBillFragment extends BaseV4Fragment<UserBillJson>{
                         //http://buy.video.qq.com/fcgi-bin/paycheck?callback=jQuery19105061520853703716_1481610716014&cmd=59855&platform=2&pidx=1&show_type=1&size=10&otype=json&g_tk=250078081&_=1481610716048
 	public static UserBillFragment newInstance(String url, MainUpView mainUpView1, EffectNoDrawBridge mRecyclerViewBridge, View mOldView) {
 		UserBillFragment fragment = new UserBillFragment();
+		fragment.setFragment(fragment);
 		fragment.mOldView = mOldView;
 		fragment.mRecyclerViewBridge = mRecyclerViewBridge;
 		fragment.mainUpView1 = mainUpView1;
 		return fragment;
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_common_listview, container, false);
@@ -81,7 +84,6 @@ public class UserBillFragment extends BaseV4Fragment<UserBillJson>{
 
 		mUserBillAdapter = new UserBillAdapter(getActivity(), list);
 		listViewTV.setAdapter(mUserBillAdapter);
-		volleyJson(url);
 	}
 
 	@Override
@@ -119,5 +121,33 @@ public class UserBillFragment extends BaseV4Fragment<UserBillJson>{
 		// TODO Auto-generated method stub
 		super.onErrorResponse(error);
 		System.out.println(error);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
+	 */
+	@Override
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
+		super.handlerMessage(msg);
+		switch (msg.what) {
+		case MESSAGE_HANDLER:
+			volleyJson(url);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#setUserVisibleHint(boolean)
+	 */
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		super.setUserVisibleHint(isVisibleToUser);
+		initUI(isVisibleToUser);
 	}
 }

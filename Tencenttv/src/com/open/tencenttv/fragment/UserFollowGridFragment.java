@@ -54,7 +54,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class UserFollowGridFragment extends BaseV4Fragment<UserFollowJson> {
+public class UserFollowGridFragment extends BaseV4Fragment<UserFollowJson,UserFollowGridFragment> {
 	private String url = "http://like.video.qq.com/fcgi-bin/flw_new?otype=json&sn=FollowServer&cmd=2562&pidx=0&size=30";
 	private GridViewTV gridViewTV;
 	private UserFollowGridViewAdapter mUserFollowGridViewAdapter;

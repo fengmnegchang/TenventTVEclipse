@@ -162,7 +162,7 @@ public class UserListFragment  extends BaseV4ListFragment<UserNaviJson> {
                 getListView(). setSelection(0);
             }
         };
-        handler.sendMessageDelayed(handler.obtainMessage(), 5000);
+        handler.sendMessageDelayed(handler.obtainMessage(), 500);
         getListView().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {

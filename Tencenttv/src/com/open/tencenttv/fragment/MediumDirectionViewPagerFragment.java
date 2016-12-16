@@ -47,7 +47,7 @@ import com.open.verticalviewpager.DirectionalViewPager;
  * @modifyAuthor:
  * @description: ****************************************************************************************************************************************************************************
  */
-public class MediumDirectionViewPagerFragment extends BaseV4Fragment<SliderNavJson> {
+public class MediumDirectionViewPagerFragment extends BaseV4Fragment<SliderNavJson,MediumDirectionViewPagerFragment> {
 	private  MediumPagerAdapter mMediumPagerAdapter;
     private List<SliderNavBean> sliderNavList = new ArrayList<SliderNavBean>();
 

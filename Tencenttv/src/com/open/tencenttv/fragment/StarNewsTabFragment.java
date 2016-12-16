@@ -49,7 +49,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class StarNewsTabFragment extends BaseV4Fragment<StarFeedJson> {
+public class StarNewsTabFragment extends BaseV4Fragment<StarFeedJson,StarNewsTabFragment> {
 	private ListViewTV mListViewTV;
 	private List<StarFeedBean> list = new ArrayList<StarFeedBean>();
 	private StarNewsTabAdapter mStarNewsTabAdapter;

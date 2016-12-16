@@ -51,7 +51,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class CommonWebViewFragment extends BaseV4Fragment<String> {
+public class CommonWebViewFragment extends BaseV4Fragment<String,CommonWebViewFragment> {
 	public String url;
 	public WebView webview;
 

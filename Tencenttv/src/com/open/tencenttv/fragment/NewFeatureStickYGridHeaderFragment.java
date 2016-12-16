@@ -64,7 +64,7 @@ import com.tonicartos.widget.stickygridheaders.StickyGridHeadersGridView.OnHeade
  * 
  * @author Tonic Artos
  */
-public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment<NewFeatureJson> implements AdapterView.OnItemClickListener, OnHeaderClickListener, OnHeaderLongClickListener {
+public class NewFeatureStickYGridHeaderFragment extends BaseV4Fragment<NewFeatureJson,NewFeatureStickYGridHeaderFragment> implements AdapterView.OnItemClickListener, OnHeaderClickListener, OnHeaderLongClickListener {
 	private static final String KEY_LIST_POSITION = "key_list_position";
 
 	/**

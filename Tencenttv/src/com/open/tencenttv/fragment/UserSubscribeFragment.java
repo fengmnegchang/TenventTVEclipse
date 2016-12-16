@@ -49,7 +49,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class UserSubscribeFragment extends BaseV4Fragment<UserVFollowlstJson> {
+public class UserSubscribeFragment extends BaseV4Fragment<UserVFollowlstJson,UserSubscribeFragment> {
 	private String url = "http://c.v.qq.com/vfollowlst?otype=json&pagenum=1&pagesize=5&callback=jQuery19105151766284214294_1481251654251&g_tk=1605338694&_=1481251654252";
 	private ListViewTV listViewTV;
 	private UserSubscribeListViewAdapter mUserSubscribeListViewAdapter;

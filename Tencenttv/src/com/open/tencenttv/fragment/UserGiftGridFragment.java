@@ -13,12 +13,20 @@ package com.open.tencenttv.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,6 +40,7 @@ import com.open.androidtvwidget.view.GridViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
+import com.open.tencenttv.WeakReferenceHandler;
 import com.open.tencenttv.adapter.UserGiftGridViewAdapter;
 import com.open.tencenttv.bean.UserGiftBean;
 import com.open.tencenttv.json.UserGiftJson;
@@ -48,7 +57,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson> {
+public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson,UserGiftGridFragment> {
 	private String url = "http://task.video.qq.com/fcgi-bin/gift_list?callback=jQuery19105061520853703716_1481610716027&sort=seckill&otype=json&platform=10&_=1481610716028";
 	private GridViewTV gridViewTV;
 	private UserGiftGridViewAdapter mUserGiftGridViewAdapter;
@@ -56,15 +65,17 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson> {
 
 	public static UserGiftGridFragment newInstance(String url, MainUpView mainUpView1, EffectNoDrawBridge mRecyclerViewBridge, View mOldView) {
 		UserGiftGridFragment fragment = new UserGiftGridFragment();
+		fragment.setFragment(fragment);
 		fragment.mOldView = mOldView;
 		fragment.mRecyclerViewBridge = mRecyclerViewBridge;
 		fragment.mainUpView1 = mainUpView1;
 		return fragment;
 	}
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_common_gridview, container, false);
+		view = inflater.inflate(R.layout.fragment_common_gridview, container, false);
 		gridViewTV = (GridViewTV) view.findViewById(R.id.gridview);
 		return view;
 	}
@@ -78,10 +89,47 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson> {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-
 		mUserGiftGridViewAdapter = new UserGiftGridViewAdapter(getActivity(), list);
 		gridViewTV.setAdapter(mUserGiftGridViewAdapter);
-		volleyJson(url);
+		bindEvent();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.open.tencenttv.BaseV4Fragment#bindEvent()
+	 */
+	@Override
+	public void bindEvent() {
+		// TODO Auto-generated method stub
+		super.bindEvent();
+		gridViewTV.setSelector(new ColorDrawable(Color.TRANSPARENT));
+		gridViewTV.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				/**
+				 * 这里注意要加判断是否为NULL. 因为在重新加载数据以后会出问题.
+				 */
+				if (view != null) {
+					mainUpView1.setFocusView(view, mOldView, 1.2f);
+				}
+				mOldView = view;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+		});
+		gridViewTV.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (view != null) {
+					mainUpView1.setFocusView(view, mOldView, 1.2f);
+				}
+				mOldView = view;
+			}
+		});
+		gridViewTV.setDefualtSelect(0);
 	}
 
 	@Override
@@ -120,4 +168,33 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson> {
 		super.onErrorResponse(error);
 		System.out.println(error);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
+	 */
+	@Override
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
+		super.handlerMessage(msg);
+		switch (msg.what) {
+		case MESSAGE_HANDLER:
+			volleyJson(url);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#setUserVisibleHint(boolean)
+	 */
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		super.setUserVisibleHint(isVisibleToUser);
+		initUI(true);
+	}
+ 
 }

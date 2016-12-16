@@ -20,6 +20,8 @@ import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.fragment.RankV4Fragment;
 import com.open.tencenttv.fragment.UserListFragment;
+import com.open.tencenttv.fragment.UserWalletTabHorizontalViewPagerFragment;
+import com.open.tencenttv.utils.UrlUtils;
 
 /**
  ***************************************************************************************************************************************************************************** 
@@ -62,6 +64,7 @@ public class ListFragmentUserActivity extends CommonFragmentActivity {
 
 		UserListFragment leftFragment = UserListFragment.newInstance(mainUpView1, mRecyclerViewBridge, mOldView);
 		RankV4Fragment rightFragment = RankV4Fragment.newInstance();
+	       
 
 		FragmentManager manager = getSupportFragmentManager();
 		manager.beginTransaction().replace(R.id.frame_listview, leftFragment).commit();

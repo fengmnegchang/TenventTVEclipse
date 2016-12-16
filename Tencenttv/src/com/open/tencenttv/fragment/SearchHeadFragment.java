@@ -52,7 +52,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class SearchHeadFragment extends BaseV4Fragment<DropItemJson> {
+public class SearchHeadFragment extends BaseV4Fragment<DropItemJson,SearchHeadFragment> {
 	public static final String TAG = SearchHeadFragment.class.getSimpleName();
 	private String pindaoName;
 	private DropDownMenu mMenu;

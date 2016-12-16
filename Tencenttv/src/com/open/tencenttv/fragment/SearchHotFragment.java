@@ -57,7 +57,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class SearchHotFragment extends BaseV4Fragment<SearchHotJson>{
+public class SearchHotFragment extends BaseV4Fragment<SearchHotJson,SearchHotFragment>{
 	private ListViewTV listViewTV;
 	private SearchHotAdapter mSearchHistoryAdapter;
 	// private String url =
