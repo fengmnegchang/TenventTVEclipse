@@ -44,6 +44,7 @@ public class PinDaoTabHorizontalViewPagerFragment extends CommonTabHorizontalVie
 			EffectNoDrawBridge mEffectNoDrawBridge) {
 		PinDaoTabHorizontalViewPagerFragment fragment = new PinDaoTabHorizontalViewPagerFragment();
 		fragment.url = url;
+		fragment.setFragment(fragment);
 		fragment.selectElement = selectElement;
 		fragment.liElement = liElement;
 		fragment.astrElement = astrElement;
@@ -118,7 +119,7 @@ public class PinDaoTabHorizontalViewPagerFragment extends CommonTabHorizontalVie
 		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(), listRankFragment, titleList);
 		viewpager.setAdapter(mRankPagerAdapter);
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 2000);
 	}
 
 }

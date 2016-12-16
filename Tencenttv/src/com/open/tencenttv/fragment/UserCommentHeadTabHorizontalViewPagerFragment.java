@@ -33,6 +33,7 @@ public class UserCommentHeadTabHorizontalViewPagerFragment extends CommonTabHori
 			EffectNoDrawBridge mEffectNoDrawBridge) {
 		UserCommentHeadTabHorizontalViewPagerFragment fragment = new UserCommentHeadTabHorizontalViewPagerFragment();
 		fragment.url = url;
+		fragment.setFragment(fragment);
 		fragment.selectElement = selectElement;
 		fragment.liElement = liElement;
 		fragment.astrElement = astrElement;
@@ -74,7 +75,7 @@ public class UserCommentHeadTabHorizontalViewPagerFragment extends CommonTabHori
 		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(), listRankFragment, titleList);
 		viewpager.setAdapter(mRankPagerAdapter);
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 2000);
 	}
 
 }

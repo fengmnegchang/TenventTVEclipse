@@ -32,6 +32,7 @@ public class UserWalletTabHorizontalViewPagerFragment extends CommonTabHorizonta
 	public static UserWalletTabHorizontalViewPagerFragment newInstance(String url, String selectElement, String liElement,String astrElement,  MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mEffectNoDrawBridge) {
 		UserWalletTabHorizontalViewPagerFragment fragment = new UserWalletTabHorizontalViewPagerFragment();
 		fragment.url = url;
+		fragment.setFragment(fragment);
 		fragment.selectElement = selectElement;
 		fragment.liElement = liElement;
 		fragment.astrElement = astrElement;
@@ -71,7 +72,7 @@ public class UserWalletTabHorizontalViewPagerFragment extends CommonTabHorizonta
 		viewpager.setAdapter(mRankPagerAdapter);
 		mRankPagerAdapter.notifyDataSetChanged();
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 1000);
+		weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 2000);
 	}
 
 }

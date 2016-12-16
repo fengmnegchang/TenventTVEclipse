@@ -53,7 +53,7 @@ import com.open.tencenttv.utils.UrlUtils;
  *               ***************************************************************
  *               *********************************************
  */
-public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJson,CommonTabHorizontalViewPagerFragment> implements OpenTabHost.OnTabSelectListener {
+public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJson, CommonTabHorizontalViewPagerFragment> implements OpenTabHost.OnTabSelectListener {
 	public static final String TAG = CommonTabHorizontalViewPagerFragment.class.getSimpleName();
 	public ViewPager viewpager;
 	// 移动边框.
@@ -72,8 +72,11 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 	public String selectElement;
 	public String liElement;
 	public String astrElement;
-	public static CommonTabHorizontalViewPagerFragment newInstance(String url, String selectElement, String liElement, String astrElement, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mEffectNoDrawBridge) {
+
+	public static CommonTabHorizontalViewPagerFragment newInstance(String url, String selectElement, String liElement, String astrElement, MainUpView mainUpView1, View mOldView,
+			EffectNoDrawBridge mEffectNoDrawBridge) {
 		CommonTabHorizontalViewPagerFragment fragment = new CommonTabHorizontalViewPagerFragment();
+		fragment.setFragment(fragment);
 		fragment.url = url;
 		fragment.selectElement = selectElement;
 		fragment.liElement = liElement;
@@ -120,14 +123,14 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 		super.onCreate(savedInstanceState);
 	}
 
-	Handler mFocusHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			// // 初始化.
-			switchTab(mOpenTabHost, position);
-			viewpager.setCurrentItem(position);
-		}
-	};
+//	Handler mFocusHandler = new Handler() {
+//		@Override
+//		public void handleMessage(Message msg) {
+//			// // 初始化.
+//			switchTab(mOpenTabHost, position);
+//			viewpager.setCurrentItem(position);
+//		}
+//	};
 
 	/**
 	 * demo (翻页的时候改变状态) 将标题栏的文字颜色改变. <br>
@@ -310,6 +313,32 @@ public class CommonTabHorizontalViewPagerFragment extends BaseV4Fragment<RankJso
 
 	public void setLiElement(String liElement) {
 		this.liElement = liElement;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
+	 */
+	@Override
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
+		super.handlerMessage(msg);
+		switch (msg.what) {
+		case MESSAGE_HANDLER:
+			volleyJson(url);
+			break;
+		case MESSAGE_HANDLER_COMPLETE:
+			weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_DEFAULT_POSITION, 200);
+			break;
+		case MESSAGE_DEFAULT_POSITION:
+			// // 初始化.
+			switchTab(mOpenTabHost, position);
+			viewpager.setCurrentItem(position);
+			break;
+		default:
+			break;
+		}
 	}
 
 }

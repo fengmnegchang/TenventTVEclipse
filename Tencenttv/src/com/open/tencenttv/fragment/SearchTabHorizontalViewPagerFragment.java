@@ -45,6 +45,7 @@ public class SearchTabHorizontalViewPagerFragment extends CommonTabHorizontalVie
 			EffectNoDrawBridge mEffectNoDrawBridge) {
 		SearchTabHorizontalViewPagerFragment fragment = new SearchTabHorizontalViewPagerFragment();
 		fragment.url = url;
+		fragment.setFragment(fragment);
 		fragment.selectElement = selectElement;
 		fragment.liElement = liElement;
 		fragment.astrElement = astrElement;
@@ -114,7 +115,7 @@ public class SearchTabHorizontalViewPagerFragment extends CommonTabHorizontalVie
 		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(), listRankFragment, titleList);
 		viewpager.setAdapter(mRankPagerAdapter);
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 2000);
 	}
 
 }

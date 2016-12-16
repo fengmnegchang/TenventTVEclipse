@@ -34,6 +34,7 @@ public class UserSubscribeTabHorizontalViewPagerFragment extends CommonTabHorizo
 			EffectNoDrawBridge mEffectNoDrawBridge) {
 		UserSubscribeTabHorizontalViewPagerFragment fragment = new UserSubscribeTabHorizontalViewPagerFragment();
 		fragment.url = url;
+		fragment.setFragment(fragment);
 		fragment.selectElement = selectElement;
 		fragment.liElement = liElement;
 		fragment.astrElement = astrElement;
@@ -73,7 +74,7 @@ public class UserSubscribeTabHorizontalViewPagerFragment extends CommonTabHorizo
 		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(), listRankFragment, titleList);
 		viewpager.setAdapter(mRankPagerAdapter);
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 2000);
 	}
 
 }

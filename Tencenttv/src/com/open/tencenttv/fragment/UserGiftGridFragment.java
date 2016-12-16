@@ -13,18 +13,17 @@ package com.open.tencenttv.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -40,7 +39,6 @@ import com.open.androidtvwidget.view.GridViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
-import com.open.tencenttv.WeakReferenceHandler;
 import com.open.tencenttv.adapter.UserGiftGridViewAdapter;
 import com.open.tencenttv.bean.UserGiftBean;
 import com.open.tencenttv.json.UserGiftJson;
@@ -57,7 +55,7 @@ import com.open.tencenttv.utils.UrlUtils;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson,UserGiftGridFragment> {
+public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson, UserGiftGridFragment> {
 	private String url = "http://task.video.qq.com/fcgi-bin/gift_list?callback=jQuery19105061520853703716_1481610716027&sort=seckill&otype=json&platform=10&_=1481610716028";
 	private GridViewTV gridViewTV;
 	private UserGiftGridViewAdapter mUserGiftGridViewAdapter;
@@ -71,7 +69,6 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson,UserGiftGr
 		fragment.mainUpView1 = mainUpView1;
 		return fragment;
 	}
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,7 +126,20 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson,UserGiftGr
 				mOldView = view;
 			}
 		});
-		gridViewTV.setDefualtSelect(0);
+		gridViewTV.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View view, boolean b) {
+				// 失去焦点时，将子view还原
+				Log.i(TAG, "gridViewTV item" + view.getId() + " ========onFocusChange " + b);
+				if (!b) {
+					for (int i = 0; i < gridViewTV.getChildCount(); i++) {
+						View mvView = gridViewTV.getChildAt(i);
+						mRecyclerViewBridge.setUnFocusView(mvView);
+					}
+				}
+
+			}
+		});
 	}
 
 	@Override
@@ -148,7 +158,7 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson,UserGiftGr
 				if (mUserGiftJson != null && mUserGiftJson.getGift() != null) {
 					list.clear();
 					list.addAll(mUserGiftJson.getGift());
-					mUserGiftGridViewAdapter.notifyDataSetChanged();
+					weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 50);
 				}
 			}
 		}, UserGiftGridFragment.this);
@@ -168,8 +178,10 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson,UserGiftGr
 		super.onErrorResponse(error);
 		System.out.println(error);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
 	 */
 	@Override
@@ -180,11 +192,18 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson,UserGiftGr
 		case MESSAGE_HANDLER:
 			volleyJson(url);
 			break;
+		case MESSAGE_HANDLER_COMPLETE:
+			mUserGiftGridViewAdapter.notifyDataSetChanged();
+			weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_DEFAULT_POSITION, 50);
+			break;
+		case MESSAGE_DEFAULT_POSITION:
+			gridViewTV.setDefualtSelect(0);
+			break;
 		default:
 			break;
 		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -196,5 +215,5 @@ public class UserGiftGridFragment extends BaseV4Fragment<UserGiftJson,UserGiftGr
 		super.setUserVisibleHint(isVisibleToUser);
 		initUI(true);
 	}
- 
+
 }

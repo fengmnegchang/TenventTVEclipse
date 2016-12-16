@@ -100,6 +100,8 @@ public class BaseV4Fragment<T,F extends BaseV4Fragment> extends Fragment impleme
 						if(isFirst){
 							weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER, 50);
 							isFirst = false;
+						}else{
+							weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_DEFAULT_POSITION, 50);
 						}
 						
 					}
@@ -269,7 +271,11 @@ public class BaseV4Fragment<T,F extends BaseV4Fragment> extends Fragment impleme
 	}
 
 	/** 刷新 */
-	public static final int MESSAGE_HANDLER = 1001;
+	public static final int MESSAGE_HANDLER = 1000;
+	/** 请求数据成功 */
+	public static final int MESSAGE_HANDLER_COMPLETE = 1001;
+	/** 默认位置 */
+	public static final int MESSAGE_DEFAULT_POSITION = 2000;
 
 	/*
 	 * (non-Javadoc)

@@ -34,6 +34,7 @@ public class UserCommentTabHorizontalViewPagerFragment extends CommonTabHorizont
 	public static UserCommentTabHorizontalViewPagerFragment newInstance(String rankName, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mEffectNoDrawBridge) {
 		UserCommentTabHorizontalViewPagerFragment fragment = new UserCommentTabHorizontalViewPagerFragment();
 		fragment.mainUpView1 = mainUpView1;
+		fragment.setFragment(fragment);
 		fragment.mOldView = mOldView;
 		fragment.rankName = rankName;
 		fragment.mEffectNoDrawBridge = mEffectNoDrawBridge;
@@ -74,7 +75,7 @@ public class UserCommentTabHorizontalViewPagerFragment extends CommonTabHorizont
 		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(), listRankFragment, titleList);
 		viewpager.setAdapter(mRankPagerAdapter);
 
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 2000);
 
 	}
 

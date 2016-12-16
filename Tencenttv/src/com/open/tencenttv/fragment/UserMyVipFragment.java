@@ -126,6 +126,10 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson,UserMyVipFragm
 		case MESSAGE_HANDLER:
 			volleyJson(url);
 			break;
+		case MESSAGE_HANDLER_COMPLETE:
+			break;
+		case MESSAGE_DEFAULT_POSITION:
+			break;
 		default:
 			break;
 		}
@@ -176,6 +180,7 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson,UserMyVipFragm
 						}
 					}
 				}
+				weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 2000);
 			}
 		}, UserMyVipFragment.this);
 		requestQueue.add(jsonObjectRequest);

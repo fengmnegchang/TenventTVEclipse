@@ -31,6 +31,7 @@ public class UserVipTabHorizontalViewPagerFragment extends CommonTabHorizontalVi
 	public static UserVipTabHorizontalViewPagerFragment newInstance(String url, String selectElement, String liElement, String astrElement, MainUpView mainUpView1, View mOldView, EffectNoDrawBridge mEffectNoDrawBridge) {
 		UserVipTabHorizontalViewPagerFragment fragment = new UserVipTabHorizontalViewPagerFragment();
 		fragment.url = url;
+		fragment.setFragment(fragment);
 		fragment.selectElement = selectElement;
 		fragment.liElement = liElement;
 		fragment.astrElement = astrElement;
@@ -66,8 +67,7 @@ public class UserVipTabHorizontalViewPagerFragment extends CommonTabHorizontalVi
 		// RankViewPagerAdapter(getActivity(),result.getTitlerankList());
 		mRankPagerAdapter = new RankPagerAdapter(getChildFragmentManager(), listRankFragment, titleList);
 		viewpager.setAdapter(mRankPagerAdapter);
-
-		mFocusHandler.sendEmptyMessageDelayed(10, 5000);
+		weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 2000);
 	}
 
 }
