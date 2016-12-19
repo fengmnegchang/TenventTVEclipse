@@ -112,7 +112,6 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson,UserMyVipFragm
 		// TODO Auto-generated method stub
 		super.onViewCreated(view, savedInstanceState);
 		inflater = LayoutInflater.from(getActivity());
-		doAsync(this, this, this);
 	}
 	
 	/* (non-Javadoc)
@@ -125,6 +124,7 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson,UserMyVipFragm
 		switch (msg.what) {
 		case MESSAGE_HANDLER:
 			volleyJson(url);
+			doAsync(this, this, this);
 			break;
 		case MESSAGE_HANDLER_COMPLETE:
 			break;
@@ -549,4 +549,5 @@ public class UserMyVipFragment extends BaseV4Fragment<UserVipJson,UserMyVipFragm
 		super.onErrorResponse(error);
 		System.out.println(error);
 	}
+	
 }

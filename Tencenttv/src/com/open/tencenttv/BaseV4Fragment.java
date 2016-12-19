@@ -274,6 +274,10 @@ public class BaseV4Fragment<T,F extends BaseV4Fragment> extends Fragment impleme
 	public static final int MESSAGE_HANDLER = 1000;
 	/** 请求数据成功 */
 	public static final int MESSAGE_HANDLER_COMPLETE = 1001;
+	
+	/** drop菜单选择 重新刷新数据 */
+	public static final int MESSAGE_DROP_HANDLER = 1002;
+	
 	/** 默认位置 */
 	public static final int MESSAGE_DEFAULT_POSITION = 2000;
 

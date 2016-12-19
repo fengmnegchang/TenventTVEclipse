@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,9 @@ public class UserMyViewExpandableListFragment extends BaseV4Fragment<UserMyViewJ
 
 	public static UserMyViewExpandableListFragment newInstance(String url, MainUpView mainUpView1, EffectNoDrawBridge mRecyclerViewBridge, View mOldView) {
 		UserMyViewExpandableListFragment fragment = new UserMyViewExpandableListFragment();
+		fragment.setFragment(fragment);
 		fragment.mOldView = mOldView;
+		fragment.setUserVisibleHint(true);
 		fragment.mRecyclerViewBridge = mRecyclerViewBridge;
 		fragment.mainUpView1 = mainUpView1;
 		return fragment;
@@ -81,7 +84,6 @@ public class UserMyViewExpandableListFragment extends BaseV4Fragment<UserMyViewJ
 		expendablelistview.setGroupIndicator(null);
 		mUserMyViewExpandableListAdapter = new UserMyViewExpandableListAdapter(getActivity(), list);
 		expendablelistview.setAdapter(mUserMyViewExpandableListAdapter);
-		volleyJson(url);
 	}
  
 
@@ -105,6 +107,8 @@ public class UserMyViewExpandableListFragment extends BaseV4Fragment<UserMyViewJ
 					for(int i=0;i<mUserMyViewExpandableListAdapter.getGroupCount();i++){
 						expendablelistview.expandGroup(i);
 					}
+					
+					weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_HANDLER_COMPLETE, 200);
 				}
 			}
 		}, UserMyViewExpandableListFragment.this);
@@ -123,5 +127,29 @@ public class UserMyViewExpandableListFragment extends BaseV4Fragment<UserMyViewJ
 		// TODO Auto-generated method stub
 		super.onErrorResponse(error);
 		System.out.println(error);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
+	 */
+	@Override
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
+		super.handlerMessage(msg);
+		switch (msg.what) {
+		case MESSAGE_HANDLER:
+			volleyJson(url);
+			break;
+		case MESSAGE_HANDLER_COMPLETE:
+			weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_DEFAULT_POSITION, 50);
+			break;
+		case MESSAGE_DEFAULT_POSITION:
+			expendablelistview.setSelection(0);
+			break;
+		default:
+			break;
+		}
 	}
 }

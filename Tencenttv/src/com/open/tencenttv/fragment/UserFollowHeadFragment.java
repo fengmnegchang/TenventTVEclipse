@@ -142,7 +142,7 @@ public class UserFollowHeadFragment extends BaseV4Fragment<DropItemJson,UserFoll
 				MenuBean mMenuBean = mMenuItems.get(ColumnIndex).getMenulist().get(RowIndex);
 				Log.i(TAG, mMenuBean.getHref() + ";" + mMenuBean.getMenuname());
 				Message msg = weakReferenceHandler.obtainMessage();
-				msg.what = 112;
+				msg.what = MESSAGE_DROP_HANDLER;
 				msg.arg1 = Integer.parseInt(mMenuBean.getDatatype());
 				msg.arg2 = Integer.parseInt(mMenuBean.getDataindex());
 				Log.i(TAG, "send msg ==datatype==" + mMenuBean.getDatatype() + ";what==" + 112);

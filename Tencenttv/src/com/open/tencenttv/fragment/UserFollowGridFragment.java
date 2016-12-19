@@ -12,9 +12,7 @@
 package com.open.tencenttv.fragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -37,7 +35,6 @@ import com.open.androidtvwidget.view.GridViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.BaseV4Fragment;
 import com.open.tencenttv.R;
-import com.open.tencenttv.WeakReferenceHandler;
 import com.open.tencenttv.adapter.UserFollowGridViewAdapter;
 import com.open.tencenttv.bean.UserFollowBean;
 import com.open.tencenttv.json.UserFollowJson;
@@ -62,6 +59,8 @@ public class UserFollowGridFragment extends BaseV4Fragment<UserFollowJson,UserFo
 
 	public static UserFollowGridFragment newInstance(String url, MainUpView mainUpView1, EffectNoDrawBridge mRecyclerViewBridge, View mOldView) {
 		UserFollowGridFragment fragment = new UserFollowGridFragment();
+		fragment.setFragment(fragment);
+		fragment.setUserVisibleHint(true);
 		fragment.mOldView = mOldView;
 		fragment.mRecyclerViewBridge = mRecyclerViewBridge;
 		fragment.mainUpView1 = mainUpView1;
@@ -91,26 +90,9 @@ public class UserFollowGridFragment extends BaseV4Fragment<UserFollowJson,UserFo
 		
 		mUserFollowGridViewAdapter = new UserFollowGridViewAdapter(getActivity(), list);
 		gridViewTV.setAdapter(mUserFollowGridViewAdapter);
-		volleyJson(url);
+		
 	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		weakReferenceHandler = new WeakReferenceHandler(this);
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
-	 */
-	@Override
-	public void handlerMessage(Message msg) {
-		super.handlerMessage(msg);
-		Log.i(TAG,";datatype=="+msg.obj+";what=="+msg.what);
-		String href = url +"&dtype="+msg.arg1+"&type="+msg.arg2;
-		volleyJson(href);
-	}
-	
+ 
 	@Override
 	public void volleyJson(final String href) {
 		RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -147,4 +129,33 @@ public class UserFollowGridFragment extends BaseV4Fragment<UserFollowJson,UserFo
 		super.onErrorResponse(error);
 		System.out.println(error);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.open.tencenttv.BaseV4Fragment#handlerMessage(android.os.Message)
+	 */
+	@Override
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
+		super.handlerMessage(msg);
+		switch (msg.what) {
+		case MESSAGE_HANDLER:
+			volleyJson(url);
+			break;
+		case MESSAGE_DROP_HANDLER:
+			Log.i(TAG,";datatype=="+msg.obj+";what=="+msg.what);
+			String href = url +"&dtype="+msg.arg1+"&type="+msg.arg2;
+			volleyJson(href);
+			break;
+		case MESSAGE_HANDLER_COMPLETE:
+			weakReferenceHandler.sendEmptyMessageDelayed(MESSAGE_DEFAULT_POSITION, 50);
+			break;
+		case MESSAGE_DEFAULT_POSITION:
+			break;
+		default:
+			break;
+		}
+	}
+ 
 }
