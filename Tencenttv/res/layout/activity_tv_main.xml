@@ -120,6 +120,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
+                android:minWidth="1920dp"
                 android:layout_below="@+id/item_edit"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/main_bg"
@@ -157,6 +158,7 @@
             <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
                 android:id="@+id/recycler_push"
                 android:layout_width="match_parent"
+                android:minWidth="1500dp"
                 android:layout_height="220dp"
                 android:layout_below="@+id/text_center"
                 android:layout_marginLeft="10dp"

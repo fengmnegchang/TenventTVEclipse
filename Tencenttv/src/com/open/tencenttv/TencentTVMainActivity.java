@@ -365,9 +365,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity<NavPopPinDaoJs
 //            Log.i(TAG,"recycler_push item" + position + " ========onItemPreSelected ");
 //        } else
 //
-        if (parent.getId() == R.id.recyclerView) {
-            Log.i(TAG,"mRecyclerView item" + position + " ========onItemPreSelected ");
-        }
+        Log.i(TAG,"mRecyclerView item" + position + " ========onItemPreSelected ");
         mRecyclerViewBridge.setUnFocusView(mOldView);
 
     }
@@ -378,9 +376,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity<NavPopPinDaoJs
 //            Log.i(TAG,"recycler_push item" + position + " ========onItemSelected ");
 //        } else
 
-        if (parent.getId() == R.id.recyclerView) {
-            Log.i(TAG,"mRecyclerView item" + position + " ========onItemSelected ");
-        }
+        Log.i(TAG,"mRecyclerView item" + position + " ========onItemSelected ");
         mRecyclerViewBridge.setFocusView(itemView, 1.1f);
         mOldView = itemView;
 
@@ -392,9 +388,7 @@ public class TencentTVMainActivity extends CommonFragmentActivity<NavPopPinDaoJs
 //            Log.i(TAG,"recycler_push item" + position + " ========onReviseFocusFollow ");
 //        } else
 
-        if (parent.getId() == R.id.recyclerView) {
-            Log.i(TAG,"mRecyclerView item" + position + " ========onReviseFocusFollow ");
-        }
+        Log.i(TAG,"mRecyclerView item" + position + " ========onReviseFocusFollow ");
         mRecyclerViewBridge.setFocusView(itemView, 1.1f);
         mOldView = itemView;
     }

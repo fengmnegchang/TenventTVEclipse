@@ -1,6 +1,9 @@
 package com.open.tencenttv;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Rect;
@@ -22,14 +25,15 @@ import com.open.androidtvwidget.utils.OPENLOG;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.tencenttv.bean.CircularBean;
 import com.open.tencenttv.bean.PanBean;
-import com.open.tencenttv.fragment.PinDaoFragment;
 import com.open.tencenttv.fragment.PinDaoListFragment;
+import com.open.tencenttv.fragment.PinDaoTabHorizontalViewPagerFragment;
+import com.open.tencenttv.fragment.RankListFragment;
+import com.open.tencenttv.fragment.RankV4Fragment;
+import com.open.tencenttv.fragment.SearchWordsFragment;
+import com.open.tencenttv.utils.UrlUtils;
 import com.open.tencenttv.widget.CircularPopupWindow;
 import com.open.tencenttv.widget.androidtagview.TagContainerLayout;
 import com.open.tencenttv.widget.androidtagview.TagView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -213,14 +217,20 @@ public class SearchKeyBoardActivity extends CommonFragmentActivity {
             }
         });
 
-        //搜索内容
+//        //搜索内容
+//
+        PinDaoListFragment leftFragment = PinDaoListFragment.newInstance(mainUpView1, mRecyclerViewBridge, mOldView);
+//      PinDaoFragment rightFragment = PinDaoFragment.newInstance(UrlUtils.TENCENT_X_MOVIE_LIST,"电影", mainUpView1, mOldView, mRecyclerViewBridge);
+      PinDaoTabHorizontalViewPagerFragment rightFragment = PinDaoTabHorizontalViewPagerFragment.newInstance(UrlUtils.TENCENT_X_MOVIE_LIST,"ul.filter_tabs","li","a","电影", mainUpView1, mOldView, mRecyclerViewBridge);
 
-        FragmentManager manager = getSupportFragmentManager();
-        PinDaoListFragment rightFragment =  PinDaoListFragment.newInstance(mainUpView1,mRecyclerViewBridge,mOldView);
-        PinDaoFragment leftFragment = PinDaoFragment.newInstance("","ListFragmentPinDaoActivity",mainUpView1,mOldView,mRecyclerViewBridge);
 
-        manager.beginTransaction().replace(R.id.frame_listview, rightFragment).commit();
-        manager.beginTransaction().replace(R.id.frame_pindao, leftFragment).commit();
+      FragmentManager manager = getSupportFragmentManager();
+      manager.beginTransaction().replace(R.id.frame_listview, leftFragment).commit();
+      manager.beginTransaction().replace(R.id.frame_pindao, rightFragment).commit();
+        
+//        SearchWordsFragment fragment = SearchWordsFragment.newInstance("", mainUpView1, mOldView, mRecyclerViewBridge);
+//		FragmentManager manager = getSupportFragmentManager();
+//		manager.beginTransaction().replace(R.id.frame_listview, fragment).commit();
 
     }
 

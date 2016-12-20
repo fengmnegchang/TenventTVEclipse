@@ -1,25 +1,21 @@
 package com.open.tencenttv.adapter;
 
+import java.util.List;
+
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.support.v4.view.verticalview.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.open.tencenttv.R;
+import com.open.tencenttv.TencentTVWebViewActivity;
 import com.open.tencenttv.bean.SliderNavBean;
-
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import com.open.tencenttv.utils.UrlUtils;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -44,7 +40,7 @@ public class MediumPagerAdapter extends CommonPagerAdapter<SliderNavBean> {
         ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
         TextView textView = (TextView) view.findViewById(R.id.textview);
 
-        SliderNavBean sliderNavBean = getItem(position);
+        final SliderNavBean sliderNavBean = getItem(position);
         textView.setText(sliderNavBean.getTitle());
         if (sliderNavBean.getImageUrl() != null && sliderNavBean.getImageUrl().length() > 0) {
 //            mImageLoader.DisplayImage(sliderNavBean.getImageUrl(), imageView);
@@ -52,8 +48,14 @@ public class MediumPagerAdapter extends CommonPagerAdapter<SliderNavBean> {
                     .showImageForEmptyUri(R.drawable.grid_view_item_test)
                     .showImageOnFail(R.drawable.grid_view_item_test).cacheInMemory().cacheOnDisc()
                     .build();
-            ImageLoader.getInstance().displayImage(sliderNavBean.getImageUrl(), imageView,options,getImageLoadingListener());
+            ImageLoader.getInstance().displayImage(UrlUtils.TENCENT_IMAGE_URL+sliderNavBean.getImageUrl(), imageView,options,getImageLoadingListener());
         }
+        imageView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TencentTVWebViewActivity.startTencentTVWebViewActivity(mContext, sliderNavBean.getHrefUrl());
+			}
+		});
         container.addView(view);
         return view;
     }

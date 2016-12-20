@@ -119,16 +119,19 @@
             <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
+                android:minWidth="1920dp"
                 android:layout_height="55dp"
                 android:layout_below="@+id/item_edit"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/main_bg"
                 android:clickable="true"
                 android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:padding="2dp" />
 
             <FrameLayout
-                android:layout_width="match_parent"
+               android:layout_width="match_parent"
+                android:minWidth="1920dp"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/recyclerView"
                 android:layout_marginTop="15dp"
