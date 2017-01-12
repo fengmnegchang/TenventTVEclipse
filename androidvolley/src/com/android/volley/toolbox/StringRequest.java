@@ -35,7 +35,7 @@ import org.json.JSONObject;
 public class StringRequest extends Request<String> {
 	protected Map<String, String> cookies = new HashMap<String, String>();
     private final Listener<String> mListener;
-
+    private  Map<String, String> postbody;
     /**
      * Creates a new request with the given method.
      *
@@ -56,7 +56,32 @@ public class StringRequest extends Request<String> {
         mListener = listener;
         this.cookies = cookies;
     }
+    
+    public StringRequest(int method, String url,Map<String, String> cookies, Map<String, String> postbody,Listener<String> listener,
+            ErrorListener errorListener) {
+        super(method, url, errorListener);
+        mListener = listener;
+        this.cookies = cookies;
+        this.postbody = postbody;
+    }
 
+    /**
+     * Returns a Map of parameters to be used for a POST or PUT request.  Can throw
+     * {@link AuthFailureError} as authentication may be required to provide these values.
+     *
+     * <p>Note that you can directly override {@link #getBody()} for custom data.</p>
+     *
+     * @throws AuthFailureError in the event of auth failure
+     */
+    @Override
+    protected Map<String, String> getParams() throws AuthFailureError {
+    	if(postbody!=null){
+    		return postbody;
+    	}else{
+    		super.getParams();
+    	}
+        return null;
+    }
     /**
      * Creates a new GET request.
      *
