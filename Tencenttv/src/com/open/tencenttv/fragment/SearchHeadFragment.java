@@ -135,7 +135,7 @@ public class SearchHeadFragment extends BaseV4Fragment<DropItemJson,SearchHeadFr
 		// mMenu.setDefaultMenuTitle(strings);
 		mMenu.setMenuSelectedListener(new OnMenuSelectedListener() {
 			@Override
-			public void onSelected(View listview, int RowIndex, int ColumnIndex) {
+			public void onSelected(View listview,int item, int RowIndex, int ColumnIndex) {
 				if (RowIndex == 0) {
 					RowIndex = 1;
 				}
