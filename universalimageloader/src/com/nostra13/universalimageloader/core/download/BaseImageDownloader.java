@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.nostra13.universalimageloader.core.download;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -25,9 +26,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ContentLengthInputStream;
+import com.nostra13.universalimageloader.core.download.ImageDownloader.Scheme;
 import com.nostra13.universalimageloader.utils.IoUtils;
 
 import java.io.BufferedInputStream;
@@ -38,9 +41,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.CookieManager;
+import java.net.HttpCookie;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * Provides retrieving of {@link InputStream} of image by URI from network or file system or app resources.<br />
@@ -111,14 +125,55 @@ public class BaseImageDownloader implements ImageDownloader {
 	 *                     URL.
 	 */
 	protected InputStream getStreamFromNetwork(String imageUri, Object extra) throws IOException {
-		HttpURLConnection conn = createConnection(imageUri, extra);
+//		HttpURLConnection conn = createConnection(imageUri, extra);
+//		String encodedUrl = Uri.encode(imageUri, ALLOWED_URI_CHARS);
+//		HttpURLConnection conn = (HttpURLConnection) new URL(encodedUrl).openConnection();
+//		conn.setConnectTimeout(connectTimeout);
+//		conn.setReadTimeout(readTimeout);
+		
+		 URL url = null;
+	        try {
+	            url = new URL(imageUri);
+	        } catch (MalformedURLException e) {
+	            Log.e("getStreamFromNetwork", e.getMessage(), e);
+	        }
+	        HttpURLConnection conn = null;
 
+	        if (Scheme.ofUri(imageUri) == Scheme.HTTPS) {
+	            trustAllHosts();
+	            HttpsURLConnection https = (HttpsURLConnection) url
+	                    .openConnection();
+	            https.setHostnameVerifier(DO_NOT_VERIFY);
+	            
+	            https.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");  
+	            https.setRequestProperty("Upgrade-Insecure-Requests", "1");  
+	            if(imageUri.contains("img.pximg.com") ){
+	            	https.setRequestProperty("Host", "img.pximg.com");
+	            	https.setRequestProperty("referer", "img.pximg.com");
+	            }else if(imageUri.contains("www.pximg.com")){
+	            	https.setRequestProperty("Host", "www.pximg.com");
+	            	https.setRequestProperty("referer", "www.pximg.com");
+	            }
+	            https.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36");  
+//	            https.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");  
+	            https.setRequestProperty("Accept-Encoding", ":gzip, deflate, sdch");
+	            https.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.8");
+	            https.setRequestProperty("Cache-Control", "max-age=0");
+	            https.setRequestProperty("Connection", "keep-alive");
+	            conn = https;
+	            conn.connect();
+	        } else {
+	        	conn = (HttpURLConnection) url.openConnection();
+	        }
+	        conn.setConnectTimeout(connectTimeout);
+	        conn.setReadTimeout(readTimeout);
+		
 		int redirectCount = 0;
 		while (conn.getResponseCode() / 100 == 3 && redirectCount < MAX_REDIRECT_COUNT) {
 			conn = createConnection(conn.getHeaderField("Location"), extra);
 			redirectCount++;
 		}
-
+		conn.getResponseCode();
 		InputStream imageStream;
 		try {
 			imageStream = conn.getInputStream();
@@ -135,6 +190,49 @@ public class BaseImageDownloader implements ImageDownloader {
 		return new ContentLengthInputStream(new BufferedInputStream(imageStream, BUFFER_SIZE), conn.getContentLength());
 	}
 
+	   // always verify the host - dont check for certificate
+    final static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
+        @Override
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    };
+    
+	/**
+     * Trust every server - dont check for any certificate
+     */
+    private static void trustAllHosts() {
+        // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+            @Override
+            public void checkClientTrusted(
+                    java.security.cert.X509Certificate[] x509Certificates,
+                    String s) throws java.security.cert.CertificateException {
+            }
+
+            @Override
+            public void checkServerTrusted(
+                    java.security.cert.X509Certificate[] x509Certificates,
+                    String s) throws java.security.cert.CertificateException {
+            }
+
+            @Override
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new java.security.cert.X509Certificate[]{};
+            }
+        }};
+
+        // Install the all-trusting trust manager
+        try {
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection
+                    .setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 	/**
 	 * @param conn Opened request connection (response code is available)
 	 * @return <b>true</b> - if data from connection is correct and should be read and processed;
@@ -205,7 +303,7 @@ public class BaseImageDownloader implements ImageDownloader {
 	 * @return {@link InputStream} of image
 	 * @throws FileNotFoundException if the provided URI could not be opened
 	 */
-	protected InputStream getStreamFromContent(String imageUri, Object extra) throws FileNotFoundException {
+	@SuppressLint("NewApi") protected InputStream getStreamFromContent(String imageUri, Object extra) throws FileNotFoundException {
 		ContentResolver res = context.getContentResolver();
 
 		Uri uri = Uri.parse(imageUri);
